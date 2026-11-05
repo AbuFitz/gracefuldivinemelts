@@ -5,7 +5,7 @@
       "settings": {
         "image": "shopify://shop_images/B8B5F1DE-4923-459A-8A4B-5E4DEA0E5B43.jpg",
         "image_2": "shopify://shop_images/20260820041440_38331383.jpg",
-        "eyebrow": "Handmade wax melts · UK",
+        "eyebrow": "",
         "heading": "Wax melts inspired by perfume.",
         "highlight": "perfume.",
         "text": "Poured by hand in small batches. Choose a scent, or tell us the one you love.",
@@ -100,8 +100,8 @@
       "type": "media-rail",
       "settings": {
         "eyebrow": "",
-        "heading": "Follow along.",
-        "text": "New scents, restocks and the making of every batch, on Instagram and TikTok."
+        "heading": "",
+        "text": ""
       },
       "blocks": {
         "i1": {

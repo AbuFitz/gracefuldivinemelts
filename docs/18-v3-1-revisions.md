@@ -57,3 +57,4 @@ Both sections stay separate, as in V2. The seam between them is a soft vertical 
 - About portrait: demo-only stand-in is a post from the brand Instagram (founder holding a burner and melts, no text). Low resolution (480x640); the owner should upload a high-resolution original in the theme editor.
 - Footer: the curved dome is back (the straight-edge experiment is reverted).
 - Overscroll: the page behind the footer is dark and elastic overscroll is turned off, so pulling past the bottom no longer flashes white.
+- Hero label "Handmade wax melts · UK" removed. Our story: everything sits inside one large curved white box on a blush background, no shadows, no panel behind the photos. The social section has no heading or intro (buttons plus the row only) and shares the story's blush background.
