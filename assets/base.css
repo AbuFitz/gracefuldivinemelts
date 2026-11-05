@@ -39,7 +39,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 1.5rem); }
+html { background: var(--c-ink); overscroll-behavior-y: none; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 1.5rem); }
 body { margin: 0; background: var(--c-paper); color: var(--c-ink); font-family: var(--f); font-size: var(--t-base); line-height: 1.55; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
 img, svg, video { display: block; max-width: 100%; height: auto; }
 button, input, select, textarea { font: inherit; color: inherit; }
