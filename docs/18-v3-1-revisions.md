@@ -35,3 +35,6 @@ Hero, Pick a scent, Custom scent, Bundle, Our story (dome restored), social show
 
 ## Product frames
 The V2 product card and its CSS (large unframed arch/soft-cornered images, staggered rail, family label above the title, round-free quick add) are restored exactly; the V3.1 bordered-card variant is removed.
+
+## Scents to Discover by mood seam
+Both sections stay separate, as in V2. The seam between them is a soft vertical fade (paper to blush) instead of a second curved dome; `edge` setting on the explorer (blend / dome).

@@ -782,3 +782,6 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .explorer__shot span small { display: block; font-weight: 400; color: var(--c-ink-soft); }
 .explorer__more { margin-top: var(--s-5); }
 
+
+/* soft blend between two sections (no curve) */
+.sheet--blend { border-radius: 0; margin-top: 0; padding-top: calc(var(--section-y) * .8); background: linear-gradient(to bottom, var(--c-paper) 0, var(--c-blush) clamp(7rem, 16vw, 14rem)); }

@@ -390,7 +390,8 @@
         "eyebrow": "Discover by mood",
         "heading": "What do you like to smell?",
         "text": "You can't smell a wax melt through a screen, so choose a mood and we'll show you the scents.",
-        "tone": "blush"
+        "tone": "blush",
+        "edge": "blend"
       },
       "blocks": {
         "a": {

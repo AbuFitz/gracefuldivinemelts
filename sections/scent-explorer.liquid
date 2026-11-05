@@ -5,7 +5,7 @@
 {%- assign col = section.settings.collection -%}
 {%- assign is_page = false -%}{%- if request.page_type == 'page' -%}{%- assign is_page = true -%}{%- endif -%}
 {%- if is_page -%}{%- assign head_title = section.settings.heading -%}{%- render 'page-head', title: head_title, lede: section.settings.text -%}{%- endif -%}
-<section class="sheet sheet--{{ section.settings.tone }}" aria-labelledby="exp-h-{{ section.id }}">
+<section class="sheet sheet--{{ section.settings.tone }}{% if section.settings.edge == 'blend' %} sheet--blend{% endif %}" aria-labelledby="exp-h-{{ section.id }}">
   <div class="wrap">
     {%- if is_page -%}<h2 class="visually-hidden" id="exp-h-{{ section.id }}">{{ section.settings.heading }}</h2>{%- else -%}
     <div class="head">
@@ -59,6 +59,7 @@
     { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Discover by mood" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "What do you like to smell?" },
     { "type": "textarea", "id": "text", "label": "Text", "default": "You can't smell a wax melt through a screen, so choose the mood and we'll show you the scents." },
+    { "type": "select", "id": "edge", "label": "Top edge", "default": "blend", "options": [{ "value": "blend", "label": "Blend softly into the section above" }, { "value": "dome", "label": "Curved dome" }] },
     { "type": "select", "id": "tone", "label": "Background", "default": "blush", "options": [{ "value": "paper", "label": "Paper" }, { "value": "blush", "label": "Blush" }, { "value": "field", "label": "Pink" }, { "value": "ink", "label": "Dark" }] }
   ],
   "blocks": [
