@@ -686,7 +686,6 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .selector__families { max-width: 100%; overflow-x: auto; scrollbar-width: none; flex-wrap: nowrap; }
 .selector__families .chip { flex: none; }
 @media (min-width: 900px) { .selector__families { flex-wrap: wrap; overflow: visible; } }
-.chip svg { width: 1.15rem; height: 1.15rem; flex: none; margin-right: .5rem; }
 @media (max-width: 999px) { .nav__account { display: none; } .pill-btn--search { min-width: 0; } .nav__search-label { display: none; } }
 
 
