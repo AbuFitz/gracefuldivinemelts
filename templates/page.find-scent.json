@@ -1,50 +1,57 @@
 {
   "sections": {
     "explorer": {
-      "type": "product-rail",
+      "type": "scent-explorer",
       "settings": {
         "collection": "wax-melts",
         "eyebrow": "Discover by mood",
         "heading": "Find your scent",
-        "text": "Choose a mood to see the scents that suit it.",
-        "limit": 14,
-        "quick_add": true,
-        "tone": "paper",
-        "curve": "flat"
+        "text": "Each scent is a perfume-inspired blend. Pick the mood you like wearing and start there.",
+        "tone": "paper"
       },
       "blocks": {
-        "m1": {
-          "type": "mood",
+        "a": {
+          "type": "family",
           "settings": {
             "name": "Floral",
-            "description": "Soft blooms, jasmine, rose and lily of the valley.",
+            "description": "Soft blooms, jasmine, rose and lily of the valley, lifted with citrus.",
             "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
             "cta": "Shop floral"
           }
         },
-        "m2": {
-          "type": "mood",
+        "b": {
+          "type": "family",
           "settings": {
             "name": "Sweet",
-            "description": "Vanilla, amber, caramel and creamy musk.",
+            "description": "Vanilla, amber, caramel and creamy musk for cosy rooms.",
             "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
             "cta": "Shop sweet"
           }
         },
-        "m3": {
-          "type": "mood",
+        "c": {
+          "type": "family",
           "settings": {
             "name": "Woody",
-            "description": "Leather, woods and spice.",
+            "description": "Leather, woods and spice, for evenings and statement rooms.",
             "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
             "cta": "Shop woody"
+          }
+        },
+        "d": {
+          "type": "family",
+          "settings": {
+            "name": "Fresh",
+            "description": "Crisp, bright and uplifting.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Fresh",
+            "cta": "Shop fresh"
           }
         }
       },
       "block_order": [
-        "m1",
-        "m2",
-        "m3"
+        "a",
+        "b",
+        "c",
+        "d"
       ]
     },
     "custom": {

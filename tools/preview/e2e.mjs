@@ -72,12 +72,13 @@ await t('custom scent: required field blocks empty add; value (and ?scent= prefi
 await t('home custom-scent form sends the typed scent to the product page prefilled', async () => {
   await d.goto(BASE + '/'); await d.fill('.custom__form input', 'Black Opium'); await Promise.all([d.waitForURL('**/request-a-specific-scent?scent=*'), d.click('.custom__form button')]); assert((await d.inputValue('[data-prefill-scent]')) === 'Black Opium', 'prefill');
 });
-await t('pick a scent: moods come from product metadata, filter the rail, show a description, and quick add works', async () => {
-  await fetch(BASE + '/__reset'); await d.goto(BASE + '/'); const tabs = await d.locator('[data-rail-section] .moods__tab').allInnerTexts(); const names = tabs.map((x) => x.trim());
-  assert(names.some((x) => /All/.test(x)) && names.includes('Floral') && names.includes('Sweet') && names.includes('Woody'), 'tabs ' + names);
-  const all = await d.locator('[data-rail-section] .rail > li:visible').count(); await d.locator('[data-rail-section] .moods__tab', { hasText: 'Woody' }).click(); await d.waitForTimeout(250);
-  const some = await d.locator('[data-rail-section] .rail > li:visible').count(); assert(some >= 1 && some < all, 'filtered ' + some + '/' + all); assert((await txt(d, '[data-rail-section] .moods__desc')).length > 5, 'description');
-  await d.locator('[data-rail-section] .moods__tab').first().click(); await d.locator('[data-rail-section] .js-quick-add button').first().click({ force: true }); await d.waitForSelector('#Toast:not([hidden])');
+await t('scents rail + Discover by mood explorer: tabs from metadata, panel switches, keyboard, products shown, add works', async () => {
+  await fetch(BASE + '/__reset'); await d.goto(BASE + '/'); assert((await txt(d, '.rail-section, [data-rail]')).length > 0, 'rail'); assert(/Pick a scent/.test(await txt(d, 'main')), 'rail heading');
+  const tabs = (await d.locator('[data-explorer] [role=tab]').allInnerTexts()).map((x) => x.trim()); assert(tabs.length === 3 && tabs.includes('Floral') && tabs.includes('Sweet') && tabs.includes('Woody'), 'tabs ' + tabs);
+  assert(/Discover by mood/i.test(await txt(d, 'main')), 'explorer eyebrow');
+  await d.locator('[data-explorer] [role=tab]', { hasText: 'Sweet' }).click(); assert((await d.getAttribute('[data-explorer] [role=tab]:has-text("Sweet")', 'aria-selected')) === 'true', 'selected'); assert((await d.locator('[data-explorer] [role=tabpanel]:visible').count()) === 1, 'one panel visible');
+  await d.keyboard.press('ArrowDown'); assert((await d.getAttribute('[data-explorer] [role=tab]:has-text("Woody")', 'aria-selected')) === 'true' || (await d.getAttribute('[data-explorer] [role=tab]:has-text("Floral")', 'aria-selected')) === 'true', 'arrow moves');
+  await d.locator('.rail .js-quick-add button').first().click({ force: true }); await d.waitForSelector('#Toast:not([hidden])');
 });
 await t('hero: V2 pink hero with arch image, hotspot price, headline fits three lines, CTAs work', async () => {
   await d.goto(BASE + '/'); assert(await d.isVisible('.hero h1'), 'h1'); const lines = await d.$eval('.hero h1', (e) => Math.round(e.getBoundingClientRect().height / parseFloat(getComputedStyle(e).lineHeight))); assert(lines <= 3, 'h1 lines ' + lines);

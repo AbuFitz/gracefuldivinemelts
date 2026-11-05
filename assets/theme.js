@@ -171,6 +171,26 @@
     if (pre && q) pre.value = q.slice(0, 120);
   });
 
+  /* ---------- scent explorer (tabs) ---------- */
+  $$('[data-explorer]').forEach((ex) => {
+    const tabs = $$('[role="tab"]', ex), panels = $$('[role="tabpanel"]', ex);
+    const select = (i, focus) => {
+      tabs.forEach((t, n) => { t.setAttribute('aria-selected', n === i ? 'true' : 'false'); t.tabIndex = n === i ? 0 : -1; });
+      panels.forEach((p, n) => { p.hidden = n !== i; }); if (focus) tabs[i].focus();
+    };
+    panels.forEach((p, n) => { p.hidden = n !== 0; });
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => select(i));
+      t.addEventListener('mouseenter', () => { if (matchMedia('(hover: hover)').matches) select(i); });
+      t.addEventListener('keydown', (e) => {
+        const k = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+        if (k) { e.preventDefault(); select((i + k + tabs.length) % tabs.length, true); }
+        if (e.key === 'Home') { e.preventDefault(); select(0, true); } if (e.key === 'End') { e.preventDefault(); select(tabs.length - 1, true); }
+      });
+    });
+  });
+
+
   /* ---------- rails (native scroll-snap + arrow buttons) ---------- */
   $$('[data-rail]').forEach((rail) => {
     const sec = rail.closest('section'); const prev = $('[data-rail-prev]', sec), next = $('[data-rail-next]', sec); if (!prev || !next) return;

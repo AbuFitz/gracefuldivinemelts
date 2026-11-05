@@ -9,7 +9,8 @@ Client feedback on V3 reversed several V3 decisions. This note records what chan
 - **Product framing**: bordered cards with arch/soft image crops and a staggered rail are back.
 
 ## New
-- **Pick a scent** (`product-rail` with `mood` blocks): "Discover by mood" and the scents rail are one section. Moods filter the rail from real product metadata. The V3 scent selector is retired (`scent-selector` and `scent-explorer` are inert stubs; delete them in the theme editor or repo).
+- **Superseded:** the merged "Pick a scent" idea below was reverted at the client's request; the original "Pick a scent" rail and the separate "Discover by mood" explorer are back exactly as in V2.
+- ~~**Pick a scent** (`product-rail` with `mood` blocks): "Discover by mood" and the scents rail are one section. Moods filter the rail from real product metadata. The V3 scent selector is retired (`scent-selector` and `scent-explorer` are inert stubs; delete them in the theme editor or repo).
 - **Instagram + TikTok showcase** (`media-rail`): two continuous CSS lanes in opposite directions, no pause on hover, inert duplicate sets, static under reduced motion, a follow button per platform.
 - **Footer**: rebuilt (closing line, link columns, icon-led follow column incl. TikTok, legal row with payments). On mobile the oversized wordmark is a single line that runs off the screen.
 - **Social**: TikTok handle verified as `@gracefuldivinemelts`; the old `gracefuldivine2` link is replaced.
@@ -30,4 +31,4 @@ New `about-founder` section: "Hi, I'm Tamara." hero with an arch portrait, her o
 Instagram and TikTok are one section and one continuous row: photos and video covers interleaved, each with a small platform badge, and both follow buttons together.
 
 ## Homepage sections
-Hero, Pick a scent, Custom scent, Bundle, Our story (dome restored), social showcase, FAQ and reviews are all present. The only section retired is the V3 scent selector, replaced by Pick a scent.
+Hero, Pick a scent, Custom scent, Bundle, Our story (dome restored), social showcase, FAQ and reviews are all present. The V3 scent selector is retired; the V2 scents rail and Discover by mood explorer are both back.~~

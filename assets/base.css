@@ -760,3 +760,28 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .founder__follow p { margin: 0; font-size: var(--t-lg, 1.25rem); font-weight: 600; }
 .founder__follow .showcase__follow { justify-content: center; }
 @media (max-width: 899px) { .founder__orb { left: 0; width: 30%; } .founder__tag { right: 0; } }
+
+/* ---------- scent explorer ---------- */
+.explorer { display: grid; gap: var(--s-6); }
+@media (min-width: 900px) { .explorer { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: var(--s-8); align-items: center; } }
+.explorer__tabs { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; }
+@media (min-width: 900px) { .explorer__tabs { display: grid; gap: 0; } }
+.explorer__tab { background: none; border: 0; padding: .35rem 0; text-align: left; font-size: clamp(2.2rem, 1.2rem + 4.6vw, 5rem); font-weight: 700; letter-spacing: -.05em; line-height: 1; color: color-mix(in srgb, currentColor 28%, transparent); transition: color var(--dur), padding var(--dur) var(--ease); display: inline-flex; align-items: baseline; gap: .8rem; }
+.explorer__tab:hover { color: color-mix(in srgb, currentColor 60%, transparent); }
+.explorer__tab[aria-selected="true"] { color: var(--c-ink); }
+.sheet--ink .explorer__tab[aria-selected="true"] { color: #fff; }
+.explorer__tab[aria-selected="true"]::before { content: ""; width: .5em; height: .5em; border-radius: 50%; background: var(--c-pink); flex: none; align-self: center; }
+.js .explorer__panel[hidden] { display: none; }
+.explorer__panel { animation: fade 420ms var(--ease); }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } }
+.explorer__desc { max-width: 28rem; margin: 0 0 var(--s-5); font-size: var(--t-lg); font-weight: 500; }
+.explorer__shots { display: grid; grid-template-columns: 1.15fr 1fr; gap: var(--s-3); align-items: start; }
+.explorer__shot { display: block; text-decoration: none; font-size: var(--t-sm); font-weight: 650; line-height: 1.2; }
+.explorer__shot img { width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: var(--arch); margin-bottom: .5rem; background: var(--c-blush); }
+.explorer__shot:nth-child(1) { grid-row: span 2; }
+.explorer__shot:nth-child(1) img { aspect-ratio: 4/5; }
+.explorer__shot:nth-child(2) img { border-radius: var(--r-soft); aspect-ratio: 1; }
+.explorer__shot:nth-child(3) img { border-radius: 999px; aspect-ratio: 1; }
+.explorer__shot span small { display: block; font-weight: 400; color: var(--c-ink-soft); }
+.explorer__more { margin-top: var(--s-5); }
+

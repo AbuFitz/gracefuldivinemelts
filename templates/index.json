@@ -34,46 +34,11 @@
         "collection": "wax-melts",
         "eyebrow": "The scents",
         "heading": "Pick a scent.",
-        "text": "Choose a mood to see the scents that suit it.",
-        "limit": 12,
+        "limit": 10,
         "quick_add": true,
-        "tone": "blush",
-        "curve": "swell"
-      },
-      "blocks": {
-        "m1": {
-          "type": "mood",
-          "settings": {
-            "name": "Floral",
-            "description": "Jasmine, rose, lily of the valley and soft musk.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
-            "cta": "Shop floral"
-          }
-        },
-        "m2": {
-          "type": "mood",
-          "settings": {
-            "name": "Sweet",
-            "description": "Vanilla, amber, caramel and creamy musk.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
-            "cta": "Shop sweet"
-          }
-        },
-        "m3": {
-          "type": "mood",
-          "settings": {
-            "name": "Woody",
-            "description": "Leather, woods and a cool mint lift.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
-            "cta": "Shop woody"
-          }
-        }
-      },
-      "block_order": [
-        "m1",
-        "m2",
-        "m3"
-      ]
+        "sheet": true,
+        "tint": false
+      }
     },
     "custom": {
       "type": "custom-scent-feature",
@@ -417,11 +382,56 @@
       "settings": {
         "heading": "Bought from us? Tell people what you thought."
       }
+    },
+    "explorer": {
+      "type": "scent-explorer",
+      "settings": {
+        "collection": "wax-melts",
+        "eyebrow": "Discover by mood",
+        "heading": "What do you like to smell?",
+        "text": "You can't smell a wax melt through a screen, so choose a mood and we'll show you the scents.",
+        "tone": "blush"
+      },
+      "blocks": {
+        "a": {
+          "type": "family",
+          "settings": {
+            "name": "Floral",
+            "description": "Jasmine, rose, lily of the valley and soft musk.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
+            "cta": "Shop floral"
+          }
+        },
+        "b": {
+          "type": "family",
+          "settings": {
+            "name": "Sweet",
+            "description": "Vanilla, amber, caramel and creamy musk.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
+            "cta": "Shop sweet"
+          }
+        },
+        "c": {
+          "type": "family",
+          "settings": {
+            "name": "Woody",
+            "description": "Leather, woods, spice and a cool mint lift.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
+            "cta": "Shop woody"
+          }
+        }
+      },
+      "block_order": [
+        "a",
+        "b",
+        "c"
+      ]
     }
   },
   "order": [
     "hero",
     "rail",
+    "explorer",
     "custom",
     "bundle",
     "story",
