@@ -849,3 +849,14 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .showcase--bare .head { justify-content: center; }
 .showcase--bare .showcase__follow { justify-content: center; }
 .showcase--bare { padding-top: clamp(1.5rem, 3vw, 2.5rem); }
+
+/* Our story on phones: a compact, balanced photo composition under the text */
+@media (max-width: 899px) {
+  .story__box { padding: 1.4rem 1.25rem 1.6rem; }
+  .story { gap: var(--s-5); }
+  .story__card .story__quote { font-size: 1.6rem; max-width: none; }
+  .story__by { margin-top: var(--s-4); gap: .5rem 1.25rem; }
+  .story__shots { min-height: 0; width: 100%; max-width: 21rem; aspect-ratio: 1 / 1.02; margin-inline: auto; }
+  .story__shots figure:nth-child(1) { right: 0; top: 0; width: 66%; }
+  .story__shots figure:nth-child(2) { left: 0; bottom: 0; width: 48%; }
+}
