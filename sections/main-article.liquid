@@ -1,0 +1,13 @@
+<article>
+  {%- assign head_title = article.title | escape -%}
+  {%- assign head_lede = article.excerpt_or_content | strip_html | truncate: 160 -%}
+  {%- render 'page-head', title: head_title, lede: head_lede, blush: true -%}
+  <div class="container container--narrow" style="padding-block:var(--s-7) var(--section-y)">
+    <p class="muted" style="font-size:var(--t-sm)">{{ article.published_at | time_tag: '%d %B %Y' }}{% if article.author %} · {{ article.author }}{% endif %}</p>
+    {%- if article.image -%}<div style="margin-block:var(--s-6)">{%- render 'image', image: article.image, sizes: '(min-width: 900px) 800px, 100vw', loading: 'eager' -%}</div>{%- endif -%}
+    <div class="prose">{{ article.content }}</div>
+  </div>
+</article>
+{% schema %}
+{ "name": "Article" }
+{% endschema %}

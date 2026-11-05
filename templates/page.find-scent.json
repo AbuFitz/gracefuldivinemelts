@@ -1,0 +1,81 @@
+{
+  "sections": {
+    "families": {
+      "type": "scent-families",
+      "settings": {
+        "heading": "Find your scent",
+        "eyebrow": "A guide for when you can't smell it",
+        "text": "Each scent is a perfume-inspired blend. Pick the mood you like wearing and start there."
+      },
+      "blocks": {
+        "a": {
+          "type": "family",
+          "settings": {
+            "name": "Floral & fresh",
+            "description": "Soft blooms, jasmine, rose and lily of the valley, lifted with citrus.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
+            "cta": "Shop floral"
+          }
+        },
+        "b": {
+          "type": "family",
+          "settings": {
+            "name": "Sweet & warm",
+            "description": "Vanilla, amber, caramel and creamy musk for cosy rooms.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
+            "cta": "Shop sweet"
+          }
+        },
+        "c": {
+          "type": "family",
+          "settings": {
+            "name": "Woody & bold",
+            "description": "Leather, woods and spice, for evenings and statement rooms.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
+            "cta": "Shop woody"
+          }
+        },
+        "d": {
+          "type": "family",
+          "settings": {
+            "name": "Fresh & clean",
+            "description": "Crisp, bright and uplifting.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Fresh",
+            "cta": "Shop fresh"
+          }
+        }
+      },
+      "block_order": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ]
+    },
+    "mixed": {
+      "type": "bundle-spotlight",
+      "settings": {
+        "product": "mixed-scent-package",
+        "eyebrow": "Still unsure?",
+        "heading": "Try them all first.",
+        "text": "The Mixed Scent Package lets you experience each fragrance in your space before choosing a full-size melt.",
+        "cta": "See the Mixed Scent Package"
+      }
+    },
+    "shop": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "wax-melts",
+        "heading": "All wax melts",
+        "limit": 8,
+        "columns": "4",
+        "quick_add": true
+      }
+    }
+  },
+  "order": [
+    "families",
+    "mixed",
+    "shop"
+  ]
+}

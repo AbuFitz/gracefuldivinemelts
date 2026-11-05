@@ -1,0 +1,20 @@
+{%- assign v = section.settings.video -%}
+{%- if v != blank -%}
+<section class="section--tight section video-band" aria-label="{{ section.settings.label | default: shop.name | escape }}">
+  <div class="container container--narrow">
+    {{ v | video_tag: image_size: '1100x', autoplay: false, loop: false, muted: false, controls: true, preload: 'none', class: 'video-el' }}
+    {%- if section.settings.caption != blank -%}<p class="muted" style="margin-top:var(--s-3);font-size:var(--t-sm)">{{ section.settings.caption }}</p>{%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Video",
+  "settings": [
+    { "type": "video", "id": "video", "label": "Video (upload to Shopify Files)" },
+    { "type": "text", "id": "label", "label": "Accessible label", "default": "Graceful Divine Melts" },
+    { "type": "text", "id": "caption", "label": "Caption" }
+  ],
+  "presets": [{ "name": "Video" }]
+}
+{% endschema %}

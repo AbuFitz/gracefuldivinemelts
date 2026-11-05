@@ -1,0 +1,215 @@
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign is_pairs = false
+  if product.template_suffix == 'bundle'
+    assign is_pairs = true
+  endif
+  assign family = product.metafields.custom.scent_family.value
+  assign images = product.media | where: 'media_type', 'image'
+  assign square = false
+  if product.featured_media.aspect_ratio and product.featured_media.aspect_ratio > 0.9
+    assign square = true
+  endif
+  assign shipping_url = shop.shipping_policy.url
+  assign refund_url = shop.refund_policy.url
+-%}
+<div class="container" data-product>
+  <div class="product">
+    <div class="gallery">
+      <div class="gallery__main{% if square %} is-square{% endif %}" data-gallery-main>
+        {%- if product.featured_media -%}
+          {%- render 'image', image: product.featured_media.preview_image, sizes: '(min-width: 900px) 55vw, 100vw', loading: 'eager', fetchpriority: 'high', widths: '480,720,960,1280,1600' -%}
+        {%- else -%}
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+        {%- endif -%}
+      </div>
+      {%- if images.size > 1 -%}
+        <ul class="gallery__thumbs" role="list" aria-label="{{ 'products.gallery.label' | t }}">
+          {%- for m in images -%}
+            <li>
+              <button type="button" class="gallery__thumb js-only" data-thumb data-src="{{ m.preview_image | image_url: width: 1080 }}" data-srcset="{{ m.preview_image | image_url: width: 640 }} 640w, {{ m.preview_image | image_url: width: 1080 }} 1080w, {{ m.preview_image | image_url: width: 1440 }} 1440w" data-alt="{{ m.alt | escape }}" aria-current="{% if m.id == product.featured_media.id %}true{% else %}false{% endif %}" aria-label="{{ 'products.gallery.show' | t: number: forloop.index }}">
+                {%- render 'image', image: m.preview_image, sizes: '72px', widths: '144,216', alt: '' -%}
+              </button>
+            </li>
+          {%- endfor -%}
+        </ul>
+        <noscript>{%- for m in images offset: 1 -%}{%- render 'image', image: m.preview_image, sizes: '(min-width: 900px) 55vw, 100vw' -%}{%- endfor -%}</noscript>
+      {%- endif -%}
+    </div>
+
+    <div class="product__info">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+
+          {%- when 'title' -%}
+            <div {{ block.shopify_attributes }}>
+              {%- render 'breadcrumbs' -%}
+              {%- if family != blank -%}<p class="eyebrow">{{ family }}</p>{%- endif -%}
+              <h1 class="product__title">{{ product.title | escape }}</h1>
+            </div>
+
+          {%- when 'price' -%}
+            <div {{ block.shopify_attributes }}>
+              <div class="product__price" data-price-wrap>{% render 'price', product: product, variant: current %}</div>
+              <p class="tax-note">
+                {%- if cart.taxes_included -%}{{ 'products.tax_included' | t }}{%- else -%}{{ 'products.tax_excluded' | t }}{%- endif -%}
+                {%- if shipping_url != blank %} <a href="{{ shipping_url }}">{{ 'products.shipping_link' | t }}</a>{% else %} {{ 'products.shipping_calculated' | t }}{% endif -%}
+              </p>
+              <p style="margin-top:var(--s-3)"><span class="stock{% unless current.available %} stock--out{% endunless %}" data-stock>{% if current.available %}{{ 'products.in_stock' | t }}{% else %}{{ 'products.out_of_stock' | t }}{% endif %}</span></p>
+            </div>
+
+          {%- when 'buy' -%}
+            <div {{ block.shopify_attributes }}>
+              {%- form 'product', product, class: 'buy-form', data-product-form: '' -%}
+                <input type="hidden" name="id" value="{{ current.id }}">
+
+                {%- unless product.has_only_default_variant -%}
+                  <div class="options">
+                    {%- for option in product.options_with_values -%}
+                      {%- assign opt_idx = forloop.index0 -%}
+                      <fieldset class="option{% if is_pairs %} option--pairs{% endif %}">
+                        <legend>{{ option.name | escape }} <span data-selected-value>{{ option.selected_value | escape }}</span></legend>
+                        <div class="option__values">
+                          {%- for value in option.values -%}
+                            {%- assign v_id = 'opt-' | append: section.id | append: '-' | append: opt_idx | append: '-' | append: forloop.index -%}
+                            {%- assign match = nil -%}
+                            {%- if product.options.size == 1 -%}{%- assign match = product.variants[forloop.index0] -%}{%- endif -%}
+                            <div class="opt">
+                              <input type="radio" id="{{ v_id }}" name="options[{{ option.name | escape }}]" value="{{ value | escape }}" data-option-index="{{ opt_idx }}" {% if option.selected_value == value %}checked{% endif %}>
+                              <span><label for="{{ v_id }}" style="font-weight:inherit;cursor:pointer;flex:1">
+                                {%- if is_pairs and value contains ' & ' -%}
+                                  {%- assign pair = value | split: ' & ' -%}{{ pair[0] | escape }} <span class="opt__amp">&amp;</span> {{ pair[1] | escape }}
+                                {%- else -%}{{ value | escape }}{%- endif -%}
+                                {%- if match and match.available == false %} <em class="muted">({{ 'products.sold_out' | t }})</em>{% endif -%}
+                              </label></span>
+                            </div>
+                          {%- endfor -%}
+                        </div>
+                      </fieldset>
+                    {%- endfor -%}
+                  </div>
+                {%- endunless -%}
+
+                {%- if product.template_suffix == 'custom-scent' -%}
+                  <div class="field custom-scent">
+                    <label for="CustomScent-{{ section.id }}">{{ 'products.custom_scent.label' | t }}</label>
+                    <input class="input" id="CustomScent-{{ section.id }}" type="text" name="properties[{{ 'products.custom_scent.property' | t }}]" required maxlength="120" aria-describedby="CustomScentHint-{{ section.id }}">
+                    <span class="field-hint" id="CustomScentHint-{{ section.id }}">{{ 'products.custom_scent.hint' | t }}</span>
+                  </div>
+                {%- endif -%}
+
+                <div class="buy">
+                  <div class="qty" role="group" aria-label="{{ 'products.quantity.label' | t }}">
+                    <button type="button" class="js-only" data-qty-step="-1" aria-label="{{ 'products.quantity.decrease' | t }}">&minus;</button>
+                    <input type="number" name="quantity" value="1" min="1" max="99" inputmode="numeric" aria-label="{{ 'products.quantity.label' | t }}">
+                    <button type="button" class="js-only" data-qty-step="1" aria-label="{{ 'products.quantity.increase' | t }}">+</button>
+                  </div>
+                  <button type="submit" class="btn" data-add-btn {% unless current.available %}aria-disabled="true"{% endunless %}>
+                    {%- if current.available -%}{{ 'products.add_to_cart' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
+                  </button>
+                  <p class="notice notice--error buy__error" data-form-error role="alert" hidden></p>
+                </div>
+
+                {%- if section.settings.dynamic_checkout and block.settings.dynamic_checkout -%}
+                  {{ form | payment_button }}
+                {%- endif -%}
+              {%- endform -%}
+
+              <script type="application/json" data-variants>
+                [{%- for v in product.variants -%}
+                  {%- capture price_html -%}{%- render 'price', product: product, variant: v -%}{%- endcapture -%}
+                  {
+                    "id": {{ v.id }}, "available": {{ v.available | json }}, "options": {{ v.options | json }}, "price_html": {{ price_html | strip | json }}
+                    {%- if v.featured_image %}, "image": { "src": {{ v.featured_image | image_url: width: 1080 | json }}, "srcset": {{ v.featured_image | image_url: width: 640 | append: ' 640w, ' | append: v.featured_image.src | json }}, "alt": {{ v.featured_image.alt | json }} }{% endif -%}
+                  }{%- unless forloop.last -%},{%- endunless -%}
+                {%- endfor -%}]
+              </script>
+            </div>
+
+          {%- when 'notes' -%}
+            <div {{ block.shopify_attributes }}>{%- render 'scent-notes', product: product -%}</div>
+
+          {%- when 'description' -%}
+            {%- if product.description != blank -%}
+              <div class="accordion" {{ block.shopify_attributes }}>
+                <details open>
+                  <summary>{{ block.settings.heading | default: 'Description' }}</summary>
+                  <div class="accordion__body prose">{{ product.description }}</div>
+                </details>
+              </div>
+            {%- endif -%}
+
+          {%- when 'accordion' -%}
+            {%- if block.settings.content != blank -%}
+              <div class="accordion" {{ block.shopify_attributes }}>
+                <details><summary>{{ block.settings.heading }}</summary><div class="accordion__body">{{ block.settings.content }}</div></details>
+              </div>
+            {%- endif -%}
+
+          {%- when 'care_link' -%}
+            <div class="accordion" {{ block.shopify_attributes }}>
+              <details>
+                <summary>{{ 'products.care.heading' | t }}</summary>
+                <div class="accordion__body">
+                  <ul style="padding-left:1.1em;display:grid;gap:.4rem">
+                    <li>{{ 'products.care.never_unattended' | t }}</li>
+                    <li>{{ 'products.care.keep_away' | t }}</li>
+                    <li>{{ 'products.care.no_water' | t }}</li>
+                  </ul>
+                  {%- if settings.care_page != blank -%}<p><a href="{{ settings.care_page.url }}">{{ 'products.care.link' | t }}</a></p>{%- endif -%}
+                </div>
+              </details>
+            </div>
+
+          {%- when 'trust' -%}
+            {%- if block.settings.items != blank -%}
+              <ul class="trust" role="list" {{ block.shopify_attributes }}>
+                {%- assign lines = block.settings.items | newline_to_br | split: '<br />' -%}
+                {%- for line in lines -%}{%- assign t = line | strip -%}{%- if t != blank -%}<li>{{ t }}</li>{%- endif -%}{%- endfor -%}
+              </ul>
+            {%- endif -%}
+
+          {%- when 'policy_links' -%}
+            <p class="tax-note" {{ block.shopify_attributes }}>
+              {%- if shop.shipping_policy.url -%}<a href="{{ shop.shipping_policy.url }}">{{ 'products.links.shipping' | t }}</a>{%- endif -%}
+              {%- if shop.shipping_policy.url and refund_url %} · {% endif -%}
+              {%- if refund_url -%}<a href="{{ refund_url }}">{{ 'products.links.returns' | t }}</a>{%- endif -%}
+            </p>
+
+          {%- when 'disclaimer' -%}
+            {%- assign inspired = product.metafields.custom.inspired_by.value -%}
+            {%- assign desc_has_it = false -%}{%- if product.description contains 'not affiliated' -%}{%- assign desc_has_it = true -%}{%- endif -%}
+            {%- if desc_has_it == false and inspired != blank or desc_has_it == false and block.settings.always -%}
+              <p class="disclaimer" {{ block.shopify_attributes }}>{%- if inspired != blank -%}<strong>{{ 'products.inspired_by' | t: name: inspired }}.</strong> {% endif -%}{{ settings.inspired_disclaimer }}</p>
+            {%- endif -%}
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+<script type="application/ld+json">{{ product | structured_data }}</script>
+{% schema %}
+{
+  "name": "Product",
+  "settings": [
+    { "type": "checkbox", "id": "dynamic_checkout", "label": "Offer dynamic checkout buttons (Shop Pay, Apple Pay, etc. where enabled in Shopify)", "default": true }
+  ],
+  "blocks": [
+    { "type": "title", "name": "Title and breadcrumbs", "limit": 1 },
+    { "type": "price", "name": "Price and stock", "limit": 1 },
+    { "type": "buy", "name": "Variants and buy buttons", "limit": 1, "settings": [
+      { "type": "checkbox", "id": "dynamic_checkout", "label": "Show dynamic checkout button here", "default": true } ] },
+    { "type": "notes", "name": "Scent notes", "limit": 1 },
+    { "type": "description", "name": "Description", "limit": 1, "settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "About this scent" }] },
+    { "type": "care_link", "name": "Use and safety", "limit": 1 },
+    { "type": "accordion", "name": "Custom accordion", "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Delivery" },
+      { "type": "richtext", "id": "content", "label": "Content" } ] },
+    { "type": "trust", "name": "Reassurance list", "limit": 1, "settings": [
+      { "type": "textarea", "id": "items", "label": "One point per line", "default": "Handmade in small batches\nSecure checkout through Shopify" } ] },
+    { "type": "policy_links", "name": "Delivery and returns links", "limit": 1 },
+    { "type": "disclaimer", "name": "Inspired-by disclaimer", "limit": 1, "settings": [
+      { "type": "checkbox", "id": "always", "label": "Show even when the product has no 'inspired by' field", "default": true } ] }
+  ]
+}
+{% endschema %}

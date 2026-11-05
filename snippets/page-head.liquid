@@ -1,0 +1,8 @@
+{%- comment -%} Params: title, lede (optional), blush (bool) {%- endcomment -%}
+<header class="page-head{% if blush %} page-head--blush{% endif %}">
+  <div class="container">
+    {%- render 'breadcrumbs' -%}
+    <h1>{{ title }}</h1>
+    {%- if lede != blank -%}<p class="lede">{{ lede }}</p>{%- endif -%}
+  </div>
+</header>

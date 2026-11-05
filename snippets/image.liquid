@@ -1,0 +1,20 @@
+{%- comment -%}
+  Responsive image with explicit dimensions (prevents layout shift).
+  Params: image (required), sizes, widths (comma list), loading ('lazy' default | 'eager'), alt, class, fetchpriority
+{%- endcomment -%}
+{%- if image != blank -%}
+  {%- assign widths_list = widths | default: '240,360,480,640,800,1080,1440,1800' | split: ',' -%}
+  {%- assign img_alt = alt | default: image.alt | escape -%}
+  <img
+    src="{{ image | image_url: width: 800 }}"
+    srcset="{%- for w in widths_list -%}{%- assign wn = w | plus: 0 -%}{%- if wn <= image.width -%}{{ image | image_url: width: wn }} {{ wn }}w{%- unless forloop.last -%}, {% endunless -%}{%- endif -%}{%- endfor -%}"
+    sizes="{{ sizes | default: '100vw' }}"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
+    alt="{{ img_alt }}"
+    loading="{{ loading | default: 'lazy' }}"
+    {% if fetchpriority %}fetchpriority="{{ fetchpriority }}"{% endif %}
+    {% if class %}class="{{ class }}"{% endif %}
+    decoding="async"
+  >
+{%- endif -%}

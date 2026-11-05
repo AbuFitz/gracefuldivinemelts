@@ -1,0 +1,17 @@
+<div class="container container--narrow" style="padding-block:var(--s-8) var(--section-y)">
+  <h1 style="font-size:var(--t-h2);margin-bottom:var(--s-6)">{{ 'customer.register.title' | t }}</h1>
+  {%- form 'create_customer', novalidate: 'novalidate' -%}
+    {%- if form.errors -%}<div class="notice notice--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+    <div class="field-row">
+      <div class="field"><label for="RegFirst">{{ 'customer.first_name' | t }}</label><input class="input" type="text" name="customer[first_name]" id="RegFirst" autocomplete="given-name"></div>
+      <div class="field"><label for="RegLast">{{ 'customer.last_name' | t }}</label><input class="input" type="text" name="customer[last_name]" id="RegLast" autocomplete="family-name"></div>
+    </div>
+    <div class="field"><label for="RegEmail">{{ 'customer.email' | t }}</label><input class="input" type="email" name="customer[email]" id="RegEmail" autocomplete="email" required></div>
+    <div class="field"><label for="RegPass">{{ 'customer.password' | t }}</label><input class="input" type="password" name="customer[password]" id="RegPass" autocomplete="new-password" required></div>
+    <p style="margin-top:var(--s-5)"><button class="btn" type="submit">{{ 'customer.register.submit' | t }}</button></p>
+  {%- endform -%}
+  <p style="margin-top:var(--s-6)"><a href="{{ routes.account_login_url }}">{{ 'customer.register.have_account' | t }}</a></p>
+</div>
+{% schema %}
+{ "name": "Register" }
+{% endschema %}

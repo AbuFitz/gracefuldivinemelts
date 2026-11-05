@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "main": {
+      "type": "policy-summary",
+      "settings": {
+        "lede": "What to expect when you order, and what to do if something is not right."
+      },
+      "blocks": {
+        "s1": {
+          "type": "summary",
+          "settings": {
+            "title": "Delivery",
+            "content": "<p>Processing and estimated delivery times are shown at checkout. During busy periods, launches and seasonal events, orders may take slightly longer to prepare.</p><p>If tracking is available for your delivery method, your tracking information is sent once your order has been dispatched.</p>"
+          }
+        },
+        "p1": {
+          "type": "policy",
+          "settings": {
+            "policy": "shipping-policy"
+          }
+        },
+        "s2": {
+          "type": "summary",
+          "settings": {
+            "title": "Returns and cancellations",
+            "content": "<p>For online orders you may notify us within 14 days of receiving your order if you wish to cancel. Products must be returned unused, unopened and in their original condition and packaging. Customers are responsible for return postage unless the product is faulty, damaged or incorrect. We do not offer exchanges.</p><p>If your order arrives damaged, faulty or incorrect, contact us with your order number and clear photographs. This does not affect your statutory rights.</p>"
+          }
+        },
+        "p2": {
+          "type": "policy",
+          "settings": {
+            "policy": "refund-policy"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "p1",
+        "s2",
+        "p2"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

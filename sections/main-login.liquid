@@ -1,0 +1,27 @@
+<div class="container container--narrow" style="padding-block:var(--s-8) var(--section-y)">
+  <h1 style="font-size:var(--t-h2);margin-bottom:var(--s-6)">{{ 'customer.login.title' | t }}</h1>
+  <div id="login">
+    {%- form 'customer_login', novalidate: 'novalidate' -%}
+      {%- if form.errors -%}<div class="notice notice--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+      <div class="field"><label for="CustomerEmail">{{ 'customer.email' | t }}</label><input class="input" type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required></div>
+      {%- if form.password_needed -%}
+        <div class="field"><label for="CustomerPassword">{{ 'customer.password' | t }}</label><input class="input" type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required></div>
+        <p style="margin-top:var(--s-3)"><a href="#recover" class="link-btn">{{ 'customer.login.forgot' | t }}</a></p>
+      {%- endif -%}
+      <p style="margin-top:var(--s-5)"><button class="btn" type="submit">{{ 'customer.login.submit' | t }}</button></p>
+    {%- endform -%}
+    <p style="margin-top:var(--s-6)">{{ 'customer.login.new' | t }} <a href="{{ routes.account_register_url }}">{{ 'customer.register.title' | t }}</a></p>
+  </div>
+  <div id="recover" style="margin-top:var(--s-8)">
+    <h2 style="font-size:var(--t-h3);margin-bottom:var(--s-4)">{{ 'customer.recover.title' | t }}</h2>
+    {%- form 'recover_customer_password' -%}
+      {%- if form.posted_successfully? -%}<div class="notice notice--ok" role="status">{{ 'customer.recover.success' | t }}</div>{%- endif -%}
+      {%- if form.errors -%}<div class="notice notice--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+      <div class="field"><label for="RecoverEmail">{{ 'customer.email' | t }}</label><input class="input" type="email" name="email" id="RecoverEmail" autocomplete="email" required></div>
+      <p style="margin-top:var(--s-4)"><button class="btn btn--secondary" type="submit">{{ 'customer.recover.submit' | t }}</button></p>
+    {%- endform -%}
+  </div>
+</div>
+{% schema %}
+{ "name": "Login" }
+{% endschema %}

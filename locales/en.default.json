@@ -1,0 +1,334 @@
+{
+  "general": {
+    "accessibility": {
+      "skip_to_content": "Skip to content"
+    },
+    "meta": {
+      "tagged": "Tagged “{{ tags }}”",
+      "page": "Page {{ page }}"
+    },
+    "menu": {
+      "open": "Open menu",
+      "close": "Close menu",
+      "main": "Main menu",
+      "shop": "Shop"
+    },
+    "search": {
+      "open": "Search",
+      "close": "Close search",
+      "label": "Search our wax melts",
+      "placeholder": "Search scents, e.g. rose, vanilla, woody",
+      "submit": "Search",
+      "try": "Try:",
+      "title": "Search",
+      "prompt": "Type a scent, note or product name above to search.",
+      "see_all": "See all results",
+      "results_for": {
+        "one": "{{ count }} result for “{{ terms }}”",
+        "other": "{{ count }} results for “{{ terms }}”"
+      },
+      "no_results": "No matches for “{{ terms }}”.",
+      "no_results_title": "Nothing found for “{{ terms }}”",
+      "no_results_text": "Check the spelling, try a simpler word, or browse every scent.",
+      "browse_all": "Browse all products",
+      "other": "Pages and articles"
+    },
+    "cart": {
+      "label": "Cart",
+      "items": {
+        "one": "{{ count }} item in cart",
+        "other": "{{ count }} items in cart"
+      }
+    },
+    "account": {
+      "label": "Account"
+    },
+    "breadcrumbs": {
+      "label": "Breadcrumb",
+      "home": "Home",
+      "catalogue": "Catalogue"
+    },
+    "pagination": {
+      "label": "Pagination",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{ number }}"
+    },
+    "cookies": {
+      "unavailable": "Cookie preferences are not available on this page."
+    },
+    "404": {
+      "title": "This page has drifted off",
+      "text": "The page you're looking for doesn't exist or has moved. Try searching, or head back to the scents.",
+      "cta": "Shop wax melts"
+    }
+  },
+  "sections": {
+    "announcement": {
+      "label": "Announcement"
+    },
+    "featured": {
+      "view_all": "View all",
+      "choose": "Choose a collection for this section in the theme editor."
+    },
+    "usp": {
+      "label": "Why Graceful Divine Melts"
+    },
+    "quote": {
+      "label": "Customer quote",
+      "read_reviews": "Read reviews"
+    }
+  },
+  "products": {
+    "add_to_cart": "Add to cart",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "quick_add": "Quick add",
+    "in_stock": "In stock",
+    "out_of_stock": "Sold out",
+    "badge": {
+      "sale": "Sale",
+      "sold_out": "Sold out"
+    },
+    "price": {
+      "from": "From",
+      "regular": "Regular price",
+      "sale": "Sale price"
+    },
+    "tax_included": "Tax included.",
+    "tax_excluded": "",
+    "shipping_link": "Shipping calculated at checkout.",
+    "shipping_calculated": "Shipping calculated at checkout.",
+    "quantity": {
+      "label": "Quantity",
+      "decrease": "Decrease quantity",
+      "increase": "Increase quantity"
+    },
+    "gallery": {
+      "label": "Product images",
+      "show": "Show image {{ number }}"
+    },
+    "notes": {
+      "heading": "Fragrance notes",
+      "top": "Top",
+      "heart": "Heart",
+      "base": "Base"
+    },
+    "inspired_by": "Inspired by {{ name }}",
+    "custom_scent": {
+      "label": "Which scent would you like?",
+      "hint": "Tell us the fragrance you have in mind. We'll review your request and confirm availability.",
+      "property": "Requested scent"
+    },
+    "care": {
+      "heading": "Use and safety",
+      "never_unattended": "Never leave a warmer unattended.",
+      "keep_away": "Keep away from children, pets, draughts and flammable materials.",
+      "no_water": "Never add water to the wax.",
+      "link": "Read the full care guide"
+    },
+    "links": {
+      "shipping": "Delivery information",
+      "returns": "Returns and refunds"
+    }
+  },
+  "collections": {
+    "count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "empty": "There are no products here yet.",
+    "list": {
+      "title": "All collections"
+    },
+    "sort": {
+      "label": "Sort by"
+    },
+    "filters": {
+      "label": "Filter products",
+      "apply": "Apply",
+      "clear": "Clear all filters",
+      "from": "From",
+      "to": "To",
+      "remove": "Remove filter: {{ label }}"
+    },
+    "empty_filtered": {
+      "title": "No products match those filters",
+      "text": "Try removing a filter, or browse the whole collection."
+    }
+  },
+  "cart": {
+    "title": "Your cart",
+    "summary": "Order summary",
+    "subtotal": "Subtotal",
+    "each": "each",
+    "remove": "Remove",
+    "update": "Update cart",
+    "continue": "Continue shopping",
+    "checkout": "Checkout",
+    "quantity_for": "Quantity for {{ title }}",
+    "max_quantity": "You can't add more of this item.",
+    "taxes_included": "Tax included.",
+    "shipping_at_checkout": "Shipping and any discount codes are calculated at checkout.",
+    "empty": {
+      "title": "Your cart is empty",
+      "text": "Pick a scent, or start with the Mixed Scent Package if you're not sure.",
+      "cta": "Shop wax melts"
+    },
+    "links": {
+      "shipping": "Delivery information",
+      "returns": "Returns and refunds",
+      "terms": "Terms of service",
+      "privacy": "Privacy policy"
+    },
+    "toast": {
+      "added": "Added to your cart.",
+      "view": "View cart",
+      "checkout": "Checkout",
+      "error": "We couldn't add that to your cart.",
+      "network": "Something went wrong connecting to the shop. Check your connection and try again."
+    }
+  },
+  "contact": {
+    "routes": "Ways to reach us",
+    "email": "Email",
+    "phone": "Phone",
+    "whatsapp": "Message us on WhatsApp",
+    "hours": "Reply times",
+    "address": "Address",
+    "form": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "order": "Order number",
+      "optional": "(optional)",
+      "message": "How can we help?",
+      "hint": "For returns or damaged orders, include your order number and clear photographs.",
+      "submit": "Send message",
+      "privacy": "We use your details only to reply to your message. See our"
+    },
+    "success": {
+      "title": "Thank you.",
+      "text": "Your message has been sent and we'll reply as soon as we can."
+    },
+    "errors": {
+      "title": "Please fix the following:"
+    }
+  },
+  "newsletter": {
+    "email": "Email address",
+    "submit": "Sign up",
+    "success": "Thanks for signing up. Check your inbox for a confirmation.",
+    "consent": "By signing up you agree to receive marketing emails from us. You can unsubscribe at any time. See our"
+  },
+  "footer": {
+    "privacy": "Privacy policy",
+    "policies": "Store policies",
+    "cookie_preferences": "Cookie preferences",
+    "whatsapp": "WhatsApp",
+    "review": "Leave us a review",
+    "company_number": "Company number {{ number }}",
+    "vat_number": "VAT number {{ number }}"
+  },
+  "social": {
+    "instagram": "Instagram",
+    "tiktok": "TikTok",
+    "facebook": "Facebook",
+    "whatsapp": "WhatsApp"
+  },
+  "faq": {
+    "topics": "FAQ topics",
+    "still_need": "Still need help?",
+    "contact": "Contact us"
+  },
+  "policies": {
+    "open_full": "Read the full policy",
+    "missing": {
+      "title": "Policy not yet published",
+      "text": "The Shopify policy “{{ policy }}” has not been set up in Settings → Policies. Add it there and it will appear here automatically."
+    },
+    "none": "No store policies have been created yet. Add them in Shopify admin under Settings → Policies."
+  },
+  "blog": {
+    "empty": "No articles yet."
+  },
+  "password": {
+    "text": "This shop is not open to the public yet. Enter the password to preview it.",
+    "label": "Password",
+    "submit": "Enter"
+  },
+  "gift_card": {
+    "title": "Your gift card",
+    "disabled": "Disabled",
+    "expired": "Expired",
+    "shop": "Start shopping"
+  },
+  "customer": {
+    "email": "Email",
+    "password": "Password",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "login": {
+      "title": "Sign in",
+      "submit": "Sign in",
+      "forgot": "Forgot your password?",
+      "new": "New here?"
+    },
+    "register": {
+      "title": "Create an account",
+      "submit": "Create account",
+      "have_account": "Already have an account? Sign in"
+    },
+    "recover": {
+      "title": "Reset your password",
+      "submit": "Send reset email",
+      "success": "We've sent you an email with a link to reset your password."
+    },
+    "reset": {
+      "title": "Choose a new password",
+      "confirm": "Confirm password",
+      "submit": "Save password"
+    },
+    "activate": {
+      "title": "Activate your account",
+      "submit": "Activate account",
+      "decline": "Decline invitation"
+    },
+    "account": {
+      "title": "Your account",
+      "welcome": "Welcome back, {{ name }}.",
+      "details": "Account details",
+      "logout": "Sign out"
+    },
+    "orders": {
+      "title": "Order history",
+      "order": "Order",
+      "date": "Date",
+      "payment": "Payment",
+      "fulfilment": "Fulfilment",
+      "total": "Total",
+      "none": "You haven't placed any orders yet."
+    },
+    "order": {
+      "back": "Back to your account",
+      "title": "Order {{ name }}",
+      "cancelled": "Cancelled",
+      "product": "Product",
+      "qty": "Quantity",
+      "shipping_address": "Delivery address",
+      "billing_address": "Billing address"
+    },
+    "addresses": {
+      "title": "Addresses",
+      "add": "Add an address",
+      "default": "Default",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save address",
+      "address1": "Address line 1",
+      "address2": "Address line 2",
+      "city": "Town or city",
+      "postcode": "Postcode"
+    }
+  }
+}

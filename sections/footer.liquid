@@ -1,0 +1,92 @@
+<footer class="footer">
+  <div class="container footer__top">
+    <div class="footer__brand">
+      <p class="wordmark">{{ shop.name | escape }}</p>
+      {%- if section.settings.blurb != blank -%}<p>{{ section.settings.blurb }}</p>{%- endif -%}
+      {%- render 'social-links' -%}
+    </div>
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'links' -%}
+          <nav {{ block.shopify_attributes }} aria-labelledby="f-{{ block.id }}">
+            <h2 id="f-{{ block.id }}">{{ block.settings.heading }}</h2>
+            <ul role="list">
+              {%- for link in block.settings.menu.links -%}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{%- endfor -%}
+            </ul>
+          </nav>
+        {%- when 'contact' -%}
+          <div {{ block.shopify_attributes }}>
+            <h2>{{ block.settings.heading }}</h2>
+            <ul role="list">
+              {%- if settings.business_email != blank -%}<li><a href="mailto:{{ settings.business_email }}">{{ settings.business_email }}</a></li>{%- endif -%}
+              {%- if settings.business_whatsapp != blank -%}<li><a href="{{ settings.business_whatsapp }}" rel="noopener" target="_blank">{{ 'footer.whatsapp' | t }}</a></li>{%- endif -%}
+              {%- if settings.business_phone != blank -%}<li>{{ settings.business_phone }}</li>{%- endif -%}
+              {%- if settings.business_hours != blank -%}<li>{{ settings.business_hours }}</li>{%- endif -%}
+              {%- if settings.review_link != blank -%}<li><a href="{{ settings.review_link }}" rel="noopener" target="_blank">{{ 'footer.review' | t }}</a></li>{%- endif -%}
+            </ul>
+          </div>
+        {%- when 'newsletter' -%}
+          <div {{ block.shopify_attributes }}>
+            <h2>{{ block.settings.heading }}</h2>
+            {%- if block.settings.text != blank -%}<p>{{ block.settings.text }}</p>{%- endif -%}
+            {%- form 'customer', class: 'newsletter', id: 'FooterNewsletter' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              {%- if form.posted_successfully? -%}
+                <p class="notice notice--ok" role="status" tabindex="-1" autofocus>{{ 'newsletter.success' | t }}</p>
+              {%- else -%}
+                {%- if form.errors -%}<div class="notice notice--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}
+                <label class="visually-hidden" for="NewsletterEmail">{{ 'newsletter.email' | t }}</label>
+                <div class="newsletter__row">
+                  <input class="input" id="NewsletterEmail" type="email" name="contact[email]" autocomplete="email" required placeholder="{{ 'newsletter.email' | t }}" {% if form.errors %}aria-invalid="true"{% endif %}>
+                  <button class="btn" type="submit">{{ 'newsletter.submit' | t }}</button>
+                </div>
+                <p class="field-hint" style="color:rgb(255 255 255 / .7)">{{ 'newsletter.consent' | t }} <a href="{{ routes.privacy_policy_url }}">{{ 'footer.privacy' | t }}</a>.</p>
+              {%- endif -%}
+            {%- endform -%}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="container footer__legal">
+    <div>
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ settings.business_legal_name | default: shop.name | escape }}.</span>
+      {%- if settings.company_number != blank %} {{ 'footer.company_number' | t: number: settings.company_number }}.{% endif -%}
+      {%- if settings.vat_number != blank %} {{ 'footer.vat_number' | t: number: settings.vat_number }}.{% endif -%}
+      {%- if settings.business_address != blank %}<br>{{ settings.business_address | newline_to_br }}{% endif -%}
+    </div>
+    <ul role="list" aria-label="{{ 'footer.policies' | t }}">
+      {%- for policy in shop.policies -%}<li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>{%- endfor -%}
+      {%- if section.settings.legal_menu != blank -%}{%- for link in section.settings.legal_menu.links -%}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{%- endfor -%}{%- endif -%}
+      <li class="js-only"><button type="button" data-cookie-prefs>{{ 'footer.cookie_preferences' | t }}</button></li>
+    </ul>
+  </div>
+</footer>
+{% schema %}
+{
+  "name": "Footer",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "textarea", "id": "blurb", "label": "Brand line", "default": "Handmade wax melts in perfume-inspired scents, prepared in small batches." },
+    { "type": "link_list", "id": "legal_menu", "label": "Extra legal links (optional, e.g. a Delivery & Returns page)" }
+  ],
+  "blocks": [
+    { "type": "links", "name": "Link list", "limit": 2, "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
+      { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" } ] },
+    { "type": "contact", "name": "Contact", "limit": 1, "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Talk to us" } ] },
+    { "type": "newsletter", "name": "Newsletter", "limit": 1, "settings": [
+      { "type": "text", "id": "heading", "label": "Heading", "default": "Stay in the loop" },
+      { "type": "textarea", "id": "text", "label": "Text", "default": "New scents, restocks and discount codes." } ] }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "links", "settings": { "heading": "Shop", "menu": "main-menu" } },
+      { "type": "links", "settings": { "heading": "Help", "menu": "footer" } },
+      { "type": "newsletter" }
+    ]
+  }
+}
+{% endschema %}

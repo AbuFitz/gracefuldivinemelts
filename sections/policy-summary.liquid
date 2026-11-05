@@ -1,0 +1,41 @@
+{%- comment -%}
+  Delivery & returns page. Pulls the real Shopify policy records so wording is never duplicated in a disconnected page.
+  Plain-language summary blocks are owner-editable; anything not yet confirmed stays a visible placeholder.
+{%- endcomment -%}
+{%- assign head_title = page.title | escape -%}
+{%- render 'page-head', title: head_title, lede: section.settings.lede, blush: true -%}
+<div class="container container--narrow" style="padding-block:var(--s-7) var(--section-y)">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'summary' -%}
+        <div class="prose" style="margin-bottom:var(--s-7)" {{ block.shopify_attributes }}><h2>{{ block.settings.title }}</h2>{{ block.settings.content }}</div>
+      {%- when 'policy' -%}
+        {%- assign which = block.settings.policy -%}
+        {%- assign pol = shop.policies | where: 'handle', which | first -%}
+        <div style="margin-bottom:var(--s-7)" {{ block.shopify_attributes }}>
+          <h2 style="font-size:var(--t-h3);margin-bottom:var(--s-4)">{{ block.settings.title | default: pol.title }}</h2>
+          {%- if pol != blank and pol.body != blank -%}
+            <div class="prose">{{ pol.body }}</div>
+            <p style="margin-top:var(--s-4)"><a class="link-arrow" href="{{ pol.url }}">{{ 'policies.open_full' | t }}</a></p>
+          {%- else -%}
+            <div class="placeholder-box"><strong>{{ 'policies.missing.title' | t }}</strong><br>{{ 'policies.missing.text' | t: policy: which }}</div>
+          {%- endif -%}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>
+{% schema %}
+{
+  "name": "Delivery and returns",
+  "settings": [{ "type": "textarea", "id": "lede", "label": "Intro" }],
+  "blocks": [
+    { "type": "summary", "name": "Summary text", "settings": [
+      { "type": "text", "id": "title", "label": "Title" }, { "type": "richtext", "id": "content", "label": "Content" } ] },
+    { "type": "policy", "name": "Shopify policy", "settings": [
+      { "type": "select", "id": "policy", "label": "Policy", "default": "shipping-policy", "options": [
+        { "value": "shipping-policy", "label": "Shipping policy" }, { "value": "refund-policy", "label": "Refund policy" },
+        { "value": "terms-of-service", "label": "Terms of service" }, { "value": "privacy-policy", "label": "Privacy policy" } ] },
+      { "type": "text", "id": "title", "label": "Heading override" } ] }
+  ]
+}
+{% endschema %}

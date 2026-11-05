@@ -1,0 +1,31 @@
+{%- comment -%} Rendered by /search/suggest via the Section Rendering API; consumed by theme.js. {%- endcomment -%}
+<div data-predictive>
+  {%- if predictive_search.performed -%}
+    {%- assign products = predictive_search.resources.products -%}
+    {%- if products.size > 0 -%}
+      <ul role="list">
+        {%- for product in products -%}
+          <li>
+            <a class="search-hit" href="{{ product.url }}">
+              {%- if product.featured_image -%}{%- render 'image', image: product.featured_image, sizes: '60px', widths: '120,180' -%}{%- else -%}<span></span>{%- endif -%}
+              <span class="search-hit__title">{{ product.title | escape }}</span>
+              <span>{% render 'price', product: product, show_from: true %}</span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    {%- assign cols = predictive_search.resources.collections -%}
+    {%- if cols.size > 0 -%}
+      <div class="search-suggest">{%- for c in cols -%}<a class="chip" href="{{ c.url }}">{{ c.title | escape }}</a>{%- endfor -%}</div>
+    {%- endif -%}
+    {%- if products.size == 0 and cols.size == 0 -%}
+      <p class="muted">{{ 'general.search.no_results' | t: terms: predictive_search.terms }}</p>
+    {%- else -%}
+      <p style="margin-top:var(--s-4)"><a class="link-arrow" href="{{ routes.search_url }}?type=product&q={{ predictive_search.terms | url_encode }}">{{ 'general.search.see_all' | t }}</a></p>
+    {%- endif -%}
+  {%- endif -%}
+</div>
+{% schema %}
+{ "name": "Predictive search" }
+{% endschema %}

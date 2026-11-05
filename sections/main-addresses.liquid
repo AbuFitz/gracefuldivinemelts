@@ -1,0 +1,35 @@
+<div class="container" style="padding-block:var(--s-7) var(--section-y)">
+  <p><a class="link-arrow" href="{{ routes.account_url }}">{{ 'customer.order.back' | t }}</a></p>
+  <h1 style="font-size:var(--t-h2);margin:var(--s-5) 0">{{ 'customer.addresses.title' | t }}</h1>
+  {%- paginate customer.addresses by 10 -%}
+    <ul class="care-grid" role="list" style="list-style:none">
+      {%- for address in customer.addresses -%}
+        <li class="care-card">
+          {%- if address == customer.default_address -%}<span class="badge badge--accent">{{ 'customer.addresses.default' | t }}</span>{%- endif -%}
+          <p>{{ address | format_address }}</p>
+          {%- form 'customer_address', address -%}
+            <details><summary class="link-btn">{{ 'customer.addresses.edit' | t }}</summary>
+              <div class="field" style="margin-top:var(--s-4)"><label for="A1-{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label><input class="input" id="A1-{{ form.id }}" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1"></div>
+              <div class="field"><label for="A2-{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label><input class="input" id="A2-{{ form.id }}" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2"></div>
+              <div class="field-row"><div class="field"><label for="C-{{ form.id }}">{{ 'customer.addresses.city' | t }}</label><input class="input" id="C-{{ form.id }}" name="address[city]" value="{{ form.city }}" autocomplete="address-level2"></div>
+              <div class="field"><label for="Z-{{ form.id }}">{{ 'customer.addresses.postcode' | t }}</label><input class="input" id="Z-{{ form.id }}" name="address[zip]" value="{{ form.zip }}" autocomplete="postal-code"></div></div>
+              <p style="margin-top:var(--s-4)"><button class="btn btn--secondary" type="submit">{{ 'customer.addresses.save' | t }}</button></p>
+            </details>
+          {%- endform -%}
+          {%- form 'customer_address', address -%}<input type="hidden" name="_method" value="delete"><button class="link-btn" type="submit">{{ 'customer.addresses.delete' | t }}</button>{%- endform -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- render 'pagination', paginate: paginate -%}
+  {%- endpaginate -%}
+  <h2 style="font-size:var(--t-h3);margin:var(--s-8) 0 var(--s-4)">{{ 'customer.addresses.add' | t }}</h2>
+  {%- form 'customer_address', customer.new_address -%}
+    <div class="field"><label for="N1">{{ 'customer.addresses.address1' | t }}</label><input class="input" id="N1" name="address[address1]" autocomplete="address-line1"></div>
+    <div class="field-row"><div class="field"><label for="NC">{{ 'customer.addresses.city' | t }}</label><input class="input" id="NC" name="address[city]" autocomplete="address-level2"></div>
+    <div class="field"><label for="NZ">{{ 'customer.addresses.postcode' | t }}</label><input class="input" id="NZ" name="address[zip]" autocomplete="postal-code"></div></div>
+    <p style="margin-top:var(--s-4)"><button class="btn" type="submit">{{ 'customer.addresses.save' | t }}</button></p>
+  {%- endform -%}
+</div>
+{% schema %}
+{ "name": "Addresses" }
+{% endschema %}

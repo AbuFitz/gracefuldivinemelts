@@ -1,0 +1,8 @@
+{
+  "name": "gdm-theme-preview",
+  "private": true,
+  "type": "module",
+  "description": "Local approximation of Shopify's Liquid renderer, for visual QA only. NOT a substitute for a development store.",
+  "scripts": { "fixtures": "node fetch-fixtures.mjs", "build": "node render.mjs", "shots": "node shots.mjs" },
+  "dependencies": { "liquidjs": "^10.20.0" }
+}

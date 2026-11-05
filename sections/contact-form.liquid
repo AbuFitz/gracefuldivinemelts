@@ -1,0 +1,54 @@
+{%- assign head_title = page.title | escape -%}
+{%- render 'page-head', title: head_title, lede: section.settings.lede, blush: true -%}
+<div class="container contact-grid">
+  <div>
+    <h2 style="font-size:var(--t-h3);margin-bottom:var(--s-5)">{{ 'contact.routes' | t }}</h2>
+    <ul class="contact-routes" role="list">
+      {%- if settings.business_email != blank -%}<li><strong>{{ 'contact.email' | t }}</strong><a href="mailto:{{ settings.business_email }}">{{ settings.business_email }}</a></li>{%- endif -%}
+      {%- if settings.business_whatsapp != blank -%}<li><strong>WhatsApp</strong><a href="{{ settings.business_whatsapp }}" rel="noopener" target="_blank">{{ 'contact.whatsapp' | t }}</a></li>{%- endif -%}
+      {%- if settings.business_phone != blank -%}<li><strong>{{ 'contact.phone' | t }}</strong><a href="tel:{{ settings.business_phone | remove: ' ' }}">{{ settings.business_phone }}</a></li>{%- endif -%}
+      {%- if settings.business_hours != blank -%}<li><strong>{{ 'contact.hours' | t }}</strong>{{ settings.business_hours }}</li>{%- endif -%}
+      {%- if settings.business_address != blank -%}<li><strong>{{ 'contact.address' | t }}</strong>{{ settings.business_address | newline_to_br }}</li>{%- endif -%}
+    </ul>
+    {%- if section.settings.helper != blank -%}<div class="prose" style="margin-top:var(--s-6)">{{ section.settings.helper }}</div>{%- endif -%}
+    {%- render 'social-links' -%}
+  </div>
+
+  <div>
+    {%- form 'contact', id: 'ContactForm', novalidate: 'novalidate' -%}
+      {%- if form.posted_successfully? -%}
+        <div class="notice notice--ok" role="status" tabindex="-1"><p><strong>{{ 'contact.success.title' | t }}</strong> {{ 'contact.success.text' | t }}</p></div>
+      {%- endif -%}
+      {%- if form.errors -%}
+        <div class="notice notice--error" role="alert" tabindex="-1" id="ContactErrors">
+          <p><strong>{{ 'contact.errors.title' | t }}</strong></p>
+          <ul>{%- for field in form.errors -%}<li><a href="#Contact-{{ field }}">{%- if field == 'form' -%}{{ form.errors.messages[field] }}{%- else -%}{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}{%- endif -%}</a></li>{%- endfor -%}</ul>
+        </div>
+      {%- endif -%}
+      <div class="field-row">
+        <div class="field"><label for="Contact-name">{{ 'contact.form.name' | t }}</label><input class="input" id="Contact-name" name="contact[name]" type="text" autocomplete="name" value="{{ form.name }}"></div>
+        <div class="field"><label for="Contact-email">{{ 'contact.form.email' | t }} <span aria-hidden="true">*</span></label><input class="input" id="Contact-email" name="contact[email]" type="email" autocomplete="email" required aria-required="true" value="{{ form.email }}" {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="ContactErrors"{% endif %}></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label for="Contact-phone">{{ 'contact.form.phone' | t }} <span class="muted" style="font-weight:400">{{ 'contact.form.optional' | t }}</span></label><input class="input" id="Contact-phone" name="contact[phone]" type="tel" autocomplete="tel" value="{{ form.phone }}"></div>
+        <div class="field"><label for="Contact-order">{{ 'contact.form.order' | t }} <span class="muted" style="font-weight:400">{{ 'contact.form.optional' | t }}</span></label><input class="input" id="Contact-order" name="contact[Order number]" type="text" value="{{ form.Order_number }}"></div>
+      </div>
+      <div class="field">
+        <label for="Contact-body">{{ 'contact.form.message' | t }} <span aria-hidden="true">*</span></label>
+        <textarea class="textarea" id="Contact-body" name="contact[body]" required aria-required="true" {% if form.errors contains 'body' %}aria-invalid="true" aria-describedby="ContactErrors"{% endif %}>{{ form.body }}</textarea>
+        <span class="field-hint">{{ 'contact.form.hint' | t }}</span>
+      </div>
+      <p style="margin-top:var(--s-5)"><button class="btn" type="submit">{{ 'contact.form.submit' | t }}{% render 'icon', name: 'arrow' %}</button></p>
+      <p class="field-hint" style="margin-top:var(--s-3)">{{ 'contact.form.privacy' | t }} <a href="{{ routes.privacy_policy_url }}">{{ 'footer.privacy' | t }}</a>.</p>
+    {%- endform -%}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Contact",
+  "settings": [
+    { "type": "textarea", "id": "lede", "label": "Intro", "default": "Questions about a scent, an order or a return? Send us a message and we'll come back to you." },
+    { "type": "richtext", "id": "helper", "label": "Helpful note beside the form" }
+  ]
+}
+{% endschema %}

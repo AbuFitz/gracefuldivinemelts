@@ -1,0 +1,219 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "heading": "Perfume-inspired scents for the home.",
+        "eyebrow": "Handmade wax melts",
+        "text": "Crafted with care, our approach embraces the art of handmade quality, ensuring every product resonates with warmth and authenticity.",
+        "cta_label": "Shop wax melts",
+        "cta_link": "shopify://collections/wax-melts",
+        "cta2_label": "Not sure? Find your scent",
+        "cta2_link": "shopify://pages/find-your-scent"
+      }
+    },
+    "usp": {
+      "type": "usp-strip",
+      "blocks": {
+        "a": {
+          "type": "point",
+          "settings": {
+            "title": "Handmade",
+            "text": "Prepared in small batches with care."
+          }
+        },
+        "b": {
+          "type": "point",
+          "settings": {
+            "title": "Perfume-inspired",
+            "text": "Fragrances inspired by popular luxury perfumes."
+          }
+        },
+        "c": {
+          "type": "point",
+          "settings": {
+            "title": "Not sure which?",
+            "text": "Start with the Mixed Scent Package."
+          }
+        }
+      },
+      "block_order": [
+        "a",
+        "b",
+        "c"
+      ],
+      "settings": {
+        "dark": false
+      }
+    },
+    "shop": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "wax-melts",
+        "heading": "Our wax melts",
+        "eyebrow": "The collection",
+        "limit": 8,
+        "columns": "4",
+        "quick_add": true,
+        "tint": false
+      }
+    },
+    "families": {
+      "type": "scent-families",
+      "settings": {
+        "heading": "Choose by mood, not by guess.",
+        "eyebrow": "Find your scent",
+        "text": "You can't smell a wax melt through a screen, so every scent is described by its notes and its family."
+      },
+      "blocks": {
+        "a": {
+          "type": "family",
+          "settings": {
+            "name": "Floral & fresh",
+            "description": "Jasmine, rose, lily of the valley, citrus and soft musk.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
+            "cta": "Shop floral"
+          }
+        },
+        "b": {
+          "type": "family",
+          "settings": {
+            "name": "Sweet & warm",
+            "description": "Vanilla, amber, caramel and creamy musk.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
+            "cta": "Shop sweet"
+          }
+        },
+        "c": {
+          "type": "family",
+          "settings": {
+            "name": "Woody & bold",
+            "description": "Leather, woods, spice and fresh peppermint.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
+            "cta": "Shop woody"
+          }
+        }
+      },
+      "block_order": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    "bundle": {
+      "type": "bundle-spotlight",
+      "settings": {
+        "product": "our-bundle-deal",
+        "eyebrow": "The bundle deal",
+        "heading": "Everything to start. Two bars, a mixed pack and a burner.",
+        "text": "Choose your pair of scents and we do the rest.",
+        "cta": "Choose your bundle"
+      },
+      "blocks": {
+        "a": {
+          "type": "item",
+          "settings": {
+            "item": "2 wax melt snap bars of your choice"
+          }
+        },
+        "b": {
+          "type": "item",
+          "settings": {
+            "item": "1 packet of mixed scent"
+          }
+        },
+        "c": {
+          "type": "item",
+          "settings": {
+            "item": "1 wax burner"
+          }
+        }
+      },
+      "block_order": [
+        "a",
+        "b",
+        "c"
+      ]
+    },
+    "story": {
+      "type": "image-text",
+      "settings": {
+        "eyebrow": "Made in small batches",
+        "heading": "Handmade, with attention to every batch.",
+        "text": "<p>Our wax melts are carefully prepared in small batches with care and attention to quality.</p>",
+        "cta_label": "How to use your melts",
+        "cta_link": "shopify://pages/wax-melt-care-safety"
+      }
+    },
+    "quote": {
+      "type": "quote",
+      "settings": {
+        "quote": "",
+        "source": ""
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "heading": "Questions, answered.",
+        "eyebrow": "Good to know",
+        "link_label": "Read the full care guide",
+        "link": "shopify://pages/wax-melt-care-safety"
+      },
+      "blocks": {
+        "q0": {
+          "type": "qa",
+          "settings": {
+            "question": "What are wax melts?",
+            "answer": "<p>Wax melts are scented pieces of wax designed to release fragrance when gently warmed in a suitable wax burner. Unlike candles, they do not contain a wick.</p>"
+          }
+        },
+        "q1": {
+          "type": "qa",
+          "settings": {
+            "question": "How do I use wax melts safely?",
+            "answer": "<p>Place a small piece of wax in the top dish of a suitable wax burner. If using a tealight burner, place one unscented four-hour tealight underneath and light it carefully. Never add water, never leave the burner unattended and always keep it away from children, pets, draughts and flammable materials.</p>"
+          }
+        },
+        "q2": {
+          "type": "qa",
+          "settings": {
+            "question": "Which scent is best for me?",
+            "answer": "<p>This depends on the type of fragrance you enjoy. We offer fresh, woody, spicy, floral, sweet, amber and warm scents. Read the scent description on each product page, try the Mixed Scent Package, or message us for help choosing.</p>"
+          }
+        },
+        "q3": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I return or exchange my order?",
+            "answer": "<p>We do not offer exchanges. For online orders, you may notify us within 14 days of receiving your order if you wish to cancel. Products must be returned unused, unopened and in their original condition and packaging. Customers are responsible for return postage unless the product is faulty, damaged or incorrect.</p><p>This does not affect your statutory rights.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q0",
+        "q1",
+        "q2",
+        "q3"
+      ]
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Join our community",
+        "text": "Sign up for discount codes, new scents and restocks."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "usp",
+    "shop",
+    "families",
+    "bundle",
+    "story",
+    "quote",
+    "faq",
+    "newsletter"
+  ]
+}

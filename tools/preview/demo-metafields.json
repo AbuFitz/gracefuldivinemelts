@@ -1,0 +1,13 @@
+{
+  "_note": "DEMO ONLY. Notes are transcribed from the live product descriptions at gracefuldivinemelts.com (public). Scent families are a design-time inference for previews, not customer-verified data. On the real store the owner fills the product metafields.",
+  "dark-desire": { "family": "Sweet", "top": ["Orange", "Citrus"], "heart": ["Jasmine", "Orchid", "Orris", "Lily of the valley"], "base": ["Vanilla", "Musk", "White musk", "White woods"], "inspired": "Lady Million" },
+  "golden-goddess": { "family": "Floral", "top": ["Rose", "Peach", "Apple", "Bergamot"], "heart": ["Tuberose", "Jasmine", "Magnolia"], "base": ["Woods", "Amber", "Vanilla", "Velvet musk"], "inspired": "Good Girl" },
+  "rose-elegance": { "family": "Floral", "top": ["Bergamot", "Lemon", "Gardenia", "Ylang ylang"], "heart": ["Jasmine", "Rose", "Lilac", "Lily"], "base": ["Patchouli", "Sandalwood", "Vetiver", "Oakmoss", "Amber", "Tonka"], "inspired": "Miss Dior" },
+  "divine-fortune": { "family": "Woody", "top": ["Blood mandarin", "Peppermint"], "heart": ["Cinnamon", "Spice"], "base": ["Leather", "Amber", "Woods"], "inspired": "One Million" },
+  "limited-divine-noir": { "family": "Sweet", "top": ["Lime", "Orange"], "heart": ["Jasmine", "Orchid", "Rose"], "base": ["Vanilla", "Amber", "White woods"], "inspired": "Black Opium" },
+  "modern-muse": { "family": "Floral", "top": ["Sweet citrus"], "heart": ["White florals"], "base": ["Vanilla", "Amber", "Musk", "Benzoin"], "inspired": "Prada Paradox" },
+  "paradox-wax-melt": { "family": "Floral", "inspired": "Coco Mademoiselle" },
+  "candles-example-product-4": { "family": "Woody", "inspired": "Dior Sauvage" },
+  "candles-example-product-3": { "family": "Sweet", "inspired": "Baccarat Rouge" },
+  "angelic-aura": { "family": "Sweet", "top": ["Bergamot", "Melon", "Coconut"], "heart": ["Jasmine", "Rose", "Lily of the valley"], "base": ["Patchouli", "Vanilla", "Caramel", "Musk"], "inspired": "Angel" }
+}

@@ -1,0 +1,22 @@
+{%- paginate blog.articles by 9 -%}
+  {%- assign head_title = blog.title | escape -%}
+  {%- render 'page-head', title: head_title, blush: true -%}
+  <div class="container" style="padding-block:var(--s-7) var(--section-y)">
+    {%- if blog.articles.size > 0 -%}
+      <ul class="grid" role="list">
+        {%- for article in blog.articles -%}
+          <li><article class="card">
+            {%- if article.image -%}<a class="card__media" href="{{ article.url }}" tabindex="-1" aria-hidden="true">{%- render 'image', image: article.image, sizes: '(min-width: 760px) 33vw, 50vw' -%}</a>{%- endif -%}
+            <div class="card__body"><h2 class="card__title"><a href="{{ article.url }}">{{ article.title | escape }}</a></h2><span class="card__meta">{{ article.published_at | time_tag: '%d %B %Y' }}</span></div>
+          </article></li>
+        {%- endfor -%}
+      </ul>
+      {%- render 'pagination', paginate: paginate -%}
+    {%- else -%}
+      <div class="empty"><p>{{ 'blog.empty' | t }}</p></div>
+    {%- endif -%}
+  </div>
+{%- endpaginate -%}
+{% schema %}
+{ "name": "Blog" }
+{% endschema %}

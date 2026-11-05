@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "policy-hub",
+      "settings": {
+        "lede": "Everything about how we handle orders, returns, privacy and your rights, in one place."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

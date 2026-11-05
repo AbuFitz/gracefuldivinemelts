@@ -1,0 +1,66 @@
+{
+  "sections": {
+    "main": {
+      "type": "care-safety",
+      "settings": {
+        "lede": "From choosing a warmer to storing your melts between uses.",
+        "review_note": true
+      },
+      "blocks": {
+        "c1": {
+          "type": "card",
+          "settings": {
+            "title": "Warmers",
+            "content": "<p>Wax melts work with electric warmers and tealight warmers. Electric warmers offer consistent, controlled heat. Tealight warmers use an unscented tealight as the heat source.</p><p>We recommend an electric warmer rated between 14 W and 25 W. Higher wattages burn through the wax quickly and can mute the fragrance; lower wattages may not fully melt the wax.</p>"
+          }
+        },
+        "c2": {
+          "type": "card",
+          "settings": {
+            "title": "How many pieces to use",
+            "content": "<p>Small room (bathroom, hallway): 1 piece. Medium room (bedroom, home office): 1–2 pieces. Large open space (kitchen-diner, living room): 2–3 pieces.</p><p>Start with fewer pieces and add more to suit your preference.</p>"
+          }
+        },
+        "c3": {
+          "type": "card",
+          "settings": {
+            "title": "Scent and longevity",
+            "content": "<p>Gentle, consistent heat releases fragrance slowly and steadily. Very high heat can make the fragrance burn off more quickly.</p><p>Use your warmer in sessions of 3–4 hours rather than leaving it on continuously. When the wax no longer releases scent even when fully melted, it is time to swap it out.</p>"
+          }
+        },
+        "c4": {
+          "type": "card",
+          "settings": {
+            "title": "Storage",
+            "content": "<p>Keep unused melts in a cool, dry place away from direct sunlight and heat, in their original packaging. If the original packaging is no longer available, an airtight container or resealable bag works well.</p>"
+          }
+        },
+        "c5": {
+          "type": "card",
+          "settings": {
+            "title": "Resetting the dish",
+            "content": "<p>Warm removal: while the wax is slightly warm and soft (not liquid), press a cotton pad or folded tissue gently against the surface and the wax will release. Discard in the bin, not down the sink.</p><p>Cool removal: let the wax cool and harden completely, then gently flex the dish if it is silicone. Wipe the dish with a dry cloth or cotton pad before adding a fresh melt.</p>"
+          }
+        },
+        "w1": {
+          "type": "warning",
+          "settings": {
+            "title": "Safety first",
+            "content": "<ul><li>Never leave a warmer unattended or running overnight.</li><li>Keep out of reach of children and pets.</li><li>Place your warmer on a stable, heat-resistant surface.</li><li>Do not add water or carrier oils to the wax.</li><li>Do not touch molten wax: it can cause burns. Let it cool fully before handling.</li><li>If using a tealight warmer, use one unscented tealight and keep away from draughts and flammable materials.</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "w1"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,8 @@
+{%- if settings.social_instagram != blank or settings.social_tiktok != blank or settings.social_facebook != blank or settings.business_whatsapp != blank -%}
+<ul class="socials" role="list">
+  {%- if settings.social_instagram != blank -%}<li><a href="{{ settings.social_instagram }}" rel="noopener" target="_blank" aria-label="{{ 'social.instagram' | t }}">{% render 'icon', name: 'instagram' %}</a></li>{%- endif -%}
+  {%- if settings.social_tiktok != blank -%}<li><a href="{{ settings.social_tiktok }}" rel="noopener" target="_blank" aria-label="{{ 'social.tiktok' | t }}">{% render 'icon', name: 'tiktok' %}</a></li>{%- endif -%}
+  {%- if settings.social_facebook != blank -%}<li><a href="{{ settings.social_facebook }}" rel="noopener" target="_blank" aria-label="{{ 'social.facebook' | t }}">{% render 'icon', name: 'facebook' %}</a></li>{%- endif -%}
+  {%- if settings.business_whatsapp != blank -%}<li><a href="{{ settings.business_whatsapp }}" rel="noopener" target="_blank" aria-label="{{ 'social.whatsapp' | t }}">{% render 'icon', name: 'whatsapp' %}</a></li>{%- endif -%}
+</ul>
+{%- endif -%}

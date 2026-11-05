@@ -1,0 +1,34 @@
+{%- assign head_title = page.title | escape -%}
+{%- render 'page-head', title: head_title, lede: section.settings.lede, blush: true -%}
+<div class="container" style="padding-block:var(--s-7) var(--section-y)">
+  <div class="care-grid">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'card' -%}
+        <div class="care-card" {{ block.shopify_attributes }}><h3>{{ block.settings.title }}</h3><div class="prose">{{ block.settings.content }}</div></div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'warning' -%}
+      <div class="care-warn on-dark" style="margin-top:var(--s-7)" {{ block.shopify_attributes }}><h3>{{ block.settings.title }}</h3><div class="prose" style="max-width:none">{{ block.settings.content }}</div></div>
+    {%- endif -%}
+  {%- endfor -%}
+  {%- if section.settings.review_note -%}
+    <p class="placeholder-box" style="margin-top:var(--s-6)">Owner note (remove before publishing): safety wording and any product labelling statements must be confirmed against your actual wax, fragrance and packaging information.</p>
+  {%- endif -%}
+</div>
+{% schema %}
+{
+  "name": "Care and safety",
+  "settings": [
+    { "type": "textarea", "id": "lede", "label": "Intro" },
+    { "type": "checkbox", "id": "review_note", "label": "Show 'owner review required' note (turn off after review)", "default": true }
+  ],
+  "blocks": [
+    { "type": "card", "name": "Guidance card", "settings": [
+      { "type": "text", "id": "title", "label": "Title" }, { "type": "richtext", "id": "content", "label": "Content" } ] },
+    { "type": "warning", "name": "Safety panel", "limit": 1, "settings": [
+      { "type": "text", "id": "title", "label": "Title", "default": "Safety first" }, { "type": "richtext", "id": "content", "label": "Content" } ] }
+  ]
+}
+{% endschema %}

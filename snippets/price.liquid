@@ -1,0 +1,30 @@
+{%- comment -%}
+  Price display. Params: product (required), variant (optional: use selected variant), show_from (bool)
+  Prices come from Shopify; nothing is hard-coded. Tax/shipping wording is handled by the caller.
+{%- endcomment -%}
+{%- liquid
+  assign target = variant | default: product.selected_or_first_available_variant
+  assign use_from = false
+  if show_from and product.price_varies and variant == blank
+    assign use_from = true
+    assign amount = product.price_min
+  else
+    assign amount = target.price
+  endif
+  assign compare = target.compare_at_price
+  if use_from
+    assign compare = product.compare_at_price_max
+    if product.compare_at_price_max <= product.price_min
+      assign compare = nil
+    endif
+  endif
+-%}
+<span class="price" data-price>
+  {%- if use_from -%}<span class="price__from">{{ 'products.price.from' | t }}</span>{%- endif -%}
+  {%- if compare != blank and compare > amount -%}
+    <s><span class="visually-hidden">{{ 'products.price.regular' | t }}</span> {{ compare | money }}</s>
+    <span><span class="visually-hidden">{{ 'products.price.sale' | t }}</span> {{ amount | money }}</span>
+  {%- else -%}
+    <span>{{ amount | money }}</span>
+  {%- endif -%}
+</span>

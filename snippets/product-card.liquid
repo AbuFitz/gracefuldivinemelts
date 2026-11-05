@@ -1,0 +1,45 @@
+{%- comment -%}
+  Product card. Params: product (required), loading, sizes, show_family (default true), quick_add (bool), heading_level (default 3)
+  Scent family comes from the optional metafield custom.scent_family; the card renders cleanly without it.
+{%- endcomment -%}
+{%- liquid
+  assign family = product.metafields.custom.scent_family.value
+  assign ratio_class = ''
+  if settings.card_ratio == 'square'
+    assign ratio_class = 'card__media--square'
+  endif
+  assign second = product.media[1]
+  assign hl = heading_level | default: 3
+  assign card_sizes = sizes | default: '(min-width: 1100px) 25vw, (min-width: 760px) 33vw, 50vw'
+  assign single = false
+  if product.variants.size == 1 and product.available
+    assign single = true
+  endif
+-%}
+<article class="card{% unless product.available %} card--sold{% endunless %}">
+  <div class="card__media {{ ratio_class }}">
+    {%- if product.featured_media -%}
+      {%- render 'image', image: product.featured_media.preview_image, sizes: card_sizes, loading: loading, widths: '240,360,480,640,800,1080' -%}
+      {%- if second and settings.card_ratio == 'portrait' and second.media_type == 'image' -%}
+        {%- render 'image', image: second.preview_image, sizes: card_sizes, widths: '360,480,640,800', alt: '' -%}
+      {%- endif -%}
+    {%- else -%}
+      {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
+    {%- endif -%}
+    <div class="card__flags">
+      {%- unless product.available -%}<span class="badge badge--sold">{{ 'products.badge.sold_out' | t }}</span>{%- endunless -%}
+      {%- if product.available and product.compare_at_price > product.price -%}<span class="badge badge--accent">{{ 'products.badge.sale' | t }}</span>{%- endif -%}
+    </div>
+  </div>
+  <div class="card__body">
+    {%- if family != blank and show_family != false -%}<span class="card__family">{{ family }}</span>{%- endif -%}
+    <h{{ hl }} class="card__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h{{ hl }}>
+    <span class="card__meta">{% render 'price', product: product, show_from: true %}</span>
+  </div>
+  {%- if quick_add and single -%}
+    {%- form 'product', product, class: 'card__quick js-quick-add' -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <button type="submit" class="btn btn--secondary" data-add-label="{{ 'products.quick_add' | t }}">{{ 'products.quick_add' | t }}<span class="visually-hidden"> — {{ product.title | escape }}</span></button>
+    {%- endform -%}
+  {%- endif -%}
+</article>

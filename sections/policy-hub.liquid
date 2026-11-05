@@ -1,0 +1,16 @@
+{%- assign head_title = page.title | escape -%}
+{%- render 'page-head', title: head_title, lede: section.settings.lede, blush: true -%}
+<div class="container container--narrow" style="padding-block:var(--s-7) var(--section-y)">
+  <ul class="policy-list" role="list">
+    {%- for policy in shop.policies -%}<li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>{%- endfor -%}
+    {%- for block in section.blocks -%}<li {{ block.shopify_attributes }}><a href="{{ block.settings.link }}">{{ block.settings.title }}</a></li>{%- endfor -%}
+  </ul>
+  {%- if shop.policies.size == 0 -%}<div class="placeholder-box" style="margin-top:var(--s-5)">{{ 'policies.none' | t }}</div>{%- endif -%}
+</div>
+{% schema %}
+{
+  "name": "Policy hub",
+  "settings": [{ "type": "textarea", "id": "lede", "label": "Intro" }],
+  "blocks": [{ "type": "link", "name": "Extra link", "settings": [{ "type": "text", "id": "title", "label": "Title" }, { "type": "url", "id": "link", "label": "Link" }] }]
+}
+{% endschema %}

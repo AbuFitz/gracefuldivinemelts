@@ -1,0 +1,70 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{% if request.locale.iso_code contains 'ar' or request.locale.iso_code contains 'he' %}rtl{% else %}ltr{% endif %}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="{{ settings.color_paper }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+    {%- comment -%}
+      Canonical, title, meta description, Open Graph and Twitter tags are produced by Shopify itself
+      through content_for_header / the SEO fields. We only add what Shopify does not: social image fallback.
+    {%- endcomment -%}
+    {%- assign tag_list = current_tags | join: ', ' -%}
+    <title>
+      {{- page_title -}}
+      {%- if current_tags %} &ndash; {{ 'general.meta.tagged' | t: tags: tag_list }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {%- if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif %}
+    {%- render 'meta-tags' -%}
+
+    {{ 'bodoni-moda-latin-wght-normal.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: '' }}
+    {{ 'hanken-grotesk-latin-wght-normal.woff2' | asset_url | preload_tag: as: 'font', type: 'font/woff2', crossorigin: '' }}
+    <link rel="stylesheet" href="{{ 'base.css' | asset_url }}">
+
+    {%- style -%}
+      :root {
+        --c-paper: {{ settings.color_paper }};
+        --c-ink: {{ settings.color_ink }};
+        --c-blush: {{ settings.color_blush }};
+        --c-pink: {{ settings.color_pink }};
+        --c-rose: {{ settings.color_rose }};
+        --w-page: {{ settings.page_width }}px;
+      }
+    {%- endstyle -%}
+
+    <script>
+      window.theme = {
+        routes: { cart: {{ routes.cart_url | json }}, cartAdd: {{ routes.cart_add_url | json }}, cartChange: {{ routes.cart_change_url | json }}, cartJson: {{ routes.cart_url | append: '.js' | json }}, search: {{ routes.search_url | json }}, searchSuggest: {{ routes.predictive_search_url | json }} },
+        strings: {
+          added: {{ 'cart.toast.added' | t | json }}, viewCart: {{ 'cart.toast.view' | t | json }}, checkout: {{ 'cart.toast.checkout' | t | json }},
+          error: {{ 'cart.toast.error' | t | json }}, network: {{ 'cart.toast.network' | t | json }}, noPrefs: {{ 'general.cookies.unavailable' | t | json }},
+          soldOut: {{ 'products.sold_out' | t | json }}, unavailable: {{ 'products.unavailable' | t | json }}, add: {{ 'products.add_to_cart' | t | json }},
+          inStock: {{ 'products.in_stock' | t | json }}, outOfStock: {{ 'products.out_of_stock' | t | json }}, maxQty: {{ 'cart.max_quantity' | t | json }}
+        }
+      };
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+    <script src="{{ 'theme.js' | asset_url }}" defer></script>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ request.page_type | handle }}">
+    <a class="skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" class="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    <div class="toast" id="Toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{%- comment -%}
+  Fragrance notes ladder. Reads metafields custom.top_notes / heart_notes / base_notes (list.single_line_text_field).
+  Renders nothing if none are set — the full description remains the source of truth.
+{%- endcomment -%}
+{%- assign top = product.metafields.custom.top_notes.value -%}
+{%- assign heart = product.metafields.custom.heart_notes.value -%}
+{%- assign base = product.metafields.custom.base_notes.value -%}
+{%- if top != blank or heart != blank or base != blank -%}
+  <section aria-labelledby="notes-h-{{ section.id }}">
+    <h2 class="visually-hidden" id="notes-h-{{ section.id }}">{{ 'products.notes.heading' | t }}</h2>
+    <dl class="notes">
+      {%- if top != blank -%}<div class="note-row"><dt>{{ 'products.notes.top' | t }}</dt><dd>{% for n in top %}<span>{{ n }}</span>{% endfor %}</dd></div>{%- endif -%}
+      {%- if heart != blank -%}<div class="note-row"><dt>{{ 'products.notes.heart' | t }}</dt><dd>{% for n in heart %}<span>{{ n }}</span>{% endfor %}</dd></div>{%- endif -%}
+      {%- if base != blank -%}<div class="note-row"><dt>{{ 'products.notes.base' | t }}</dt><dd>{% for n in base %}<span>{{ n }}</span>{% endfor %}</dd></div>{%- endif -%}
+    </dl>
+  </section>
+{%- endif -%}

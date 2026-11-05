@@ -1,0 +1,40 @@
+{%- assign img = section.settings.image -%}
+<section class="hero{% if section.settings.flip %} hero--flip{% endif %}" aria-labelledby="hero-h-{{ section.id }}">
+  <div class="hero__copy">
+    {%- render 'icon', name: 'wisp' -%}
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="margin:0">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    <h1 id="hero-h-{{ section.id }}">{{ section.settings.heading }}</h1>
+    {%- if section.settings.text != blank -%}<p class="lede">{{ section.settings.text }}</p>{%- endif -%}
+    <div class="hero__ctas">
+      {%- if section.settings.cta_label != blank -%}<a class="btn" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">{{ section.settings.cta_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+      {%- if section.settings.cta2_label != blank -%}<a class="btn btn--secondary" href="{{ section.settings.cta2_link | default: routes.root_url }}">{{ section.settings.cta2_label }}</a>{%- endif -%}
+    </div>
+    {%- if section.settings.note != blank -%}<p class="hero__note">{{ section.settings.note }}</p>{%- endif -%}
+  </div>
+  <div class="hero__media">
+    {%- if img -%}
+      {%- render 'image', image: img, sizes: '(min-width: 900px) 48vw, 100vw', loading: 'eager', fetchpriority: 'high', widths: '480,720,960,1280,1600' -%}
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "div",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image (use real product photography)" },
+    { "type": "checkbox", "id": "flip", "label": "Image on the left (desktop)", "default": false },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Handmade wax melts" },
+    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Perfume-inspired scents for the home." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Crafted with care, our approach embraces the art of handmade quality, ensuring every product resonates with warmth and authenticity." },
+    { "type": "text", "id": "cta_label", "label": "Primary button", "default": "Shop wax melts" },
+    { "type": "url", "id": "cta_link", "label": "Primary link" },
+    { "type": "text", "id": "cta2_label", "label": "Secondary button", "default": "Not sure? Find your scent" },
+    { "type": "url", "id": "cta2_link", "label": "Secondary link" },
+    { "type": "text", "id": "note", "label": "Small note under buttons" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

@@ -1,0 +1,24 @@
+{%- comment -%} Visible breadcrumbs. Pass `crumbs` pre-built is not possible in Liquid, so this derives them from the template. {%- endcomment -%}
+{%- if template.name != 'index' -%}
+<nav class="breadcrumbs" aria-label="{{ 'general.breadcrumbs.label' | t }}">
+  <ol>
+    <li><a href="{{ routes.root_url }}">{{ 'general.breadcrumbs.home' | t }}</a></li>
+    {%- case template.name -%}
+      {%- when 'product' -%}
+        {%- if collection.url -%}<li><a href="{{ collection.url }}">{{ collection.title | escape }}</a></li>{%- else -%}<li><a href="{{ routes.all_products_collection_url }}">{{ 'general.breadcrumbs.catalogue' | t }}</a></li>{%- endif -%}
+        <li><span aria-current="page">{{ product.title | escape }}</span></li>
+      {%- when 'collection' -%}
+        {%- if collection.handle != 'all' -%}<li><a href="{{ routes.all_products_collection_url }}">{{ 'general.breadcrumbs.catalogue' | t }}</a></li>{%- endif -%}
+        <li><span aria-current="page">{{ collection.title | escape }}</span></li>
+      {%- when 'page' -%}
+        <li><span aria-current="page">{{ page.title | escape }}</span></li>
+      {%- when 'article' -%}
+        <li><a href="{{ blog.url }}">{{ blog.title | escape }}</a></li><li><span aria-current="page">{{ article.title | escape }}</span></li>
+      {%- when 'blog' -%}
+        <li><span aria-current="page">{{ blog.title | escape }}</span></li>
+      {%- else -%}
+        <li><span aria-current="page">{{ page_title | escape }}</span></li>
+    {%- endcase -%}
+  </ol>
+</nav>
+{%- endif -%}

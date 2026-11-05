@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "per_page": 16,
+        "columns": "4",
+        "enable_sorting": true,
+        "enable_filtering": true,
+        "quick_add": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

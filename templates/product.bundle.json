@@ -1,0 +1,63 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title"
+        },
+        "price": {
+          "type": "price"
+        },
+        "buy": {
+          "type": "buy",
+          "settings": {
+            "dynamic_checkout": true
+          }
+        },
+        "desc": {
+          "type": "description",
+          "settings": {
+            "heading": "What's in the bundle"
+          }
+        },
+        "disc": {
+          "type": "disclaimer",
+          "settings": {
+            "always": true
+          }
+        },
+        "care": {
+          "type": "care_link"
+        },
+        "links": {
+          "type": "policy_links"
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "buy",
+        "desc",
+        "disc",
+        "care",
+        "links"
+      ],
+      "settings": {
+        "dynamic_checkout": true
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "fallback": "wax-melts",
+        "limit": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "related"
+  ]
+}

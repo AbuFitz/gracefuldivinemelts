@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "blush": true
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-form",
+      "settings": {
+        "lede": "Questions about a scent, an order or a return? Send us a message and we'll come back to you.",
+        "helper": "<p>For returns or damaged orders, please include your order number and clear photographs of the item and its packaging.</p>"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

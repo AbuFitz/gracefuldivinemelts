@@ -1,0 +1,8 @@
+{%- assign head_title = page.title | escape -%}
+{%- render 'page-head', title: head_title, blush: section.settings.blush -%}
+<div class="container container--narrow" style="padding-block:var(--s-7) var(--section-y)">
+  <div class="prose">{{ page.content }}</div>
+</div>
+{% schema %}
+{ "name": "Page", "settings": [{ "type": "checkbox", "id": "blush", "label": "Blush header", "default": true }] }
+{% endschema %}

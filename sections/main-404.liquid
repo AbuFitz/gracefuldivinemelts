@@ -1,0 +1,15 @@
+<div class="container notfound">
+  <span class="big" aria-hidden="true">404</span>
+  <h1 style="font-size:var(--t-h2)">{{ 'general.404.title' | t }}</h1>
+  <p class="lede">{{ 'general.404.text' | t }}</p>
+  <form class="search-form" action="{{ routes.search_url }}" method="get" role="search" style="max-width:30rem">
+    <label class="visually-hidden" for="Search404">{{ 'general.search.label' | t }}</label>
+    <input class="input" id="Search404" type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}">
+    <input type="hidden" name="type" value="product">
+    <button class="btn" type="submit">{{ 'general.search.submit' | t }}</button>
+  </form>
+  <p><a class="btn btn--secondary" href="{{ routes.all_products_collection_url }}">{{ 'general.404.cta' | t }}</a></p>
+</div>
+{% schema %}
+{ "name": "Not found" }
+{% endschema %}

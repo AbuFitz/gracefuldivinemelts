@@ -1,0 +1,98 @@
+{%- assign menu = section.settings.menu | default: linklists['main-menu'] -%}
+<header class="header" style="--logo-w: {{ settings.logo_width }}px">
+  <div class="container header__bar">
+    <div class="header__lead" style="display:flex;align-items:center;gap:.25rem">
+      <button type="button" class="icon-btn header__menu-btn js-only" data-open-dialog="MenuDialog" aria-expanded="false" aria-controls="MenuDialog" aria-label="{{ 'general.menu.open' | t }}">{% render 'icon', name: 'menu' %}</button>
+      <nav class="header__nav" aria-label="{{ 'general.menu.main' | t }}">
+        <ul class="nav-list" role="list">
+          {%- for link in menu.links -%}
+            <li class="nav-item">
+              <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+              {%- if link.links != blank -%}
+                <ul class="nav-sub" role="list">
+                  {%- for child in link.links -%}<li><a href="{{ child.url }}" {% if child.current %}aria-current="page"{% endif %}>{{ child.title | escape }}</a></li>{%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+      <noscript><a class="link-arrow" href="{{ routes.all_products_collection_url }}">{{ 'general.menu.shop' | t }}</a></noscript>
+    </div>
+
+    <a class="header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+      {%- if settings.logo -%}
+        {%- render 'image', image: settings.logo, sizes: '200px', widths: '200,300,400', loading: 'eager', alt: shop.name -%}
+      {%- else -%}
+        <span class="header__wordmark">Graceful<br>Divine Melts</span>
+      {%- endif -%}
+    </a>
+
+    <div class="header__actions">
+      <button type="button" class="icon-btn js-only" data-open-dialog="SearchDialog" aria-expanded="false" aria-controls="SearchDialog" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}</button>
+      <a class="icon-btn no-js-only" href="{{ routes.search_url }}" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}</a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="icon-btn" href="{{ routes.account_url }}" aria-label="{{ 'general.account.label' | t }}">{% render 'icon', name: 'account' %}</a>
+      {%- endif -%}
+      <a class="icon-btn" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart.label' | t }}">
+        {% render 'icon', name: 'cart' %}
+        <span class="cart-count" data-cart-count data-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
+        <span class="visually-hidden">{{ 'general.cart.items' | t: count: cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<dialog class="drawer" id="MenuDialog" aria-label="{{ 'general.menu.main' | t }}">
+  <div class="drawer__panel">
+    <div class="drawer__top">
+      <span class="eyebrow" style="margin:0">{{ shop.name | escape }}</span>
+      <button type="button" class="icon-btn" data-close-dialog aria-label="{{ 'general.menu.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </div>
+    <nav aria-label="{{ 'general.menu.main' | t }}">
+      <ul class="drawer__nav" role="list">
+        {%- for link in menu.links -%}
+          <li>
+            <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+            {%- if link.links != blank -%}<ul role="list">{%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>{%- endfor -%}</ul>{%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    <div class="drawer__foot">
+      {%- if settings.business_email != blank -%}<a href="mailto:{{ settings.business_email }}">{{ settings.business_email }}</a>{%- endif -%}
+      {%- render 'social-links' -%}
+    </div>
+  </div>
+</dialog>
+
+<dialog class="drawer drawer--top" id="SearchDialog" aria-label="{{ 'general.search.label' | t }}">
+  <div class="search-panel">
+    <div class="container">
+      <form class="search-form" action="{{ routes.search_url }}" method="get" role="search">
+        <label class="visually-hidden" for="HeaderSearch">{{ 'general.search.label' | t }}</label>
+        <input class="input" id="HeaderSearch" type="search" name="q" value="" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off" data-search-input data-autofocus>
+        <input type="hidden" name="type" value="product">
+        <button class="btn" type="submit">{{ 'general.search.submit' | t }}</button>
+        <button class="icon-btn" type="button" data-close-dialog aria-label="{{ 'general.search.close' | t }}">{% render 'icon', name: 'close' %}</button>
+      </form>
+      <div class="search-results" data-search-results aria-live="polite"></div>
+      {%- if section.settings.search_suggestions != blank -%}
+        <div class="search-suggest">
+          <span class="muted" style="font-size:var(--t-sm);align-self:center">{{ 'general.search.try' | t }}</span>
+          {%- assign terms = section.settings.search_suggestions | split: ',' -%}
+          {%- for term in terms -%}<a class="chip" href="{{ routes.search_url }}?type=product&q={{ term | strip | url_encode }}">{{ term | strip }}</a>{%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</dialog>
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "text", "id": "search_suggestions", "label": "Search suggestions (comma separated)", "default": "Floral, Woody, Sweet, Bundle" }
+  ]
+}
+{% endschema %}

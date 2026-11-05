@@ -1,0 +1,23 @@
+<div class="container" style="padding-block:var(--s-7) var(--section-y)">
+  <p><a class="link-arrow" href="{{ routes.account_url }}">{{ 'customer.order.back' | t }}</a></p>
+  <h1 style="font-size:var(--t-h2);margin:var(--s-5) 0">{{ 'customer.order.title' | t: name: order.name }}</h1>
+  <p class="muted">{{ order.created_at | time_tag: '%d %B %Y' }}{% if order.cancelled %} · {{ 'customer.order.cancelled' | t }}{% endif %}</p>
+  <div class="table-wrap" style="margin-top:var(--s-6)"><table class="table">
+    <thead><tr><th scope="col">{{ 'customer.order.product' | t }}</th><th scope="col">{{ 'customer.order.qty' | t }}</th><th scope="col">{{ 'customer.orders.total' | t }}</th></tr></thead>
+    <tbody>
+      {%- for line in order.line_items -%}<tr><th scope="row"><a href="{{ line.product.url }}">{{ line.title | escape }}</a>{%- for prop in line.properties -%}{%- if prop.last != blank -%}<br><span class="muted">{{ prop.first | escape }}: {{ prop.last | escape }}</span>{%- endif -%}{%- endfor -%}</th><td>{{ line.quantity }}</td><td>{{ line.final_line_price | money }}</td></tr>{%- endfor -%}
+    </tbody>
+    <tfoot>
+      <tr><td colspan="2">{{ 'cart.subtotal' | t }}</td><td>{{ order.line_items_subtotal_price | money }}</td></tr>
+      {%- for s in order.shipping_methods -%}<tr><td colspan="2">{{ s.title | escape }}</td><td>{{ s.price | money }}</td></tr>{%- endfor -%}
+      <tr><th colspan="2" scope="row">{{ 'customer.orders.total' | t }}</th><th>{{ order.total_price | money_with_currency }}</th></tr>
+    </tfoot>
+  </table></div>
+  <div class="care-grid" style="margin-top:var(--s-7)">
+    <div><h2 style="font-size:var(--t-h4)">{{ 'customer.order.shipping_address' | t }}</h2><p>{{ order.shipping_address | format_address }}</p><p class="muted">{{ order.fulfillment_status_label }}</p></div>
+    <div><h2 style="font-size:var(--t-h4)">{{ 'customer.order.billing_address' | t }}</h2><p>{{ order.billing_address | format_address }}</p><p class="muted">{{ order.financial_status_label }}</p></div>
+  </div>
+</div>
+{% schema %}
+{ "name": "Order" }
+{% endschema %}

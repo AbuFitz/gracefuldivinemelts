@@ -1,0 +1,158 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-faq",
+      "settings": {
+        "lede": "Scents, care, delivery and returns, answered in one place.",
+        "contact_link": "shopify://pages/contact"
+      },
+      "blocks": {
+        "g1": {
+          "type": "group",
+          "settings": {
+            "title": "Choosing a scent"
+          }
+        },
+        "a1": {
+          "type": "qa",
+          "settings": {
+            "question": "Which scent is best for me?",
+            "answer": "<p>This depends on the type of fragrance you enjoy. We offer fresh, woody, spicy, floral, sweet, amber and warm scents. Read the scent description on each product page or message us for help choosing.</p>"
+          }
+        },
+        "a2": {
+          "type": "qa",
+          "settings": {
+            "question": "Are your wax melts inspired by perfumes?",
+            "answer": "<p>Yes. Our fragrance range is inspired by popular luxury perfumes, allowing you to enjoy beautiful, perfume-inspired scents throughout your home.</p>"
+          }
+        },
+        "a3": {
+          "type": "qa",
+          "settings": {
+            "question": "Are you connected to the perfume brands mentioned?",
+            "answer": "<p>No. Graceful Divine Melts is not affiliated with, endorsed by or connected to any designer perfume brand. Brand names are used only to describe the inspiration and fragrance style. Our products are not identical copies of the original perfumes.</p>"
+          }
+        },
+        "a4": {
+          "type": "qa",
+          "settings": {
+            "question": "Are your wax melts handmade?",
+            "answer": "<p>Yes. Our wax melts are carefully prepared in small batches with care and attention to quality.</p>"
+          }
+        },
+        "g2": {
+          "type": "group",
+          "settings": {
+            "title": "Using and storing"
+          }
+        },
+        "b1": {
+          "type": "qa",
+          "settings": {
+            "question": "Which warmers are compatible with your wax melts?",
+            "answer": "<p>Our wax melts work with both electric warmers and tealight warmers. Electric warmers offer consistent, controlled heat and are ideal for everyday use. Tealight warmers use an unscented tealight candle as the heat source.</p>"
+          }
+        },
+        "b2": {
+          "type": "qa",
+          "settings": {
+            "question": "How long does each wax melt last?",
+            "answer": "<p>The fragrance can last for several hours, but this varies depending on the amount of wax used, the burner, room size and personal preference. You can keep reheating the wax until you can no longer smell the fragrance.</p>"
+          }
+        },
+        "b3": {
+          "type": "qa",
+          "settings": {
+            "question": "How should I store my wax melts?",
+            "answer": "<p>Store your wax melts in a cool, dry place away from direct sunlight, heat, moisture, children and pets. Keep them in their original packaging to help preserve their fragrance.</p>"
+          }
+        },
+        "g3": {
+          "type": "group",
+          "settings": {
+            "title": "Orders and delivery"
+          }
+        },
+        "c1": {
+          "type": "qa",
+          "settings": {
+            "question": "How long will my order take to process and arrive?",
+            "answer": "<p>Processing and estimated delivery times will be displayed when you place your order. During busy periods, launches and seasonal events, orders may take slightly longer to prepare.</p>"
+          }
+        },
+        "c2": {
+          "type": "qa",
+          "settings": {
+            "question": "How can I track my order?",
+            "answer": "<p>If tracking is available for your delivery method, your tracking information will be sent once your order has been dispatched. Please allow time for the courier's system to update.</p>"
+          }
+        },
+        "c3": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I send an order directly to someone as a gift?",
+            "answer": "<p>Yes. Enter the recipient's address as the delivery address at checkout. Please check all details carefully, as we cannot be responsible for incorrect addresses provided by the customer.</p>"
+          }
+        },
+        "c4": {
+          "type": "qa",
+          "settings": {
+            "question": "Do you offer wholesale, party-favour or large-event orders?",
+            "answer": "<p>Please contact us with the products, quantity and date required. We will let you know whether we can accommodate your request and provide further information.</p>"
+          }
+        },
+        "g4": {
+          "type": "group",
+          "settings": {
+            "title": "Returns and problems"
+          }
+        },
+        "d1": {
+          "type": "qa",
+          "settings": {
+            "question": "What should I do if my order arrives damaged, faulty or incorrect?",
+            "answer": "<p>Please contact us as soon as possible with your order number and clear photographs of the item and its packaging. Once we have reviewed the information, we will arrange an appropriate replacement or refund.</p>"
+          }
+        },
+        "d2": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I return or exchange my order?",
+            "answer": "<p>We do not offer exchanges. For online orders, you may notify us within 14 days of receiving your order if you wish to cancel. Products must be returned unused, unopened and in their original condition and packaging. Customers are responsible for return postage unless the product is faulty, damaged or incorrect.</p><p>Wax melts that have been used, melted, damaged after delivery or stored incorrectly cannot be returned. Personalised or custom-made products cannot be returned unless they are faulty, damaged or not as described.</p><p>This does not affect your statutory rights.</p>"
+          }
+        },
+        "d3": {
+          "type": "qa",
+          "settings": {
+            "question": "Can I return a product because I do not like the scent?",
+            "answer": "<p>Personal fragrance preference is not considered a product fault. Please read the scent description carefully before ordering, or try our Mixed Scent Package if you are unsure which fragrance to choose.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "g1",
+        "a1",
+        "a2",
+        "a3",
+        "a4",
+        "g2",
+        "b1",
+        "b2",
+        "b3",
+        "g3",
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "g4",
+        "d1",
+        "d2",
+        "d3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,37 @@
+<section class="section" aria-labelledby="faq-h-{{ section.id }}">
+  <div class="container container--narrow">
+    <div class="section-head"><div>
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 id="faq-h-{{ section.id }}">{{ section.settings.heading }}</h2>
+    </div></div>
+    <div class="accordion">
+      {%- for block in section.blocks -%}
+        <details {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question }}</summary>
+          <div class="accordion__body">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.link_label != blank and section.settings.link != blank -%}<p style="margin-top:var(--s-6)"><a class="link-arrow" href="{{ section.settings.link }}">{{ section.settings.link_label }}{% render 'icon', name: 'arrow' %}</a></p>{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Good to know" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Questions, answered." },
+    { "type": "text", "id": "link_label", "label": "Link text", "default": "Read the full care guide" },
+    { "type": "url", "id": "link", "label": "Link" }
+  ],
+  "blocks": [
+    { "type": "qa", "name": "Question", "settings": [
+      { "type": "text", "id": "question", "label": "Question", "default": "What are wax melts?" },
+      { "type": "richtext", "id": "answer", "label": "Answer", "default": "<p>Wax melts are scented pieces of wax designed to release fragrance when gently warmed in a suitable wax burner. Unlike candles, they do not contain a wick.</p>" } ] }
+  ],
+  "presets": [{ "name": "FAQ", "blocks": [
+    { "type": "qa", "settings": { "question": "What are wax melts?", "answer": "<p>Wax melts are scented pieces of wax designed to release fragrance when gently warmed in a suitable wax burner. Unlike candles, they do not contain a wick.</p>" } },
+    { "type": "qa", "settings": { "question": "Which scent is best for me?", "answer": "<p>This depends on the type of fragrance you enjoy. Read the scent description on each product page or message us for help choosing.</p>" } }
+  ] }]
+}
+{% endschema %}
