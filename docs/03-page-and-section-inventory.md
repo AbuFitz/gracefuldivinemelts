@@ -5,7 +5,7 @@ Status key: **Built** = implemented and rendered/tested in the local preview; **
 ## Page map
 | Route | Template | Sections | Primary action | Status |
 |---|---|---|---|---|
-| `/` | `index.json` | hero, key points, featured collection, scent families, bundle spotlight, image+text, customer quote (empty), FAQ, newsletter | Shop wax melts | Built |
+| `/` | `index.json` | hero, product rail, scent explorer, custom-scent feature, bundle showcase, story, media rail, FAQ, review links | Shop wax melts | Built (V2) |
 | `/collections/all`, `/collections/*` | `collection.json` | main-collection (sort, filters, grid, pagination, empty states) | Open a product / quick add | Built; filters Store-dependent |
 | `/collections` | `list-collections.json` | main-list-collections | Open a collection | Built |
 | `/products/*` | `product.json` | main-product, related-products | Add to cart | Built |
@@ -18,7 +18,7 @@ Status key: **Built** = implemented and rendered/tested in the local preview; **
 | FAQ page | `page.faq.json` | main-faq (4 groups, 14 questions) | Read / contact | Built |
 | Care & safety | `page.care.json` | care-safety | Read | Built; owner safety review |
 | Delivery & returns | `page.delivery.json` | policy-summary (pulls Shopify policy records) | Read | Built; needs policy records |
-| Find your scent | `page.find-scent.json` | scent families, mixed package, collection | Pick a family | Built; needs metafield filters |
+| Find your scent | `page.find-scent.json` | scent explorer (with page head), custom-scent feature, product rail | Pick a family | Built; needs metafields |
 | About | `page.about.json` | page, image+text, newsletter | — | Built; owner story required |
 | Policies hub | `page.policies.json` | policy-hub (lists every Shopify policy) | Open policy | Built |
 | Any other page | `page.json` | main-page | — | Built |
@@ -30,7 +30,7 @@ Status key: **Built** = implemented and rendered/tested in the local preview; **
 | Password | `password.json` + `layout/password.liquid` | main-password | — | Built |
 
 ## Section library (editable in theme editor)
-announcement-bar · header · footer · hero · usp-strip ("Key points") · featured-collection · scent-families · bundle-spotlight · image-text · quote · faq · newsletter · video-feature · rich-text · related-products · plus page-level sections above. All homepage-relevant sections have presets; blocks are limited (e.g. key points ≤ 4).
+**V2:** announcement-bar · header (nav + menu sheet + search overlay) · footer · hero · product-rail · scent-explorer · custom-scent-feature · bundle-showcase · story-editorial · media-rail · faq · review-links · related-products · image-text · newsletter · video-feature · rich-text · plus the page-level sections above. (v1's usp-strip, featured-collection, scent-families, bundle-spotlight and quote were removed.) All homepage-relevant sections have presets; blocks are limited (e.g. key points ≤ 4).
 
 ## States covered
 Empty cart · empty search · no search results · empty/filtered collection · sold-out product and card · unavailable variant combination · form validation errors · form success (contact, newsletter) · add-to-cart error and network failure (toast / inline) · loading (button spinner, cart dimming) · missing metafields (ladder hidden, description remains) · missing policy record (visible placeholder) · 404 · password page · no-JS fallbacks (native form posts, search link, noscript update button).

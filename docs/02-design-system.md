@@ -1,31 +1,19 @@
-# 02 — Design system
+# 02 — Design system (V2)
 
-Single stylesheet `assets/base.css`; tokens at the top. Brand colours are theme settings (Theme settings → Brand colours); everything else is fixed so the owner cannot accidentally break the system.
+The V2 system replaces the first version. Full rationale, type comparison, navigation, search, motion and dependency weights are in **doc 12**; tokens live at the top of `assets/base.css`.
 
 ## Tokens
-| Role | Token | Value |
-|---|---|---|
-| Paper | `--c-paper` | #FCF7F4 |
-| Ink | `--c-ink` | #1A1214 |
-| Blush surface | `--c-blush` | #F9E3EC |
-| Brand pink (decorative only) | `--c-pink` | #F26BB0 |
-| Rose (links, buttons hover, accents) | `--c-rose` | #A5256B |
-| Error / OK | `--c-error` / `--c-ok` | #B3261E / #1F6B45 |
-Contrast checked by calculation (see doc 07): ink on paper 17.3:1, rose on paper 6.4:1, rose on blush 5.6:1, white on rose 6.8:1, white on ink 18.4:1 (all pass WCAG AA for body text). Pink is never used for text.
+| Role | Token | Default | Setting |
+|---|---|---|---|
+| Paper | `--c-paper` | #FFFAFB | Theme settings → Brand colours |
+| Ink | `--c-ink` | #170A10 | yes |
+| Blush surface | `--c-blush` | #FBE4EE | yes |
+| Pink field (large areas) | `--c-field` | #F7B9D1 | yes |
+| Brand pink (decorative) | `--c-pink` | #F26BB0 | yes |
+| Rose (text accents, hover) | `--c-rose` | #A5256B | yes |
+Contrast (calculated): ink on paper 17.3:1, rose on paper 6.4:1, white on rose 6.8:1, white on ink 18.4:1. Pink is never used for body text.
 
-**Type:** Bodoni Moda (display, variable 400–900, roman + italic) and Hanken Grotesk (text, variable). Both SIL OFL, self-hosted woff2 (latin subset, ≈90 kB total), `font-display: swap`, display + text preloaded. Licences ship in `assets/`. Scale is fluid: `--t-h1` 2.5→6rem, `--t-h2` 2→3.75rem, body 1.0625rem.
-**Spacing:** 4px base `--s-1…--s-9`; section rhythm `clamp(3.5rem, 2rem+6vw, 7.5rem)`; fluid gutter.
-**Layout:** page width 1320px (setting), prose 40rem, narrow 52rem.
-**Breakpoints:** 600 / 760 / 900 / 990 / 1100px.
-**Shape:** images 3px, controls 2px, hairline 1px borders; no shadows except the toast.
-**Image ratios:** product cards and gallery 3:4 (matches existing 1086×1448 photography), square option in settings, bundle gallery switches to 1:1 automatically.
-**Buttons:** primary (ink fill → rose on hover), secondary (outline), light (on dark). Min height 48px. **Inputs:** 16px text (no iOS zoom), 1px strong border, rose focus.
-**Focus:** 2px rose outline (white on dark), 3px offset. **Motion:** 220ms ease; reveal-on-scroll added by JS only and disabled under `prefers-reduced-motion`.
+**Type:** DM Sans variable only (see doc 12 table). **Space:** 4 px base `--s-1…--s-9`; fluid section rhythm; gutter `clamp(1.25rem, .5rem + 3.6vw, 3.5rem)`. **Layout:** 1360 px page, 38 rem prose. **Shape:** `--r-soft` 28 px, arch `999px 999px 28px 28px`, pill controls, curved sheet radius `clamp(28px, 6vw, 84px)`. **Motion:** 240 ms ease; all disabled under reduced-motion. **Focus:** 2 px rose outline (white on dark).
 
 ## Components
-Announcement bar · header (inline nav ≥990px, native `<dialog>` menu and search below) · hero · key points · product card (family label, sold-out/sale badge, optional quick add) · scent-family index · bundle spotlight · image+text · FAQ accordion (native `<details>`) · scent-notes ladder · option chips (pair style for bundles) · quantity stepper · notices (error/ok/info) · pagination · breadcrumbs · toast · footer.
-
-## Signature moves
-1. The **notes ladder** (top / heart / base in Bodoni on hairlines).
-2. The **smoke wisp** ornament derived from the logo's curl, used once per page.
-3. **Ink bundle panel** — the only large dark block on the home page.
+Floating nav + dropdown · menu sheet · search overlay · hero (arch, orb, hotspots) · product rail and item · scent explorer · custom-scent feature · bundle showcase · editorial story · media rail and video tile · FAQ accordion · review links · curved page head · catalogue (staggered) · product gallery/mosaic · pair picker with faces · sticky bag bar · bag · oversized footer.

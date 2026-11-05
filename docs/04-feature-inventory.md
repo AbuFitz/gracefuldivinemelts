@@ -32,3 +32,16 @@
 | Reviews | Not implemented: link to Trustpilot only | By design |
 | Gift cards | Template only | Only if offered |
 | Multi-currency / languages | English only; locale file structure ready | Out of scope |
+
+## V2 additions (see docs 12, 14, 15)
+| Feature | Implementation | Status |
+|---|---|---|
+| Floating nav with Shop dropdown, compaction on scroll | CSS + 24 px scroll class | Verified (mock, Chromium) |
+| Mobile menu sheet | Native `<dialog>` | Verified (mock) |
+| Search overlay with shortcuts, popular scents, live results, keyboard, error/empty states | Shopify predictive search section | Verified against mock; **needs dev store** |
+| Scent explorer (tabs by family) | Metafield `custom.scent_family` | Verified (mock); needs metafields |
+| Custom scent journey | Required line-item property + `?scent=` prefill | Verified (mock); **needs dev store** |
+| Bundle pair picker with scent faces | Existing variants + title match | Verified (mock) |
+| Sticky mobile bag bar | IntersectionObserver + `form=` button | Verified (mock) |
+| Curated media rail with video tile | Files + `video_tag`, muted autoplay only when visible/allowed | Verified (mock stub) |
+| Review/profile destinations | Theme settings (Instagram, Google, Shop app, Trustpilot) | Links verified present |

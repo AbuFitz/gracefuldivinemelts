@@ -1,3 +1,5 @@
+> **V2 supersedes the results below. See doc 16** (Theme Check clean, 23/23 interaction tests, six-width layout checks, 46 screenshots, and the list of what still needs a Shopify store).
+
 # 07 — Testing and QA
 
 ## What was run (2026-11-05)

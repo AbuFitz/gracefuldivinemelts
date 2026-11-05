@@ -23,6 +23,7 @@ for (const sz of sizes) {
     page.on('requestfailed', (r) => errs.push('requestfailed ' + r.url()));
     await page.goto(BASE + p, { waitUntil: 'networkidle' });
     await page.evaluate(async () => { for (let y = 0; y < document.body.scrollHeight; y += 500) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 60)); } window.scrollTo(0, 0); });
+    await page.waitForTimeout(900);
     await page.waitForLoadState('networkidle');
     await page.evaluate(() => document.querySelectorAll('.reveal').forEach((e) => e.classList.add('is-in')));
     const name = (p.replace(/[^a-z0-9]+/gi, '_').replace(/^_|_$/g, '') || 'home') + '.' + sz + '.png';
