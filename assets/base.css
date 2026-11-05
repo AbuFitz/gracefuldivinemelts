@@ -841,3 +841,7 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
   .search-body [data-search-shortcuts] { order: 2; }
   .search-body [data-search-shortcuts].is-dim { display: none; }
 }
+
+/* select: custom chevron with comfortable spacing (native arrow sat tight against the edge) */
+.select { -webkit-appearance: none; appearance: none; padding-right: 3rem; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9' fill='none' stroke='%23170A10' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><path d='M1.5 1.75 7 7.25l5.5-5.5'/></svg>"); background-repeat: no-repeat; background-position: right 1.25rem center; background-size: .85rem auto; cursor: pointer; }
+.toolbar .select { padding-right: 3rem; padding-left: 1.4rem; }
