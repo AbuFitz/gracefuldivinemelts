@@ -1,3 +1,5 @@
+> **V3 update:** the navigation, hero, product frames, scent discovery, Instagram and footer described below were revised in `docs/17-v3-creative-correction.md` (white floating nav with an unframed centred logo, product-stage hero, scent selector, seamless marquee). Typography, colour, curved sheets and libraries decisions here still stand.
+
 # 12 — V2 design direction, typography, navigation, search, motion
 
 ## Direction

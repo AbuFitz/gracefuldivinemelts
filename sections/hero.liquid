@@ -5,60 +5,103 @@
     assign rep = '<em>' | append: hl | append: '</em>'
     assign h = h | replace: hl, rep
   endif
+  assign col = section.settings.collection
+  assign aside = section.settings.aside_product
 -%}
-<section class="hero" aria-labelledby="hero-h-{{ section.id }}">
-  <div class="wrap hero__grid">
-    <div class="hero__type">
-      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="color:var(--c-ink)">{{ section.settings.eyebrow }}</p>{%- endif -%}
-      <h1 id="hero-h-{{ section.id }}">{{ h }}</h1>
-      {%- if section.settings.text != blank -%}<p class="hero__sub">{{ section.settings.text }}</p>{%- endif -%}
+<section class="hero" aria-labelledby="hero-h-{{ section.id }}" data-hero>
+  <div class="hero__grid">
+    <div class="hero__copy">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow hero__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h1 id="hero-h-{{ section.id }}">{{ h }}</h1>
+        {%- if section.settings.text != blank -%}<p class="hero__sub">{{ section.settings.text }}</p>{%- endif -%}
+        <div class="hero__ctas">
+          {%- if section.settings.cta_label != blank -%}<a class="btn" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">{{ section.settings.cta_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+          {%- if section.settings.cta2_label != blank -%}<a class="btn btn--ghost" href="{{ section.settings.cta2_link | default: routes.root_url }}">{{ section.settings.cta2_label }}</a>{%- endif -%}
+        </div>
+      </div>
+      {%- if aside != blank -%}
+        <a class="hero__aside" href="{{ aside.url }}">
+          {%- if aside.featured_image -%}{%- render 'image', image: aside.featured_image, sizes: '56px', widths: '112,168', alt: '' -%}{%- endif -%}
+          <span><strong>{{ section.settings.aside_text }}</strong>{{ aside.title | escape }} · {% render 'price', product: aside %}</span>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="hero__stage" aria-roledescription="carousel" aria-label="{{ 'sections.hero.stage' | t }}">
+      {%- assign n = 0 -%}
+      {%- if col != blank -%}
+        {%- for product in col.products -%}
+          {%- if product.featured_media and product.available and n < section.settings.limit -%}
+            {%- assign family = product.metafields.custom.scent_family.value -%}
+            {%- assign top = product.metafields.custom.top_notes.value -%}
+            {%- assign inspired = product.metafields.custom.inspired_by.value -%}
+            <div class="hero__slide{% if n == 0 %} is-on{% endif %}" data-hero-slide>
+              {%- if n == 0 -%}
+                {%- render 'image', image: product.featured_media.preview_image, sizes: '(min-width: 900px) 52vw, 100vw', loading: 'eager', fetchpriority: 'high', widths: '640,960,1280,1600', alt: '' -%}
+              {%- else -%}
+                {%- render 'image', image: product.featured_media.preview_image, sizes: '(min-width: 900px) 52vw, 100vw', widths: '640,960,1280,1600', alt: '' -%}
+              {%- endif -%}
+            </div>
+            <div class="hero__info{% if n == 0 %} is-on{% endif %}" data-hero-info>
+              <div class="hero__info-top"><span>{% if family != blank %}{{ family }}{% else %}{{ 'sections.hero.featured' | t }}{% endif %}</span><span>{% render 'price', product: product, show_from: true %}</span></div>
+              <h2>{{ product.title | escape }}</h2>
+              <p>{%- if top != blank -%}{{ top | slice: 0, 3 | join: ', ' }}{%- elsif inspired != blank -%}{{ 'products.inspired_by' | t: name: inspired }}{%- else -%}{{ product.description | strip_html | truncate: 70 }}{%- endif -%}</p>
+              <div class="hero__info-actions">
+                {%- if product.variants.size == 1 and product.available -%}
+                  {%- form 'product', product, class: 'js-quick-add' -%}
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                    <button type="submit" class="btn">{{ 'products.add_to_cart' | t }}</button>
+                  {%- endform -%}
+                {%- endif -%}
+                <a class="btn btn--ghost" href="{{ product.url }}">{{ 'sections.hero.view' | t }}<span class="visually-hidden"> {{ product.title | escape }}</span></a>
+              </div>
+            </div>
+            {%- assign n = n | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+      {%- if n == 0 -%}
+        <div class="hero__slide is-on">{{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}</div>
+      {%- endif -%}
+      {%- if n > 1 -%}
+        <div class="hero__thumbs" role="group" aria-label="{{ 'sections.hero.choose' | t }}">
+          {%- assign t = 0 -%}
+          {%- for product in col.products -%}
+            {%- if product.featured_media and product.available and t < n -%}
+              <button type="button" class="hero__thumb js-only" aria-pressed="{% if t == 0 %}true{% else %}false{% endif %}" data-hero-thumb aria-label="{{ product.title | escape }}">{%- render 'image', image: product.featured_media.preview_image, sizes: '56px', widths: '112,168', alt: '' -%}</button>
+              {%- assign t = t | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="hero__cta-mobile">
       <div class="hero__ctas">
         {%- if section.settings.cta_label != blank -%}<a class="btn" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">{{ section.settings.cta_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
-        {%- if section.settings.cta2_label != blank -%}<a class="btn btn--light" href="{{ section.settings.cta2_link | default: routes.root_url }}">{{ section.settings.cta2_label }}</a>{%- endif -%}
+        {%- if section.settings.cta2_label != blank -%}<a class="btn btn--ghost" href="{{ section.settings.cta2_link | default: routes.root_url }}">{{ section.settings.cta2_label }}</a>{%- endif -%}
       </div>
-    </div>
-    <div class="hero__stage">
-      <div class="hero__arch">
-        {%- if section.settings.image -%}
-          {%- render 'image', image: section.settings.image, sizes: '(min-width: 900px) 32vw, 78vw', loading: 'eager', fetchpriority: 'high', widths: '480,720,960,1280' -%}
-        {%- else -%}
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
-        {%- endif -%}
-      </div>
-      {%- if section.settings.image_2 -%}
-        <div class="hero__orb">{%- render 'image', image: section.settings.image_2, sizes: '240px', loading: 'eager', widths: '240,360,480', alt: '' -%}</div>
-      {%- endif -%}
-      {%- for block in section.blocks -%}
-        {%- assign p = block.settings.product -%}
-        {%- if p != blank -%}
-          <a class="hot" href="{{ p.url }}" style="left:{{ block.settings.x }}%;top:{{ block.settings.y }}%" {{ block.shopify_attributes }}><i></i><span>{{ p.title | escape }} <small>{% render 'price', product: p %}</small></span></a>
-        {%- endif -%}
-      {%- endfor -%}
     </div>
   </div>
 </section>
 {% schema %}
 {
-  "name": "Hero",
+  "name": "Hero (product stage)",
   "tag": "div",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Main image (portrait; shown in an arch)" },
-    { "type": "image_picker", "id": "image_2", "label": "Second image (shown as a circle)" },
+    { "type": "collection", "id": "collection", "label": "Products shown on the stage (real products, with real prices and add to bag)" },
+    { "type": "range", "id": "limit", "min": 2, "max": 6, "step": 1, "label": "Products on the stage", "default": 5 },
     { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Handmade wax melts · UK" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Wax melts inspired by perfume." },
     { "type": "text", "id": "highlight", "label": "Word to highlight", "default": "perfume." },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Perfume-inspired scents, poured by hand in small batches." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Poured by hand in small batches. Pick a scent, or tell us the one you love." },
     { "type": "text", "id": "cta_label", "label": "Primary button", "default": "Shop wax melts" },
     { "type": "url", "id": "cta_link", "label": "Primary link" },
     { "type": "text", "id": "cta2_label", "label": "Secondary button", "default": "Find your scent" },
-    { "type": "url", "id": "cta2_link", "label": "Secondary link" }
+    { "type": "url", "id": "cta2_link", "label": "Secondary link" },
+    { "type": "product", "id": "aside_product", "label": "Small starter link under the heading (e.g. Mixed Scent Package)" },
+    { "type": "text", "id": "aside_text", "label": "Starter link text", "default": "New here? Start with" }
   ],
-  "blocks": [
-    { "type": "hotspot", "name": "Product hotspot", "limit": 3, "settings": [
-      { "type": "product", "id": "product", "label": "Product" },
-      { "type": "range", "id": "x", "min": 5, "max": 95, "step": 1, "unit": "%", "label": "Horizontal position", "default": 50 },
-      { "type": "range", "id": "y", "min": 5, "max": 95, "step": 1, "unit": "%", "label": "Vertical position", "default": 50 } ] }
-  ],
-  "presets": [{ "name": "Hero" }]
+  "presets": [{ "name": "Hero (product stage)" }]
 }
 {% endschema %}

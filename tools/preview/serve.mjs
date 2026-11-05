@@ -11,7 +11,7 @@ const PORT = Number(process.env.PORT || 4173);
 const mime = { '.css': 'text/css', '.js': 'text/javascript', '.woff2': 'font/woff2', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.txt': 'text/plain' };
 const exists = (p) => fs.existsSync(p);
 const demo = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'demo-media.json'), 'utf8'));
-const overrides = { 'media.v': { video: { demoUrl: demo.video.src, poster: '/img/video-poster.jpg' }, poster: { src: '/img/video-poster.jpg', width: 900, height: 1200 } } };
+const overrides = { 'media.v': { video: { demoUrl: demo.video.src, poster: '/img/video-poster.jpg' }, poster: { src: '/img/video-poster.jpg', width: 900, height: 1200 } }, hero: { collection: 'hero-picks' } };
 
 const PAGES = { contact: 'page.contact', 'gracefuldivinemeltswax-melt-faq': 'page.faq', 'wax-melt-care-safety': 'page.care', 'delivery-returns': 'page.delivery', 'find-your-scent': 'page.find-scent', about: 'page.about', policies: 'page.policies', 'terms-test': 'page' };
 const PAGE_TITLES = { contact: 'Contact', 'gracefuldivinemeltswax-melt-faq': 'Wax Melt Care & Use – FAQ', 'wax-melt-care-safety': 'Wax melt care & safety', 'delivery-returns': 'Delivery & returns', 'find-your-scent': 'Find your scent', about: 'About', policies: 'Policies & legal' };
@@ -52,7 +52,10 @@ const inner = async (req, res) => {
   const u = new URL(req.url, 'http://localhost'); const p = u.pathname; const q = u.searchParams;
   const send = (s, ct, b) => {
     if (process.env.GDM_DEMO_BANNER && String(ct).startsWith('text/html') && typeof b === 'string' && b.includes('<body')) {
-      b = b.replace('<head>', '<head><meta name="robots" content="noindex,nofollow">').replace(/<body([^>]*)>/, `<body$1><div style="background:#1A1214;color:#fff;font:600 12px/1.4 system-ui,sans-serif;text-align:center;padding:6px 12px;letter-spacing:.04em">DESIGN PREVIEW &mdash; not the live store. Cart and checkout are simulated; products and photos come from the public store.</div>`);
+      // Agency preview layer. Lives ONLY in this preview server; the Shopify theme contains none of it.
+      const bar = `<div id="osp-banner" role="note" style="background:#1F5C3F;color:#fff;font:500 13px/1.35 'DM Sans',system-ui,sans-serif;padding:8px 14px;display:flex;flex-wrap:wrap;gap:2px 14px;justify-content:center;align-items:center;text-align:center;letter-spacing:.01em"><strong style="font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:11.5px;background:rgb(255 255 255 / .16);padding:3px 9px;border-radius:99px">Design preview</strong><span>Created by OneSimpleSite</span><a href="https://onesimplesite.co.uk" target="_blank" rel="noopener" style="color:#fff;font-weight:650;text-underline-offset:3px;display:inline-block;padding:6px 2px">onesimplesite.co.uk</a></div>`;
+      b = b.replace('<head>', '<head><meta name="robots" content="noindex,nofollow">').replace(/(<a class="skip-link"[^>]*>[^<]*<\/a>)/, `$1${bar}`);
+      b = b.replace(/(<ul class="payments"[\s\S]*?<\/ul>)/, `$1<p style="flex-basis:100%;margin:.4rem 0 0;font-size:11px;color:#f7b9d1;font-weight:600">Demo only: placeholder payment icons. The live store shows only the methods enabled in Shopify.</p>`);
     }
     res.writeHead(s, { 'content-type': ct }); res.end(b);
   };

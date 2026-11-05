@@ -59,6 +59,7 @@ const demoFilters = [
 export const collections = {
   'wax-melts': mkCollection('wax-melts', 'Wax Melts', waxMelts, { filters: demoFilters }),
   all: mkCollection('all', 'Products', products, { filters: demoFilters }),
+  'hero-picks': mkCollection('hero-picks', 'Hero picks', pick('dark-desire', 'candles-example-product-4', 'rose-elegance', 'modern-muse', 'candles-example-product-3')),
   bundles: mkCollection('bundles', 'Bundles', pick('our-bundle-deal', 'mixed-scent-package', 'request-a-specific-scent')),
   empty: mkCollection('empty', 'Empty demo collection', []),
 };
@@ -80,7 +81,7 @@ export const linklists = {
   footer: { links: [L('FAQ', '/pages/gracefuldivinemeltswax-melt-faq'), L('Delivery & returns', '/pages/delivery-returns'), L('Wax melt care & safety', '/pages/wax-melt-care-safety'), L('Contact', '/pages/contact')] },
 };
 export const policies = [{ title: 'Privacy policy', handle: 'privacy-policy', url: '/policies/privacy-policy', body: '<p>(Demo) Shopify-managed privacy policy text appears here. On the live store this record already exists.</p>' }];
-export const shop = { name: 'Graceful Divine Melts', url: 'http://localhost', customer_accounts_enabled: true, policies, shipping_policy: null, refund_policy: null, terms_of_service: null, privacy_policy: policies[0] };
+export const shop = { name: 'Graceful Divine Melts', url: 'http://localhost', customer_accounts_enabled: true, policies, shipping_policy: null, refund_policy: null, terms_of_service: null, privacy_policy: policies[0], enabled_payment_types: ['visa', 'master', 'american_express', 'paypal', 'apple_pay', 'google_pay', 'shopify_pay'] };
 export const routes = { root_url: '/', cart_url: '/cart', cart_add_url: '/cart/add', cart_change_url: '/cart/change', search_url: '/search', predictive_search_url: '/search/suggest', all_products_collection_url: '/collections/all', account_url: '/account', account_login_url: '/account/login', account_register_url: '/account/register', account_logout_url: '/account/logout', account_addresses_url: '/account/addresses', privacy_policy_url: '/policies/privacy-policy', product_recommendations_url: '/recommendations/products' };
 
 /* ---------------- cart (in-memory, single session) ---------------- */
@@ -131,6 +132,11 @@ export function makeEngine() {
   engine.registerFilter('preload_tag', (url, ...a) => { const o = kv(a); return `<link rel="preload" href="${url}" as="${o.as}" type="${o.type}" crossorigin>`; });
   engine.registerFilter('structured_data', (p) => JSON.stringify({ '@context': 'http://schema.org/', '@type': 'Product', name: p.title, offers: p.variants.map((v) => ({ '@type': 'Offer', price: (v.price / 100).toFixed(2), priceCurrency: 'GBP', availability: v.available ? 'http://schema.org/InStock' : 'http://schema.org/OutOfStock' })) }));
   engine.registerFilter('payment_button', () => '<div class="shopify-payment-button"><button type="button" class="btn btn--block" style="margin-top:.75rem" disabled>[Shopify dynamic checkout button renders here]</button></div>');
+  engine.registerFilter('payment_type_svg_tag', (type, ...a) => {
+    const icons = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'payment-icons.json'), 'utf8')); const i = icons[type];
+    if (!i) return `<svg viewBox="0 0 46 30" role="img" aria-label="Shop Pay"><title>Shop Pay</title><text x="23" y="19" text-anchor="middle" font-family="DM Sans,sans-serif" font-weight="800" font-size="8.5" fill="#5A31F4">Shop Pay</text></svg>`;
+    return `<svg viewBox="-9 -3 42 30" role="img" aria-label="${i.t}"><title>${i.t}</title><path fill="#${i.h === '000000' ? '111111' : i.h}" d="${i.p}"/></svg>`;
+  });
   engine.registerFilter('video_tag', (v) => (v && v.demoUrl ? `<video src="${v.demoUrl}" poster="${v.poster || ''}" muted loop playsinline preload="none"></video>` : ''));
   engine.registerFilter('default_errors', (e) => (Array.isArray(e) ? e.join('; ') : String(e)));
   engine.registerFilter('format_address', (a) => (a ? Object.values(a).join('<br>') : ''));
@@ -229,13 +235,14 @@ export async function renderSection(type, id, data = {}, ctxVars = {}, index = 0
     for (const sd of def.settings || []) if (sd.id) s[sd.id] = resolveSetting(sd, (overrides[`${id}.${bid}`] ?? {})[sd.id] ?? (b.settings || {})[sd.id]);
     return { id: bid, type: b.type, settings: s, shopify_attributes: '' };
   });
+  engine.options.globals = { ...baseVars(), ...ctxVars };
   const section = { id, settings: settings_, blocks, index, type };
   const html = await engine.parseAndRender(body, { ...baseVars(), ...ctxVars, section });
   const tag = schema.tag || 'section';
   return `<${tag} id="shopify-section-${id}" class="shopify-section${data.__group ? ' shopify-section-group-' + data.__group : ''}">${html}</${tag}>`;
 }
 let current = { vars: {}, overrides: {} };
-export function setContext(vars, overrides = {}) { current = { vars, overrides }; }
+export function setContext(vars, overrides = {}) { current = { vars, overrides }; engine.options.globals = { ...baseVars(), ...vars }; }
 async function renderGroup(name) {
   const g = readJSON(path.join(THEME, 'sections', `${name}.json`)); let out = ''; let i = 0;
   for (const id of g.order) out += await renderSection(g.sections[id].type, id, { ...g.sections[id], __group: `${g.type}-group` }, current.vars, i++, current.overrides);

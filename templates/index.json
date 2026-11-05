@@ -3,30 +3,19 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "image": "shopify://shop_images/B8B5F1DE-4923-459A-8A4B-5E4DEA0E5B43.jpg",
-        "image_2": "shopify://shop_images/20260820041440_38331383.jpg",
+        "collection": "wax-melts",
+        "limit": 5,
         "eyebrow": "Handmade wax melts · UK",
         "heading": "Wax melts inspired by perfume.",
         "highlight": "perfume.",
-        "text": "Poured by hand in small batches. Choose a scent, or tell us the one you love.",
+        "text": "Poured by hand in small batches. Pick a scent, or tell us the one you love.",
         "cta_label": "Shop wax melts",
         "cta_link": "shopify://collections/wax-melts",
         "cta2_label": "Find your scent",
-        "cta2_link": "shopify://pages/find-your-scent"
-      },
-      "blocks": {
-        "h1": {
-          "type": "hotspot",
-          "settings": {
-            "product": "mixed-scent-package",
-            "x": 38,
-            "y": 50
-          }
-        }
-      },
-      "block_order": [
-        "h1"
-      ]
+        "cta2_link": "shopify://pages/find-your-scent",
+        "aside_product": "mixed-scent-package",
+        "aside_text": "New here? Start with"
+      }
     },
     "rail": {
       "type": "product-rail",
@@ -41,48 +30,15 @@
       }
     },
     "explorer": {
-      "type": "scent-explorer",
+      "type": "scent-selector",
       "settings": {
         "collection": "wax-melts",
-        "eyebrow": "Discover by mood",
-        "heading": "What do you like to smell?",
-        "text": "You can't smell a wax melt through a screen, so choose a mood and we'll show you the scents.",
+        "limit": 10,
+        "eyebrow": "Find your scent",
+        "heading": "Smell it before you buy it.",
+        "text": "Pick a scent to see its notes, then add it straight to your bag.",
         "tone": "blush"
-      },
-      "blocks": {
-        "a": {
-          "type": "family",
-          "settings": {
-            "name": "Floral",
-            "description": "Jasmine, rose, lily of the valley and soft musk.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
-            "cta": "Shop floral"
-          }
-        },
-        "b": {
-          "type": "family",
-          "settings": {
-            "name": "Sweet",
-            "description": "Vanilla, amber, caramel and creamy musk.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
-            "cta": "Shop sweet"
-          }
-        },
-        "c": {
-          "type": "family",
-          "settings": {
-            "name": "Woody",
-            "description": "Leather, woods, spice and a cool mint lift.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
-            "cta": "Shop woody"
-          }
-        }
-      },
-      "block_order": [
-        "a",
-        "b",
-        "c"
-      ]
+      }
     },
     "custom": {
       "type": "custom-scent-feature",
@@ -257,7 +213,7 @@
       "settings": {
         "eyebrow": "Behind the pour",
         "heading": "As seen on Instagram.",
-        "follow_text": "See more and follow along"
+        "follow_text": "Follow"
       },
       "blocks": {
         "v": {
@@ -270,33 +226,48 @@
           "type": "photo",
           "settings": {
             "image": "shopify://shop_images/instagram-image-0dd90166-7cfe-40a9-81ca-9984b6342fe1.jpg",
-            "shape": "portrait",
-            "alt": "A hand holding three snap bars of wax melts in blue, yellow and black"
+            "alt": "A hand holding three snap bars of wax melts in blue, yellow and black",
+            "caption": ""
           }
         },
         "p2": {
           "type": "photo",
           "settings": {
             "image": "shopify://shop_images/instagram-image-33691ada-f79d-4c12-ae82-4dd3eb3a1a3c.jpg",
-            "shape": "wide",
-            "caption": "Pouring and setting",
-            "alt": "Pink wax poured into heart and bar moulds on a glass table"
+            "alt": "Pink wax poured into heart and bar moulds on a glass table",
+            "caption": "Pouring and setting"
           }
         },
         "p3": {
           "type": "photo",
           "settings": {
             "image": "shopify://shop_images/20260820041440_38331383.jpg",
-            "shape": "tall",
-            "alt": "A hand holding a pink heart-shaped wax melt beside pink flowers"
+            "alt": "A hand holding a pink heart-shaped wax melt beside pink flowers",
+            "caption": ""
           }
         },
         "p4": {
           "type": "photo",
           "settings": {
             "image": "shopify://shop_images/3D815A4E-00F9-4200-A8C9-F7B010B05AF3.png",
-            "shape": "square",
-            "alt": "Two pink pouches of mixed heart-shaped wax melts"
+            "alt": "Two pink pouches of mixed heart-shaped wax melts",
+            "caption": ""
+          }
+        },
+        "p5": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/B4CE0A0E-F326-4A16-9652-569A94A410AF.png",
+            "alt": "A hand holding a purple heart-shaped wax melt over a dish of heart melts",
+            "caption": ""
+          }
+        },
+        "p6": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/B8B5F1DE-4923-459A-8A4B-5E4DEA0E5B43.jpg",
+            "alt": "Two pink pouches of heart-shaped wax melts beside a pink card",
+            "caption": ""
           }
         }
       },
@@ -305,7 +276,9 @@
         "p1",
         "p2",
         "p3",
-        "p4"
+        "p4",
+        "p5",
+        "p6"
       ]
     },
     "faq": {

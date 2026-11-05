@@ -42,7 +42,8 @@
         "other": "{{ count }} products found"
       },
       "error": "We couldn't load results.",
-      "retry": "Try again"
+      "retry": "Try again",
+      "nav_label": "Search wax melts"
     },
     "cart": {
       "label": "Bag",
@@ -101,6 +102,16 @@
       "google_write": "Review us on Google",
       "trustpilot": "Trustpilot",
       "shop": "Shop app profile"
+    },
+    "hero": {
+      "stage": "Featured scents",
+      "featured": "Featured",
+      "view": "View",
+      "choose": "Choose a featured scent"
+    },
+    "selector": {
+      "families": "Scent families",
+      "all": "All"
     }
   },
   "products": {
@@ -256,7 +267,8 @@
     "company_number": "Company number {{ number }}",
     "vat_number": "VAT number {{ number }}",
     "google": "Google reviews",
-    "shop_profile": "Shop app profile"
+    "shop_profile": "Shop app profile",
+    "payment_methods": "Payment methods"
   },
   "social": {
     "instagram": "Instagram",
@@ -264,7 +276,8 @@
     "facebook": "Facebook",
     "whatsapp": "WhatsApp",
     "google": "Google Business Profile",
-    "shop": "Shop app profile"
+    "shop": "Shop app profile",
+    "trustpilot": "Trustpilot reviews"
   },
   "faq": {
     "topics": "FAQ topics",

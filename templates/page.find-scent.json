@@ -1,58 +1,15 @@
 {
   "sections": {
     "explorer": {
-      "type": "scent-explorer",
+      "type": "scent-selector",
       "settings": {
         "collection": "wax-melts",
-        "eyebrow": "Discover by mood",
+        "limit": 12,
+        "eyebrow": "Find your scent",
         "heading": "Find your scent",
-        "text": "Each scent is a perfume-inspired blend. Pick the mood you like wearing and start there.",
+        "text": "Each scent is a perfume-inspired blend. Pick one to see its notes.",
         "tone": "paper"
-      },
-      "blocks": {
-        "a": {
-          "type": "family",
-          "settings": {
-            "name": "Floral",
-            "description": "Soft blooms, jasmine, rose and lily of the valley, lifted with citrus.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
-            "cta": "Shop floral"
-          }
-        },
-        "b": {
-          "type": "family",
-          "settings": {
-            "name": "Sweet",
-            "description": "Vanilla, amber, caramel and creamy musk for cosy rooms.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
-            "cta": "Shop sweet"
-          }
-        },
-        "c": {
-          "type": "family",
-          "settings": {
-            "name": "Woody",
-            "description": "Leather, woods and spice, for evenings and statement rooms.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
-            "cta": "Shop woody"
-          }
-        },
-        "d": {
-          "type": "family",
-          "settings": {
-            "name": "Fresh",
-            "description": "Crisp, bright and uplifting.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Fresh",
-            "cta": "Shop fresh"
-          }
-        }
-      },
-      "block_order": [
-        "a",
-        "b",
-        "c",
-        "d"
-      ]
+      }
     },
     "custom": {
       "type": "custom-scent-feature",

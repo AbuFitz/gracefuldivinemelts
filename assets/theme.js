@@ -149,12 +149,15 @@
     }
     form.addEventListener('change', (e) => { if (e.target.matches('[data-option-index]')) update(); });
 
-    // sticky mobile bag bar: visible once the main button has scrolled away
-    if (bar && addBtn && 'IntersectionObserver' in window) {
-      new IntersectionObserver(([en]) => {
-        const show = !en.isIntersecting && en.boundingClientRect.top < 0;
+    // sticky mobile bag bar: visible once the main button has scrolled above the viewport
+    if (bar && addBtn) {
+      let pend = false;
+      const check = () => {
+        pend = false; const show = addBtn.getBoundingClientRect().bottom < 0;
         bar.classList.toggle('is-on', show); bar.setAttribute('aria-hidden', show ? 'false' : 'true'); if (barBtn) barBtn.tabIndex = show ? 0 : -1;
-      }, { threshold: 0 }).observe(addBtn);
+      };
+      const queue = () => { if (!pend) { pend = true; requestAnimationFrame(check); } };
+      addEventListener('scroll', queue, { passive: true }); addEventListener('resize', queue); check();
     }
     // gallery dots on the mobile carousel
     const track = $('[data-gallery-track]', rootEl), dots = $$('[data-gallery-dots] span', rootEl);
@@ -179,23 +182,51 @@
     rail.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') { e.preventDefault(); next.click(); } if (e.key === 'ArrowLeft') { e.preventDefault(); prev.click(); } });
   });
 
-  /* ---------- scent explorer (tabs) ---------- */
-  $$('[data-explorer]').forEach((ex) => {
-    const tabs = $$('[role="tab"]', ex), panels = $$('[role="tabpanel"]', ex);
-    const select = (i, focus) => {
-      tabs.forEach((t, n) => { t.setAttribute('aria-selected', n === i ? 'true' : 'false'); t.tabIndex = n === i ? 0 : -1; });
-      panels.forEach((p, n) => { p.hidden = n !== i; }); if (focus) tabs[i].focus();
+  /* ---------- hero product stage ---------- */
+  $$('[data-hero]').forEach((hero) => {
+    const slides = $$('[data-hero-slide]', hero), infos = $$('[data-hero-info]', hero), thumbs = $$('[data-hero-thumb]', hero);
+    if (slides.length < 2) return;
+    let i = 0, timer;
+    const set = (n) => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => s.classList.toggle('is-on', k === i)); infos.forEach((s, k) => s.classList.toggle('is-on', k === i));
+      thumbs.forEach((t, k) => t.setAttribute('aria-pressed', k === i ? 'true' : 'false'));
+    };
+    const stop = () => { clearInterval(timer); timer = null; };
+    let locked = false;
+    const start = () => { if (!reduced && !saveData && !locked && !timer) timer = setInterval(() => { if (!document.hidden) set(i + 1); }, 6500); };
+    thumbs.forEach((t, k) => t.addEventListener('click', () => { locked = true; stop(); set(k); }));
+    hero.addEventListener('focusin', () => { locked = true; stop(); });
+    const stage = $('.hero__stage', hero);
+    if (stage) { stage.addEventListener('pointerenter', stop); stage.addEventListener('pointerleave', start); }
+    start();
+  });
+
+  /* ---------- scent selector (tabs + optional family filter) ---------- */
+  $$('[data-selector]').forEach((sel) => {
+    const rows = $$('[role="tab"]', sel), panels = $$('[role="tabpanel"]', sel), chips = $$('[data-family][aria-pressed]', sel);
+    const visibleRows = () => rows.filter((r) => !r.closest('li').hidden);
+    const select = (r, focus) => {
+      rows.forEach((x, n) => { const on = x === r; x.setAttribute('aria-selected', on ? 'true' : 'false'); x.tabIndex = on ? 0 : -1; panels[n].hidden = !on; });
+      if (focus) r.focus();
     };
     panels.forEach((p, n) => { p.hidden = n !== 0; });
-    tabs.forEach((t, i) => {
-      t.addEventListener('click', () => select(i));
-      t.addEventListener('mouseenter', () => { if (matchMedia('(hover: hover)').matches) select(i); });
-      t.addEventListener('keydown', (e) => {
-        const k = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
-        if (k) { e.preventDefault(); select((i + k + tabs.length) % tabs.length, true); }
-        if (e.key === 'Home') { e.preventDefault(); select(0, true); } if (e.key === 'End') { e.preventDefault(); select(tabs.length - 1, true); }
+    rows.forEach((r) => {
+      r.addEventListener('click', () => select(r));
+      r.addEventListener('mouseenter', () => { if (matchMedia('(hover: hover) and (min-width: 900px)').matches) select(r); });
+      r.addEventListener('keydown', (e) => {
+        const v = visibleRows(); const k = v.indexOf(r); const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+        if (d) { e.preventDefault(); select(v[(k + d + v.length) % v.length], true); }
+        if (e.key === 'Home') { e.preventDefault(); select(v[0], true); }
+        if (e.key === 'End') { e.preventDefault(); select(v[v.length - 1], true); }
       });
     });
+    chips.forEach((chip) => chip.addEventListener('click', () => {
+      chips.forEach((c) => c.setAttribute('aria-pressed', c === chip ? 'true' : 'false'));
+      const fam = chip.dataset.family;
+      rows.forEach((r) => { const li = r.closest('li'); li.hidden = !!fam && li.dataset.family !== fam; });
+      const first = visibleRows()[0]; if (first) select(first);
+    }));
   });
 
   /* ---------- video tiles: muted autoplay only when visible, motion allowed and data not saved ---------- */

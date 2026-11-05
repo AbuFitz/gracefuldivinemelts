@@ -1,3 +1,5 @@
+> Latest results are in `docs/17-v3-creative-correction.md` §10 (28/28 interaction tests, six-width layout checks, refreshed screenshots).
+
 # 16 — V2 QA results and outstanding tasks
 
 ## Automated checks (2026-11-05)
