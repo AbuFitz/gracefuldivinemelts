@@ -1,7 +1,7 @@
 {%- comment -%}
-  Instagram + TikTok showcase: two continuous, seamless CSS marquees (no hover pause, no dragging, no third-party app or script).
-  Lane 1 (Instagram photos) drifts left; lane 2 (TikTok video thumbnails) drifts right, a little slower.
-  Each lane has two identical groups; the second is aria-hidden + inert so keyboard and screen-reader users meet each item once.
+  Instagram + TikTok showcase: one continuous, seamless CSS marquee (no hover pause, no dragging, no third-party app or script).
+  Instagram photos and TikTok videos are interleaved in one row (block order sets the mix).
+  The row has two identical groups; the second is aria-hidden + inert so keyboard and screen-reader users meet each item once.
   Reduced motion: static, horizontally scrollable single set. Items link to the real profiles or to individual posts/videos.
   Thumbnails are images the owner uploads (platform CDN images expire, so they are never hotlinked).
 {%- endcomment -%}
@@ -24,44 +24,31 @@
     </div>
   </div>
 
-  {%- if ig_blocks.size > 0 -%}
+  {%- assign total = ig_blocks.size | plus: tt_blocks.size -%}
+  {%- if total > 0 -%}
     <div class="lane">
-      <p class="lane__label">{% render 'brand-icon', name: 'instagram' %}<span>Instagram</span><b>@{{ settings.instagram_handle }}</b></p>
-      <div class="marquee" style="--n: {{ ig_blocks.size }}" role="region" aria-label="Instagram">
+      <div class="marquee" style="--n: {{ total }}" role="region" aria-label="Instagram and TikTok">
         <div class="marquee__track">
           {%- for pass in (1..2) -%}
             <div class="marquee__group"{% if pass == 2 %} aria-hidden="true" inert{% endif %}>
-              {%- for block in ig_blocks -%}
+              {%- for block in section.blocks -%}
                 {%- if block.settings.image -%}
-                  {%- assign href = block.settings.link | default: ig -%}
-                  <a class="marquee__item" href="{{ href }}" rel="noopener" target="_blank" {% if pass == 2 %}tabindex="-1"{% endif %} {{ block.shopify_attributes }} aria-label="{{ block.settings.alt | default: 'Instagram post' | escape }}">
-                    {%- render 'image', image: block.settings.image, sizes: '40vw', widths: '360,480,640,800', alt: '' -%}
-                    {%- if block.settings.caption != blank -%}<span class="marquee__cap">{{ block.settings.caption }}</span>{%- endif -%}
-                  </a>
-                {%- endif -%}
-              {%- endfor -%}
-            </div>
-          {%- endfor -%}
-        </div>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- if tt_blocks.size > 0 -%}
-    <div class="lane lane--tiktok">
-      <p class="lane__label">{% render 'brand-icon', name: 'tiktok' %}<span>TikTok</span><b>@{{ settings.tiktok_handle }}</b></p>
-      <div class="marquee marquee--reverse" style="--n: {{ tt_blocks.size | times: 1.4 }}" role="region" aria-label="TikTok">
-        <div class="marquee__track">
-          {%- for pass in (1..2) -%}
-            <div class="marquee__group"{% if pass == 2 %} aria-hidden="true" inert{% endif %}>
-              {%- for block in tt_blocks -%}
-                {%- if block.settings.image -%}
-                  {%- assign href = block.settings.link | default: tt -%}
-                  <a class="marquee__item marquee__item--video" href="{{ href }}" rel="noopener" target="_blank" {% if pass == 2 %}tabindex="-1"{% endif %} {{ block.shopify_attributes }} aria-label="{{ block.settings.caption | default: 'TikTok video' | escape }}">
-                    {%- render 'image', image: block.settings.image, sizes: '30vw', widths: '240,360,480,640', alt: '' -%}
-                    <span class="marquee__play" aria-hidden="true"><span>{% render 'icon', name: 'play' %}</span></span>
-                    {%- if block.settings.caption != blank -%}<span class="marquee__cap">{{ block.settings.caption }}</span>{%- endif -%}
-                  </a>
+                  {%- if block.type == 'tiktok' -%}
+                    {%- assign href = block.settings.link | default: tt -%}
+                    <a class="marquee__item marquee__item--video" href="{{ href }}" rel="noopener" target="_blank" {% if pass == 2 %}tabindex="-1"{% endif %} {{ block.shopify_attributes }} aria-label="{{ block.settings.caption | default: 'TikTok video' | escape }}">
+                      {%- render 'image', image: block.settings.image, sizes: '30vw', widths: '240,360,480,640', alt: '' -%}
+                      <span class="marquee__play" aria-hidden="true"><span>{% render 'icon', name: 'play' %}</span></span>
+                      <span class="marquee__badge" aria-hidden="true">{% render 'brand-icon', name: 'tiktok' %}</span>
+                      {%- if block.settings.caption != blank -%}<span class="marquee__cap">{{ block.settings.caption }}</span>{%- endif -%}
+                    </a>
+                  {%- else -%}
+                    {%- assign href = block.settings.link | default: ig -%}
+                    <a class="marquee__item marquee__item--photo" href="{{ href }}" rel="noopener" target="_blank" {% if pass == 2 %}tabindex="-1"{% endif %} {{ block.shopify_attributes }} aria-label="{{ block.settings.alt | default: 'Instagram post' | escape }}">
+                      {%- render 'image', image: block.settings.image, sizes: '40vw', widths: '360,480,640,800', alt: '' -%}
+                      <span class="marquee__badge" aria-hidden="true">{% render 'brand-icon', name: 'instagram' %}</span>
+                      {%- if block.settings.caption != blank -%}<span class="marquee__cap">{{ block.settings.caption }}</span>{%- endif -%}
+                    </a>
+                  {%- endif -%}
                 {%- endif -%}
               {%- endfor -%}
             </div>

@@ -304,7 +304,7 @@
         "t1": {
           "type": "tiktok",
           "settings": {
-            "caption": "Just a girl who loves her wax melts",
+            "caption": "",
             "link": "https://www.tiktok.com/@gracefuldivinemelts/video/7648708860500266262"
           }
         },
@@ -353,16 +353,16 @@
       },
       "block_order": [
         "i1",
-        "i2",
-        "i3",
-        "i4",
-        "i5",
-        "i6",
         "t1",
+        "i2",
         "t2",
+        "i3",
         "t3",
+        "i4",
         "t4",
+        "i5",
         "t5",
+        "i6",
         "t6",
         "t7"
       ]

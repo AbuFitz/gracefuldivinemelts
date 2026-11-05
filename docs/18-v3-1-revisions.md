@@ -26,5 +26,8 @@ Client feedback on V3 reversed several V3 decisions. This note records what chan
 ## About page (founder)
 New `about-founder` section: "Hi, I'm Tamara." hero with an arch portrait, her own words from her TikTok/Shop post (quoted, not rewritten), a signature, three brand facts, a photo mosaic of the work, and follow buttons. The portrait is an image slot; the preview uses a cover of her own TikTok video as a stand-in, so she should upload her chosen portrait in the theme editor. The photo shown on her TikTok post is deliberately not used.
 
+## Social showcase
+Instagram and TikTok are one section and one continuous row: photos and video covers interleaved, each with a small platform badge, and both follow buttons together.
+
 ## Homepage sections
 Hero, Pick a scent, Custom scent, Bundle, Our story (dome restored), social showcase, FAQ and reviews are all present. The only section retired is the V3 scent selector, replaced by Pick a scent.
