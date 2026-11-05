@@ -62,7 +62,7 @@
       const q = input.value.trim(); clear.hidden = !input.value;
       if (q.length < 2) { ctl && ctl.abort(); reset(); return; }
       ctl && ctl.abort(); ctl = new AbortController();
-      status.innerHTML = `<span class="loading-dots">${S.searching}</span>`; if (popular) popular.hidden = true;
+      status.innerHTML = `<span class="loading-dots">${S.searching}</span>`; if (popular) popular.hidden = true; shortcuts && shortcuts.classList.add('is-dim');
       try {
         const url = `${T.routes.searchSuggest}?q=${encodeURIComponent(q)}&section_id=predictive-search&resources[type]=product,collection&resources[limit]=6&resources[options][unavailable_products]=last`;
         const res = await fetch(url, { signal: ctl.signal }); if (!res.ok) throw new Error('bad');

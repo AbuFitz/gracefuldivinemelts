@@ -833,3 +833,11 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .announce__track.is-instant { transition: none; }
 @media (prefers-reduced-motion: reduce) { .announce__track { transition: none; } }
 .announce__item > a { display: flex; align-items: center; justify-content: center; height: 100%; min-height: 2.4rem; padding-inline: .75rem; }
+
+/* search overlay: pictures first on phones, written shortcuts underneath; shortcuts step aside while results show */
+.search-body [data-search-shortcuts].is-dim { opacity: .5; }
+@media (max-width: 899px) {
+  .search-body [data-search-panel] { order: 1; }
+  .search-body [data-search-shortcuts] { order: 2; }
+  .search-body [data-search-shortcuts].is-dim { display: none; }
+}

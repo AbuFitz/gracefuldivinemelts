@@ -50,3 +50,8 @@ Both sections stay separate, as in V2. The seam between them is a soft vertical 
 - Watch us pour has its own blush background; Our story stays paper.
 - Footer: straight edge with a hairline instead of a dome.
 - Announcement bar: five rolling messages (auto, vertical slide, pauses on hover/focus, static under reduced motion). Messages only restate things the business already says; no shipping or discount claims.
+
+## Round: search order, wording, portrait
+- Mobile search: popular scents (pictures) first, written shortcuts underneath; shortcuts hide while results show.
+- Wording: removed the "Behind the pour" label; "Watch us pour." is now "Follow along."; "In her own words" is now "A note from Tamara".
+- About portrait: demo-only stand-in is a post from the brand Instagram (founder holding a burner and melts, no text). Low resolution (480x640); the owner should upload a high-resolution original in the theme editor.
