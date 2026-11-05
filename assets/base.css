@@ -942,3 +942,11 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 
 /* The page itself is paper; the body/canvas behind everything is the footer's ink so iOS rubber-banding past the footer never shows a pale strip */
 .main { background: var(--c-paper); }
+
+/* toast: size to its content (a fixed element with left:50% shrank to half the screen and squeezed the words) */
+.toast { width: max-content; max-width: calc(100vw - 1.5rem); gap: var(--s-3); padding-left: var(--s-4); }
+.toast > span { white-space: nowrap; }
+@media (max-width: 420px) { .toast { font-size: .9rem; } }
+
+/* the oversized wordmark is desktop/tablet only */
+@media (max-width: 699px) { .footer__mark { display: none; } .footer { padding-bottom: var(--s-5); } }
