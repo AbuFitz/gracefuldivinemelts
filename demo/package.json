@@ -1,0 +1,8 @@
+{
+  "name": "gdm-vercel-demo",
+  "private": true,
+  "type": "module",
+  "description": "TEMPORARY Vercel design preview of the Graceful Divine Melts theme (mock Shopify runtime). Delete this folder when the demo phase ends.",
+  "scripts": { "build": "node build.mjs" },
+  "dependencies": { "liquidjs": "^10.20.0" }
+}

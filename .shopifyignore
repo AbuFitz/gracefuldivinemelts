@@ -3,3 +3,6 @@ tools/
 README.md
 .theme-check.yml
 .gitignore
+
+# temporary Vercel demo (remove with demo/)
+demo/

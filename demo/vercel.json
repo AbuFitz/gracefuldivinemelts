@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "npm install",
+  "buildCommand": "node build.mjs",
+  "outputDirectory": "public",
+  "functions": { "api/index.mjs": { "includeFiles": "{_theme,_data,_runtime}/**", "maxDuration": 15 } },
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }],
+  "headers": [{ "source": "/(.*)", "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }] }]
+}

@@ -3,7 +3,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 const base = process.env.STORE_URL || 'https://gracefuldivinemelts.com';
-const out = path.resolve('fixtures');
+const out = path.resolve(process.env.GDM_FIXTURES_DIR || 'fixtures');
 await fs.mkdir(path.join(out, 'img'), { recursive: true });
 const get = async (u) => { const r = await fetch(u); if (!r.ok) throw new Error(u + ' ' + r.status); return r; };
 const products = (await (await get(`${base}/products.json?limit=250`)).json()).products;
@@ -21,4 +21,5 @@ for (const u of urls) {
   await fs.writeFile(dest, Buffer.from(await r.arrayBuffer()));
   console.log('saved', name);
 }
+await fs.writeFile(path.join(out, 'img-list.json'), JSON.stringify(await fs.readdir(path.join(out, 'img'))));
 console.log(`${products.length} products, ${collections.length} collections`);

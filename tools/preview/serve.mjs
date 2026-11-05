@@ -3,19 +3,20 @@
 import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
-import { THEME, products, collections, cart, cartView, addToCart, state, missingKeys, renderLayout, renderTemplateJSON, renderSection, baseVars, byHandle, shop, policies, engine } from './shopify-mock.mjs';
+import { fileURLToPath } from 'node:url';
+import { THEME, imgNames, products, collections, cart, cartView, addToCart, state, missingKeys, renderLayout, renderTemplateJSON, renderSection, baseVars, byHandle, shop, policies, engine } from './shopify-mock.mjs';
 
-const FIX = path.join(import.meta.dirname, 'fixtures');
+const FIX = process.env.GDM_FIXTURES_DIR || path.join(import.meta.dirname, 'fixtures');
 const PORT = Number(process.env.PORT || 4173);
 const mime = { '.css': 'text/css', '.js': 'text/javascript', '.woff2': 'font/woff2', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.txt': 'text/plain' };
 const exists = (p) => fs.existsSync(p);
-const find = (prefix) => fs.readdirSync(path.join(FIX, 'img')).find((f) => f.startsWith(prefix));
+const find = (prefix) => imgNames().find((f) => f.startsWith(prefix));
 const DEMO_IMG = { hero: find('B8B5F1DE'), story: find('1254') || find('9FDA295B'), hearts: find('B4CE0A0E'), bundle: find('9FDA295B') };
 const overrides = { hero: { image: DEMO_IMG.hero }, story: { image: DEMO_IMG.bundle }, bundle: { image: DEMO_IMG.bundle }, mixed: { image: DEMO_IMG.hearts } };
 
 const PAGES = { contact: 'page.contact', 'gracefuldivinemeltswax-melt-faq': 'page.faq', 'wax-melt-care-safety': 'page.care', 'delivery-returns': 'page.delivery', 'find-your-scent': 'page.find-scent', about: 'page.about', policies: 'page.policies', 'terms-test': 'page' };
 const PAGE_TITLES = { contact: 'Contact', 'gracefuldivinemeltswax-melt-faq': 'Wax Melt Care & Use – FAQ', 'wax-melt-care-safety': 'Wax melt care & safety', 'delivery-returns': 'Delivery & returns', 'find-your-scent': 'Find your scent', about: 'About', policies: 'Policies & legal' };
-const body = (req) => new Promise((r) => { let b = ''; req.on('data', (c) => (b += c)); req.on('end', () => r(b)); });
+const body = (req) => new Promise((r) => { if (req.readableEnded && req.body !== undefined) return r(typeof req.body === 'string' ? req.body : Buffer.isBuffer(req.body) ? req.body.toString() : new URLSearchParams(req.body).toString()); let b = ''; req.on('data', (c) => (b += c)); req.on('end', () => r(b)); });
 const parseForm = (b) => Object.fromEntries(new URLSearchParams(b));
 
 function applyCollectionQuery(col, q) {
@@ -48,9 +49,14 @@ async function page(name, vars = {}, { status = 200, ov = overrides } = {}) {
   return { status, html: await renderLayout(content, v) };
 }
 
-const server = http.createServer(async (req, res) => {
+const inner = async (req, res) => {
   const u = new URL(req.url, 'http://localhost'); const p = u.pathname; const q = u.searchParams;
-  const send = (s, ct, b) => { res.writeHead(s, { 'content-type': ct }); res.end(b); };
+  const send = (s, ct, b) => {
+    if (process.env.GDM_DEMO_BANNER && String(ct).startsWith('text/html') && typeof b === 'string' && b.includes('<body')) {
+      b = b.replace('<head>', '<head><meta name="robots" content="noindex,nofollow">').replace(/<body([^>]*)>/, `<body$1><div style="background:#1A1214;color:#fff;font:600 12px/1.4 system-ui,sans-serif;text-align:center;padding:6px 12px;letter-spacing:.04em">DESIGN PREVIEW &mdash; not the live store. Cart and checkout are simulated; products and photos come from the public store.</div>`);
+    }
+    res.writeHead(s, { 'content-type': ct }); res.end(b);
+  };
   try {
     if (p.startsWith('/assets/')) { const f = path.join(THEME, 'assets', path.basename(p)); return exists(f) ? send(200, mime[path.extname(f)] || 'text/plain', fs.readFileSync(f)) : send(404, 'text/plain', 'nf'); }
     if (p.startsWith('/img/')) { const f = path.join(FIX, 'img', path.basename(p)); return exists(f) ? send(200, mime[path.extname(f)] || 'image/png', fs.readFileSync(f)) : send(404, 'text/plain', 'nf'); }
@@ -135,5 +141,26 @@ const server = http.createServer(async (req, res) => {
     else out = await page('404', { template: { name: '404' }, page_type: '404', page_title: '404 Not Found' }, { status: 404 });
     send(out.status, 'text/html; charset=utf-8', out.html);
   } catch (e) { console.error(e); send(500, 'text/plain', String(e.stack || e)); }
-});
-server.listen(PORT, () => console.log(`preview on http://localhost:${PORT}`));
+};
+
+// Serverless mode (GDM_COOKIE_CART=1): the cart lives in a cookie so every visitor has their own, and requests are
+// serialised because the mock keeps its cart in module state.
+let chain = Promise.resolve();
+async function withCookieCart(req, res) {
+  const m = /(?:^|;\s*)gdm_cart=([^;]+)/.exec(req.headers.cookie || '');
+  cart.items.length = 0;
+  if (m) { try { cart.items.push(...JSON.parse(Buffer.from(m[1], 'base64url').toString())); } catch { /* ignore bad cookie */ } }
+  const wh = res.writeHead.bind(res);
+  res.writeHead = (status, headers = {}) => { headers['set-cookie'] = `gdm_cart=${Buffer.from(JSON.stringify(cart.items)).toString('base64url')}; Path=/; SameSite=Lax; Max-Age=86400`; return wh(status, headers); };
+  await inner(req, res);
+}
+export const handle = (req, res) => {
+  if (process.env.GDM_COOKIE_CART !== '1') return inner(req, res);
+  const run = chain.then(() => withCookieCart(req, res));
+  chain = run.catch(() => {});
+  return run;
+};
+
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  http.createServer(handle).listen(PORT, () => console.log(`preview on http://localhost:${PORT}`));
+}

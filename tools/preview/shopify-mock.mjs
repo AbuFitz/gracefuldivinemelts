@@ -5,8 +5,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { Liquid } from 'liquidjs';
 
-export const THEME = path.resolve(import.meta.dirname, '../..');
-const FIX = path.join(import.meta.dirname, 'fixtures');
+export const THEME = process.env.GDM_THEME_DIR || path.resolve(import.meta.dirname, '../..');
+const FIX = process.env.GDM_FIXTURES_DIR || path.join(import.meta.dirname, 'fixtures');
+export const imgNames = () => { const d = path.join(FIX, 'img'); return fs.existsSync(d) ? fs.readdirSync(d) : JSON.parse(fs.readFileSync(path.join(FIX, 'img-list.json'), 'utf8')); };
 const read = (p) => fs.readFileSync(p, 'utf8');
 const readJSON = (p) => JSON.parse(read(p));
 
@@ -66,7 +67,7 @@ export const collections = {
 const schema = readJSON(path.join(THEME, 'config/settings_schema.json'));
 export const settings = {};
 for (const g of schema) for (const s of g.settings || []) if (s.id) settings[s.id] = s.default ?? (s.type === 'checkbox' ? false : null);
-const logoFile = fs.readdirSync(path.join(FIX, 'img')).find((f) => f.startsWith('Black_and_Beige'));
+const logoFile = imgNames().find((f) => f.startsWith('Black_and_Beige'));
 settings.logo = logoFile ? { src: `/img/${logoFile}`, width: 1100, height: 1100, alt: 'Graceful Divine Melts' } : null;
 settings.logo_width = 84;
 settings.care_page = { url: '/pages/wax-melt-care-safety', title: 'Wax melt care & safety' };
