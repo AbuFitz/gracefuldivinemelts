@@ -7,7 +7,7 @@
   <div class="founder__hero">
     <div class="wrap founder__grid">
       <div class="founder__intro">
-        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        {%- render 'breadcrumbs' -%}
         <h1 id="founder-h-{{ section.id }}">{{ section.settings.heading }}</h1>
         {%- if section.settings.role != blank -%}<p class="founder__role">{{ section.settings.role }}</p>{%- endif -%}
         <div class="founder__cta">
@@ -78,7 +78,6 @@
 {
   "name": "Founder",
   "settings": [
-    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Meet the founder" },
     { "type": "text", "id": "heading", "label": "Heading", "default": "Hi, I'm Tamara." },
     { "type": "text", "id": "role", "label": "Role line", "default": "Founder of Graceful Divine Melts" },
     { "type": "text", "id": "tag", "label": "Name tag line", "default": "Founder & CEO" },

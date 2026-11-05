@@ -61,3 +61,4 @@ Both sections stay separate, as in V2. The seam between them is a soft vertical 
 
 ## Find your scent: immersive journey
 New `scent-journey` section on the Find your scent page: pick a mood (the whole screen changes colour and a soft orb drifts), then browse that mood's real scents on a large stage with their top/heart/base notes, add to bag from the stage, "Surprise me" picks one at random. Phones use pill moods, one large framed scent and a thumbnail strip. Moods, colours and copy are blocks and settings in the theme editor. Also: nav links no longer wrap between 1000 and 1199px.
+- Breadcrumbs ("Home / Page name") now head the About and Find your scent pages like the FAQ page, and sit above Shopify's own legal/policy pages (via the layout). Our story has a straight top edge under the bundle. Social row: bigger tiles, uneven heights and offsets (V2 rhythm), follow buttons below the row.

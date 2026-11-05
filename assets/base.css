@@ -622,7 +622,9 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .newsletter .btn { --bg: var(--c-field); --fg: var(--c-ink); --bd: var(--c-field); }
 
 /* ---------- native Shopify policy pages ---------- */
-.shopify-policy__container { max-width: var(--w-prose); margin: 0 auto; padding: calc(var(--nav-h) + var(--s-8)) var(--gutter) var(--section-y); }
+.shopify-policy__container { max-width: var(--w-prose); margin: 0 auto; padding: var(--s-3) var(--gutter) var(--section-y); }
+.policy-crumbs { max-width: var(--w-prose); padding-top: calc(var(--nav-h) + var(--s-7)); margin-bottom: 0; }
+.policy-crumbs .breadcrumbs { margin-bottom: 0; }
 .shopify-policy__title h1 { font-size: var(--t-h2); margin-bottom: var(--s-6); }
 .shopify-policy__body { line-height: 1.7; }
 .shopify-policy__body h2 { font-size: var(--t-h3); margin: 1.8em 0 .6em; }
@@ -920,3 +922,20 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 /* nav links never wrap; tighter between 1000 and 1199px */
 .nav__link { white-space: nowrap; }
 @media (min-width: 1000px) and (max-width: 1199px) { .nav__link { padding-inline: .6rem; font-size: .9rem; } .nav__left { gap: 0; } }
+
+/* breadcrumbs sit above the hero headline on the About and Find your scent pages */
+.founder__intro .breadcrumbs, .journey__side .breadcrumbs { margin-bottom: var(--s-4); }
+.founder__intro .breadcrumbs a, .journey__side .breadcrumbs a { opacity: .8; }
+
+/* social row: bigger tiles, uneven heights and offsets (the V2 rhythm); follow buttons sit underneath */
+.showcase { --mh: clamp(19rem, 38vw, 36rem); }
+.showcase .marquee__group { align-items: flex-start; gap: clamp(.8rem, 1.6vw, 1.4rem); padding-right: clamp(.8rem, 1.6vw, 1.4rem); }
+.showcase .marquee__item { height: calc(var(--mh) * var(--k, 1)); margin-top: var(--o, 0); }
+.showcase .marquee__group > .marquee__item:nth-child(4n + 1) { --k: 1; --o: 0; }
+.showcase .marquee__group > .marquee__item:nth-child(4n + 2) { --k: .8; --o: clamp(2.5rem, 6vw, 5.5rem); }
+.showcase .marquee__group > .marquee__item:nth-child(4n + 3) { --k: 1.14; --o: clamp(.5rem, 1.5vw, 1.5rem); }
+.showcase .marquee__group > .marquee__item:nth-child(4n + 4) { --k: .72; --o: clamp(1.5rem, 4vw, 3.5rem); }
+.showcase .marquee__item--photo, .showcase .marquee__item--video { height: calc(var(--mh) * var(--k, 1)); }
+.showcase__foot { margin-top: var(--s-6); }
+.showcase__foot .showcase__follow { justify-content: center; }
+.showcase--bare { padding-bottom: clamp(2.5rem, 5vw, 4rem); }

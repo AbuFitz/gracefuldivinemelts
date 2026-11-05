@@ -125,7 +125,7 @@ const inner = async (req, res) => {
       const pol = policies.find((x) => x.handle === p.split('/')[2]);
       if (!pol) out = await page('404', { template: { name: '404' }, page_type: '404', page_title: '404' }, { status: 404 });
       else { const content = `<div class="shopify-policy__container"><div class="shopify-policy__title"><h1>${pol.title}</h1></div><div class="shopify-policy__body"><div class="rte">${pol.body}<h2>Example heading</h2><p>Policy text rendered by Shopify uses this container. Lists:</p><ul><li>One</li><li>Two</li></ul></div></div></div>`;
-        out = { status: 200, html: await renderLayout(content, { template: { name: 'policy' }, page_type: 'policy', page_title: pol.title }) }; }
+        out = { status: 200, html: await renderLayout(content, { request: { locale: { iso_code: 'en' }, page_type: 'policy' }, template: { name: 'policy' }, page_type: 'policy', page_title: pol.title }) }; }
     }
     else if (p === '/contact' && req.method === 'POST') {
       const f = parseForm(await body(req)); const type = f.form_type;

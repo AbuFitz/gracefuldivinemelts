@@ -61,6 +61,7 @@
     {% sections 'header-group' %}
 
     <main id="MainContent" class="main" tabindex="-1">
+      {%- if request.page_type == 'policy' -%}<div class="wrap policy-crumbs">{% render 'breadcrumbs' %}</div>{%- endif -%}
       {{ content_for_layout }}
     </main>
 

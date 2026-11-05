@@ -11,17 +11,17 @@
 {%- assign tt_blocks = section.blocks | where: 'type', 'tiktok' -%}
 <section class="section showcase{% if section.settings.heading == blank %} showcase--bare{% endif %}" aria-labelledby="media-h-{{ section.id }}">
   <div class="wrap">
-    <div class="head">
-      <div>
-        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-        <h2 id="media-h-{{ section.id }}"{% if section.settings.heading == blank %} class="visually-hidden"{% endif %}>{{ section.settings.heading | default: 'Instagram and TikTok' }}</h2>
-        {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+    {%- if section.settings.heading != blank -%}
+      <div class="head">
+        <div>
+          {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+          <h2 id="media-h-{{ section.id }}">{{ section.settings.heading }}</h2>
+          {%- if section.settings.text != blank -%}<p>{{ section.settings.text }}</p>{%- endif -%}
+        </div>
       </div>
-      <div class="showcase__follow">
-        {%- if ig != blank -%}<a class="btn" href="{{ ig }}" rel="noopener" target="_blank">{% render 'brand-icon', name: 'instagram' %}<span>{{ 'sections.showcase.follow' | t }} Instagram</span></a>{%- endif -%}
-        {%- if tt != blank -%}<a class="btn btn--ghost" href="{{ tt }}" rel="noopener" target="_blank">{% render 'brand-icon', name: 'tiktok' %}<span>{{ 'sections.showcase.follow' | t }} TikTok</span></a>{%- endif -%}
-      </div>
-    </div>
+    {%- else -%}
+      <h2 class="visually-hidden" id="media-h-{{ section.id }}">Instagram and TikTok</h2>
+    {%- endif -%}
   </div>
 
   {%- assign total = ig_blocks.size | plus: tt_blocks.size -%}
@@ -57,6 +57,12 @@
       </div>
     </div>
   {%- endif -%}
+  <div class="wrap showcase__foot">
+    <div class="showcase__follow">
+      {%- if ig != blank -%}<a class="btn" href="{{ ig }}" rel="noopener" target="_blank">{% render 'brand-icon', name: 'instagram' %}<span>{{ 'sections.showcase.follow' | t }} Instagram</span></a>{%- endif -%}
+      {%- if tt != blank -%}<a class="btn btn--ghost" href="{{ tt }}" rel="noopener" target="_blank">{% render 'brand-icon', name: 'tiktok' %}<span>{{ 'sections.showcase.follow' | t }} TikTok</span></a>{%- endif -%}
+    </div>
+  </div>
 </section>
 {% schema %}
 {

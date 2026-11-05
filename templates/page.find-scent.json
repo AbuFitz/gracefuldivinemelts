@@ -4,7 +4,6 @@
       "type": "scent-journey",
       "settings": {
         "collection": "wax-melts",
-        "eyebrow": "Find your scent",
         "heading": "What do you like to smell?",
         "text": "You can't smell a wax melt through a screen, so start with a mood.",
         "foot_link": "shopify://products/mixed-scent-package"

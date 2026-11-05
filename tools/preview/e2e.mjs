@@ -111,6 +111,7 @@ await t('find your scent journey: moods change the screen colour, scents + notes
   assert((await d.getAttribute('[data-mood="1"]', 'aria-selected')) === 'true', 'selected'); assert((await d.locator('.journey__panel.is-on').count()) === 1, 'one panel'); assert(/Orange|Vanilla|Musk|Amber/.test(await txt(d, '.journey__panel.is-on .journey__scent.is-on')), 'notes shown');
   const first = await txt(d, '.journey__panel.is-on .journey__scent.is-on .journey__name'); await d.locator('.journey__panel.is-on .journey__thumb').nth(1).click(); const second = await txt(d, '.journey__panel.is-on .journey__scent.is-on .journey__name'); assert(first !== second, 'thumb did not switch');
   await d.keyboard.press('ArrowRight'); await d.click('[data-surprise]'); assert((await d.locator('.journey__panel.is-on').count()) === 1, 'surprise');
+  await d.locator('[data-mood="1"]').click(); await d.locator('.journey__panel.is-on .journey__thumb').first().click();
   await d.locator('.journey__panel.is-on .journey__scent.is-on .js-quick-add button').click(); await d.waitForSelector('#Toast:not([hidden])');
   const m = await mk(true); await m.goto(BASE + '/pages/find-your-scent'); assert(await m.isVisible('.journey__mood'), 'mobile moods'); const ov = await m.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1); assert(ov, 'mobile overflow'); await m.context().close();
 });
