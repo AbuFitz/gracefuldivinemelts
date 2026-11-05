@@ -40,7 +40,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { background: var(--c-ink); overscroll-behavior-y: none; -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--nav-h) + 1.5rem); }
-body { margin: 0; background: var(--c-paper); color: var(--c-ink); font-family: var(--f); font-size: var(--t-base); line-height: 1.55; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
+body { margin: 0; background: var(--c-ink); color: var(--c-ink); font-family: var(--f); font-size: var(--t-base); line-height: 1.55; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
 img, svg, video { display: block; max-width: 100%; height: auto; }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
@@ -939,3 +939,6 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .showcase__foot { margin-top: var(--s-6); }
 .showcase__foot .showcase__follow { justify-content: center; }
 .showcase--bare { padding-bottom: clamp(2.5rem, 5vw, 4rem); }
+
+/* The page itself is paper; the body/canvas behind everything is the footer's ink so iOS rubber-banding past the footer never shows a pale strip */
+.main { background: var(--c-paper); }

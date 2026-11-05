@@ -3,6 +3,7 @@
   Instagram photos and TikTok videos are interleaved in one row (block order sets the mix).
   The row has two identical groups; the second is aria-hidden + inert so keyboard and screen-reader users meet each item once.
   Reduced motion: static, horizontally scrollable single set. Items link to the real profiles or to individual posts/videos.
+  Images load eagerly: lazy images inside a continuously moving track never load on iOS Safari, leaving blank gaps.
   Thumbnails are images the owner uploads (platform CDN images expire, so they are never hotlinked).
 {%- endcomment -%}
 {%- assign ig = settings.social_instagram -%}
@@ -36,7 +37,7 @@
                   {%- if block.type == 'tiktok' -%}
                     {%- assign href = block.settings.link | default: tt -%}
                     <a class="marquee__item marquee__item--video" href="{{ href }}" rel="noopener" target="_blank" {% if pass == 2 %}tabindex="-1"{% endif %} {{ block.shopify_attributes }} aria-label="{{ block.settings.caption | default: 'TikTok video' | escape }}">
-                      {%- render 'image', image: block.settings.image, sizes: '30vw', widths: '240,360,480,640', alt: '' -%}
+                      {%- render 'image', image: block.settings.image, sizes: '(min-width: 900px) 20rem, 60vw', widths: '240,360,480,640', alt: '', loading: 'eager' -%}
                       <span class="marquee__play" aria-hidden="true"><span>{% render 'icon', name: 'play' %}</span></span>
                       <span class="marquee__badge" aria-hidden="true">{% render 'brand-icon', name: 'tiktok' %}</span>
                       {%- if block.settings.caption != blank -%}<span class="marquee__cap">{{ block.settings.caption }}</span>{%- endif -%}
@@ -44,7 +45,7 @@
                   {%- else -%}
                     {%- assign href = block.settings.link | default: ig -%}
                     <a class="marquee__item marquee__item--photo" href="{{ href }}" rel="noopener" target="_blank" {% if pass == 2 %}tabindex="-1"{% endif %} {{ block.shopify_attributes }} aria-label="{{ block.settings.alt | default: 'Instagram post' | escape }}">
-                      {%- render 'image', image: block.settings.image, sizes: '40vw', widths: '360,480,640,800', alt: '' -%}
+                      {%- render 'image', image: block.settings.image, sizes: '(min-width: 900px) 28rem, 75vw', widths: '360,480,640,800', alt: '', loading: 'eager' -%}
                       <span class="marquee__badge" aria-hidden="true">{% render 'brand-icon', name: 'instagram' %}</span>
                       {%- if block.settings.caption != blank -%}<span class="marquee__cap">{{ block.settings.caption }}</span>{%- endif -%}
                     </a>
