@@ -860,3 +860,7 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
   .story__shots figure:nth-child(1) { right: 0; top: 0; width: 66%; }
   .story__shots figure:nth-child(2) { left: 0; bottom: 0; width: 48%; }
 }
+
+/* review chips: icon has a fixed size and can never shrink away (some phones collapsed the unsized SVG) */
+.reviews .chip svg { flex: none; width: 3rem; height: 3rem; min-width: 3rem; margin: -.4rem .2rem -.4rem -.45rem; }
+.reviews .chip { flex: none; }

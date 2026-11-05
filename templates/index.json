@@ -88,12 +88,12 @@
         "heading": "Our story",
         "image": "shopify://shop_images/B4CE0A0E-F326-4A16-9652-569A94A410AF.png",
         "image_2": "shopify://shop_images/instagram-image-33691ada-f79d-4c12-ae82-4dd3eb3a1a3c.jpg",
-        "source_label": "From our Shop profile",
-        "source_link": "https://shop.app/m/gracefuldivinemelts",
         "curve": "dome",
         "quote": "Made from a love of perfumes and candles, and the way a beautiful scent makes you feel good.",
         "highlight": "love of perfumes and candles",
-        "text": "<p>We poured that feeling into every melt.</p>"
+        "text": "<p>We poured that feeling into every melt.</p>",
+        "link_label": "Meet Tamara",
+        "link": "shopify://pages/about"
       }
     },
     "media": {
