@@ -864,3 +864,59 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 /* review chips: icon has a fixed size and can never shrink away (some phones collapsed the unsized SVG) */
 .reviews .chip svg { flex: none; width: 3rem; height: 3rem; min-width: 3rem; margin: -.4rem .2rem -.4rem -.45rem; }
 .reviews .chip { flex: none; }
+
+/* ---------- Find your scent: immersive journey ---------- */
+.journey { --j-bg: #F7B9D1; position: relative; overflow: hidden; background: var(--j-bg); transition: background 800ms var(--ease); padding: calc(var(--nav-h) + 2.75rem) 0 clamp(2.5rem, 5vw, 4rem); min-height: min(56rem, 100svh); isolation: isolate; }
+.journey__orb { position: absolute; z-index: -1; width: min(70vw, 46rem); aspect-ratio: 1; border-radius: 50%; right: -12%; top: 6%; background: radial-gradient(circle at 35% 35%, rgb(255 255 255 / .55), rgb(255 255 255 / 0) 68%); transition: transform 1100ms var(--ease); transform: translate(calc(var(--j-i, 0) * -6%), calc(var(--j-i, 0) * 8%)) scale(calc(1 + var(--j-i, 0) * .12)); pointer-events: none; }
+.journey__grid { display: grid; gap: var(--s-6); }
+@media (min-width: 900px) { .journey__grid { grid-template-columns: minmax(0, .8fr) minmax(0, 1.3fr); gap: var(--s-8); align-items: center; } }
+.journey__side h1 { font-size: clamp(2.4rem, 1.2rem + 4vw, 4.6rem); letter-spacing: -.05em; line-height: .96; margin: 0 0 var(--s-4); max-width: 11ch; }
+.journey__lede { max-width: 24rem; margin: 0 0 var(--s-5); font-size: var(--t-lg); }
+.journey__moods { display: flex; gap: .5rem; overflow-x: auto; margin-inline: calc(var(--gutter) * -1); padding: 0 var(--gutter) .25rem; scrollbar-width: none; }
+.journey__moods::-webkit-scrollbar { display: none; }
+.journey__mood { flex: none; background: transparent; border: 1.5px solid var(--c-ink); border-radius: 999px; padding: .65rem 1.4rem; min-height: 2.9rem; font-size: var(--t-base); font-weight: 650; color: var(--c-ink); transition: background var(--dur), color var(--dur); }
+.journey__mood.is-on { background: var(--c-ink); color: #fff; }
+@media (min-width: 900px) {
+  .journey__moods { display: grid; gap: 0; overflow: visible; margin: 0; padding: 0; }
+  .journey__mood { border: 0; border-radius: 0; background: none; padding: .1rem 0; min-height: 0; text-align: left; font-size: clamp(2.8rem, 1.4rem + 4vw, 5rem); font-weight: 750; letter-spacing: -.055em; line-height: 1; color: color-mix(in srgb, var(--c-ink) 28%, transparent); transition: color 500ms var(--ease), transform 500ms var(--ease); }
+  .journey__mood:hover { color: color-mix(in srgb, var(--c-ink) 60%, transparent); }
+  .journey__mood.is-on { background: none; color: var(--c-ink); transform: translateX(.35rem); }
+  .journey__mood span { display: inline-flex; align-items: center; gap: .18em; }
+  .journey__mood.is-on span::before { content: ""; width: .32em; height: .32em; border-radius: 50%; background: var(--c-pink); }
+}
+.journey__surprise { margin-top: var(--s-5); }
+.journey__panel { display: none; }
+.journey__panel.is-on, .no-js .journey__panel { display: block; }
+.journey__desc { font-size: var(--t-lg); font-weight: 500; max-width: 28rem; margin: 0 0 var(--s-4); }
+.journey__scent { display: none; grid-gap: var(--s-4); }
+.journey__scent.is-on, .no-js .journey__scent { display: grid; }
+@media (min-width: 720px) { .journey__scent { grid-template-columns: minmax(0, .95fr) minmax(0, 1fr); align-items: end; gap: var(--s-6); } }
+.journey__img { display: block; aspect-ratio: 3 / 4; border-radius: var(--arch); overflow: hidden; background: rgb(255 255 255 / .5); box-shadow: 0 40px 60px -34px rgb(23 10 16 / .5); max-width: 24rem; width: 100%; }
+.journey__img img { width: 100%; height: 100%; object-fit: cover; }
+.journey__scent.is-on .journey__img { animation: jin 700ms var(--ease) both; }
+.journey__scent.is-on .journey__info > * { animation: jup 600ms var(--ease) both; }
+.journey__scent.is-on .journey__info > *:nth-child(2) { animation-delay: 60ms; } .journey__scent.is-on .journey__info > *:nth-child(3) { animation-delay: 110ms; } .journey__scent.is-on .journey__info > *:nth-child(4) { animation-delay: 160ms; } .journey__scent.is-on .journey__info > *:nth-child(5) { animation-delay: 210ms; }
+@keyframes jin { from { opacity: 0; transform: translateY(18px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes jup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.journey__fam { font-size: var(--t-xs); letter-spacing: .14em; text-transform: uppercase; font-weight: 700; margin: 0 0 .3rem; }
+.journey__name { font-size: clamp(2rem, 1.2rem + 2.6vw, 3.4rem); letter-spacing: -.045em; line-height: 1; margin: 0 0 .5rem; }
+.journey__name a { text-decoration: none; }
+.journey__price { font-weight: 650; margin: 0 0 var(--s-4); }
+.journey__notes { display: grid; gap: .55rem; margin: 0 0 var(--s-5); }
+.journey__notes > div { display: grid; grid-template-columns: 4.6rem 1fr; gap: .6rem; align-items: baseline; padding-top: .55rem; border-top: 1px solid rgb(23 10 16 / .22); }
+.journey__notes dt { font-size: var(--t-xs); letter-spacing: .12em; text-transform: uppercase; font-weight: 700; }
+.journey__notes dd { display: flex; flex-wrap: wrap; gap: .3rem .35rem; margin: 0; }
+.journey__notes span { background: rgb(255 255 255 / .6); border-radius: 999px; padding: .15rem .7rem; font-size: var(--t-sm); font-weight: 600; }
+.journey__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }
+.journey__thumbs { list-style: none; display: flex; gap: .6rem; margin: var(--s-5) 0 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+.journey__thumb { width: 4rem; height: 4rem; border-radius: 50%; overflow: hidden; padding: 0; border: 0; background: rgb(255 255 255 / .5); opacity: .7; box-shadow: 0 0 0 2px transparent; transition: opacity var(--dur), box-shadow var(--dur), transform var(--dur); }
+.journey__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.journey__thumb.is-on, .journey__thumb:hover { opacity: 1; box-shadow: 0 0 0 3px var(--c-ink); transform: scale(1.05); }
+.journey__more { margin: var(--s-4) 0 0; }
+.journey__foot { margin-top: var(--s-7); font-weight: 600; }
+.journey__foot .link { margin-left: .4rem; }
+@media (prefers-reduced-motion: reduce) { .journey, .journey__orb { transition: none; } .journey__scent.is-on .journey__img, .journey__scent.is-on .journey__info > * { animation: none; } }
+
+/* nav links never wrap; tighter between 1000 and 1199px */
+.nav__link { white-space: nowrap; }
+@media (min-width: 1000px) and (max-width: 1199px) { .nav__link { padding-inline: .6rem; font-size: .9rem; } .nav__left { gap: 0; } }

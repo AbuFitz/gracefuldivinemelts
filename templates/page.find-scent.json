@@ -1,57 +1,50 @@
 {
   "sections": {
-    "explorer": {
-      "type": "scent-explorer",
+    "journey": {
+      "type": "scent-journey",
       "settings": {
         "collection": "wax-melts",
-        "eyebrow": "Discover by mood",
-        "heading": "Find your scent",
-        "text": "Each scent is a perfume-inspired blend. Pick the mood you like wearing and start there.",
-        "tone": "paper"
+        "eyebrow": "Find your scent",
+        "heading": "What do you like to smell?",
+        "text": "You can't smell a wax melt through a screen, so start with a mood.",
+        "foot_link": "shopify://products/mixed-scent-package"
       },
       "blocks": {
-        "a": {
-          "type": "family",
+        "m1": {
+          "type": "mood",
           "settings": {
             "name": "Floral",
-            "description": "Soft blooms, jasmine, rose and lily of the valley, lifted with citrus.",
+            "description": "Jasmine, rose, lily of the valley and soft musk.",
+            "color": "#F7B9D1",
             "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
-            "cta": "Shop floral"
+            "cta": "Shop all floral"
           }
         },
-        "b": {
-          "type": "family",
+        "m2": {
+          "type": "mood",
           "settings": {
             "name": "Sweet",
-            "description": "Vanilla, amber, caramel and creamy musk for cosy rooms.",
+            "description": "Vanilla, amber, caramel and creamy musk.",
+            "color": "#F9C9AE",
             "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
-            "cta": "Shop sweet"
+            "cta": "Shop all sweet"
           }
         },
-        "c": {
-          "type": "family",
+        "m3": {
+          "type": "mood",
           "settings": {
             "name": "Woody",
-            "description": "Leather, woods and spice, for evenings and statement rooms.",
+            "description": "Leather, woods and a cool mint lift.",
+            "color": "#D4BFE0",
             "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
-            "cta": "Shop woody"
-          }
-        },
-        "d": {
-          "type": "family",
-          "settings": {
-            "name": "Fresh",
-            "description": "Crisp, bright and uplifting.",
-            "link": "/collections/all?filter.p.m.custom.scent_family=Fresh",
-            "cta": "Shop fresh"
+            "cta": "Shop all woody"
           }
         }
       },
       "block_order": [
-        "a",
-        "b",
-        "c",
-        "d"
+        "m1",
+        "m2",
+        "m3"
       ]
     },
     "custom": {
@@ -66,22 +59,10 @@
         "cta": "Request this scent",
         "included": "3 wax melts"
       }
-    },
-    "rail": {
-      "type": "product-rail",
-      "settings": {
-        "collection": "wax-melts",
-        "eyebrow": "Still unsure?",
-        "heading": "Start with the Mixed Scent Package.",
-        "text": "Try several fragrances in your own space before choosing a full-size melt.",
-        "limit": 10,
-        "quick_add": true
-      }
     }
   },
   "order": [
-    "explorer",
-    "custom",
-    "rail"
+    "journey",
+    "custom"
   ]
 }

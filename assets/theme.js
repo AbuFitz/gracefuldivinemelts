@@ -327,4 +327,43 @@
     addEventListener('resize', () => { track.classList.add('is-instant'); track.style.transform = `translateY(${-(i % items.length) * h()}px)`; void track.offsetHeight; track.classList.remove('is-instant'); });
     mark(); start();
   });
+
+  /* ---------- Find your scent journey ---------- */
+  $$('[data-journey]').forEach((root) => {
+    const moods = $$('[data-mood]', root), panels = $$('[data-panel]', root);
+    const pickScent = (panel, k, focus) => {
+      const items = $$('.journey__scent', panel), thumbs = $$('.journey__thumb', panel);
+      items.forEach((el, n) => el.classList.toggle('is-on', n === k));
+      thumbs.forEach((el, n) => { el.classList.toggle('is-on', n === k); el.setAttribute('aria-selected', n === k ? 'true' : 'false'); });
+      if (focus && thumbs[k]) thumbs[k].focus();
+    };
+    const pickMood = (i, focus) => {
+      moods.forEach((m, n) => { const on = n === i; m.classList.toggle('is-on', on); m.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      panels.forEach((p, n) => p.classList.toggle('is-on', n === i));
+      root.style.setProperty('--j-bg', moods[i].dataset.color || '#F7B9D1'); root.style.setProperty('--j-i', i);
+      if (focus) moods[i].focus();
+    };
+    moods.forEach((m, i) => {
+      m.addEventListener('click', () => pickMood(i));
+      m.addEventListener('keydown', (e) => {
+        const k = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+        if (k) { e.preventDefault(); pickMood((i + k + moods.length) % moods.length, true); }
+      });
+    });
+    panels.forEach((p) => {
+      const thumbs = $$('.journey__thumb', p);
+      thumbs.forEach((t, k) => {
+        t.addEventListener('click', () => pickScent(p, k));
+        t.addEventListener('keydown', (e) => {
+          const d = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+          if (d) { e.preventDefault(); pickScent(p, (k + d + thumbs.length) % thumbs.length, true); }
+        });
+      });
+    });
+    const sur = $('[data-surprise]', root);
+    if (sur) sur.addEventListener('click', () => {
+      const i = Math.floor(Math.random() * moods.length), p = panels[i], n = $$('.journey__scent', p).length;
+      pickMood(i); if (n) pickScent(p, Math.floor(Math.random() * n));
+    });
+  });
 })();

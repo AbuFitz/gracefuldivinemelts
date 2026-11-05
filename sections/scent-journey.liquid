@@ -1,0 +1,115 @@
+{%- comment -%}
+  Find your scent: a guided, full-screen experience.
+  1) pick a mood (the colour field of the whole screen changes), 2) browse the real scents in that mood on a large stage with their notes,
+  3) add to bag. Moods are blocks; each block's name must match the product metafield custom.scent_family.
+  Without JavaScript every mood is shown as a normal list. Respects reduced motion.
+{%- endcomment -%}
+{%- assign col = section.settings.collection -%}
+{%- assign moods = section.blocks | where: 'type', 'mood' -%}
+{%- assign first_color = moods.first.settings.color | default: '#F7B9D1' -%}
+<section class="journey" data-journey style="--j-bg: {{ first_color }}" aria-labelledby="j-h-{{ section.id }}">
+  <div class="journey__orb" aria-hidden="true"></div>
+  <div class="wrap journey__grid">
+    <div class="journey__side">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 id="j-h-{{ section.id }}">{{ section.settings.heading }}</h1>
+      {%- if section.settings.text != blank -%}<p class="journey__lede">{{ section.settings.text }}</p>{%- endif -%}
+      <div class="journey__moods" role="tablist" aria-label="{{ section.settings.mood_label | escape }}">
+        {%- for block in moods -%}
+          <button type="button" class="journey__mood{% if forloop.first %} is-on{% endif %}" role="tab" id="jm-{{ block.id }}" aria-controls="jp-{{ block.id }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" data-mood="{{ forloop.index0 }}" data-color="{{ block.settings.color | default: '#F7B9D1' }}" {{ block.shopify_attributes }}><span>{{ block.settings.name }}</span></button>
+        {%- endfor -%}
+      </div>
+      <button type="button" class="btn btn--ghost journey__surprise js-only" data-surprise>{{ section.settings.surprise_label }}</button>
+    </div>
+
+    <div class="journey__stage">
+      {%- for block in moods -%}
+        {%- assign mood_index = forloop.index0 -%}
+        <div class="journey__panel{% if forloop.first %} is-on{% endif %}" role="tabpanel" id="jp-{{ block.id }}" aria-labelledby="jm-{{ block.id }}" data-panel="{{ mood_index }}">
+          <p class="journey__desc">{{ block.settings.description }}</p>
+          {%- assign shown = 0 -%}
+          <div class="journey__scents">
+            {%- if col != blank -%}
+              {%- for p in col.products -%}
+                {%- assign fam = p.metafields.custom.scent_family.value -%}
+                {%- if fam == block.settings.name and shown < 6 -%}
+                  {%- assign top = p.metafields.custom.top_notes.value -%}
+                  {%- assign heart = p.metafields.custom.heart_notes.value -%}
+                  {%- assign base = p.metafields.custom.base_notes.value -%}
+                  <article class="journey__scent{% if shown == 0 %} is-on{% endif %}" data-scent="{{ shown }}">
+                    <a class="journey__img" href="{{ p.url }}" tabindex="-1" aria-hidden="true">
+                      {%- if p.featured_image -%}{%- render 'image', image: p.featured_image, sizes: '(min-width: 900px) 26vw, 70vw', widths: '360,540,720,960', alt: '' -%}{%- endif -%}
+                    </a>
+                    <div class="journey__info">
+                      <p class="journey__fam">{{ fam }}</p>
+                      <h2 class="journey__name"><a href="{{ p.url }}">{{ p.title | escape }}</a></h2>
+                      <p class="journey__price">{% render 'price', product: p %}{% unless p.available %} · {{ 'products.sold_out' | t }}{% endunless %}</p>
+                      {%- if top != blank or heart != blank or base != blank -%}
+                        <dl class="journey__notes">
+                          {%- if top != blank -%}<div><dt>{{ 'products.notes.top' | t }}</dt><dd>{% for n in top %}<span>{{ n }}</span>{% endfor %}</dd></div>{%- endif -%}
+                          {%- if heart != blank -%}<div><dt>{{ 'products.notes.heart' | t }}</dt><dd>{% for n in heart %}<span>{{ n }}</span>{% endfor %}</dd></div>{%- endif -%}
+                          {%- if base != blank -%}<div><dt>{{ 'products.notes.base' | t }}</dt><dd>{% for n in base %}<span>{{ n }}</span>{% endfor %}</dd></div>{%- endif -%}
+                        </dl>
+                      {%- endif -%}
+                      <div class="journey__actions">
+                        {%- if p.available and p.variants.size == 1 -%}
+                          {%- form 'product', p, class: 'js-quick-add journey__add' -%}
+                            <input type="hidden" name="id" value="{{ p.selected_or_first_available_variant.id }}">
+                            <button type="submit" class="btn" data-add-label="{{ 'products.add_to_cart' | t }}">{{ 'products.add_to_cart' | t }}<span class="visually-hidden"> — {{ p.title | escape }}</span></button>
+                          {%- endform -%}
+                        {%- endif -%}
+                        <a class="link" href="{{ p.url }}">{{ section.settings.view_label }}{% render 'icon', name: 'arrow' %}</a>
+                      </div>
+                    </div>
+                  </article>
+                  {%- assign shown = shown | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+          {%- if shown > 1 -%}
+            <ul class="journey__thumbs" role="tablist" aria-label="{{ block.settings.name | escape }}">
+              {%- assign t = 0 -%}
+              {%- for p in col.products -%}
+                {%- if p.metafields.custom.scent_family.value == block.settings.name and t < 6 -%}
+                  <li role="presentation"><button type="button" class="journey__thumb{% if t == 0 %} is-on{% endif %}" role="tab" aria-selected="{% if t == 0 %}true{% else %}false{% endif %}" data-thumb="{{ t }}" aria-label="{{ p.title | escape }}">
+                    {%- if p.featured_image -%}{%- render 'image', image: p.featured_image, sizes: '72px', widths: '96,144,192', alt: '' -%}{%- endif -%}
+                  </button></li>
+                  {%- assign t = t | plus: 1 -%}
+                {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+          <p class="journey__more"><a class="link" href="{{ block.settings.link | default: routes.all_products_collection_url }}">{{ block.settings.cta | default: 'Shop all' }}{% render 'icon', name: 'arrow' %}</a></p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  <p class="wrap journey__foot">{{ section.settings.foot_text }} <a class="link" href="{{ section.settings.foot_link | default: routes.all_products_collection_url }}">{{ section.settings.foot_label }}{% render 'icon', name: 'arrow' %}</a></p>
+</section>
+{% schema %}
+{
+  "name": "Scent journey",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection to draw scents from" },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Find your scent" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "What do you like to smell?" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "You can't smell a wax melt through a screen, so start with a mood." },
+    { "type": "text", "id": "mood_label", "label": "Accessible label for the mood choices", "default": "Choose a mood" },
+    { "type": "text", "id": "surprise_label", "label": "Surprise button", "default": "Surprise me" },
+    { "type": "text", "id": "view_label", "label": "Scent link text", "default": "See this scent" },
+    { "type": "text", "id": "foot_text", "label": "Line under the experience", "default": "Not sure yet?" },
+    { "type": "text", "id": "foot_label", "label": "Line link text", "default": "Start with the Mixed Scent Package" },
+    { "type": "url", "id": "foot_link", "label": "Line link" }
+  ],
+  "blocks": [
+    { "type": "mood", "name": "Mood", "settings": [
+      { "type": "text", "id": "name", "label": "Name (must match the scent_family metafield)" },
+      { "type": "textarea", "id": "description", "label": "Description" },
+      { "type": "color", "id": "color", "label": "Screen colour", "default": "#F7B9D1" },
+      { "type": "url", "id": "link", "label": "Link to all scents in this mood" },
+      { "type": "text", "id": "cta", "label": "Link text", "default": "Shop all" } ] }
+  ],
+  "presets": [{ "name": "Scent journey", "blocks": [{ "type": "mood" }] }]
+}
+{% endschema %}
