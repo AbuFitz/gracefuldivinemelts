@@ -1,0 +1,51 @@
+{%- assign p = section.settings.product -%}
+<section class="sheet sheet--ink" aria-labelledby="cs-h-{{ section.id }}">
+  <div class="wrap">
+    <div class="custom">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h2 id="cs-h-{{ section.id }}">{{ section.settings.heading }}</h2>
+        {%- if section.settings.text != blank -%}<p class="custom__text">{{ section.settings.text }}</p>{%- endif -%}
+        {%- if p != blank -%}
+          <form class="custom__form" action="{{ p.url }}" method="get">
+            <label class="visually-hidden" for="CustomFeature-{{ section.id }}">{{ 'products.custom_scent.label' | t }}</label>
+            <input class="input" id="CustomFeature-{{ section.id }}" type="text" name="scent" maxlength="120" placeholder="{{ section.settings.placeholder }}" autocomplete="off">
+            <button class="btn btn--pink" type="submit">{{ section.settings.cta | default: 'Request this scent' }}{% render 'icon', name: 'arrow' %}</button>
+          </form>
+        {%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          <ol class="custom__steps">{%- for block in section.blocks -%}<li {{ block.shopify_attributes }}><strong>{{ block.settings.title }}</strong>{{ block.settings.text }}</li>{%- endfor -%}</ol>
+        {%- endif -%}
+      </div>
+      <div class="custom__media">
+        <div class="arch">
+          {%- if section.settings.image -%}{%- render 'image', image: section.settings.image, sizes: '(min-width: 900px) 30vw, 80vw', widths: '480,720,960' -%}
+          {%- elsif p.featured_image -%}{%- render 'image', image: p.featured_image, sizes: '(min-width: 900px) 30vw, 80vw', widths: '480,720,960' -%}{%- endif -%}
+        </div>
+        {%- if p != blank -%}
+          <div class="custom__tag" aria-hidden="true"><b>{{ p.price | money }}</b><small>{{ section.settings.included }}</small></div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Custom scent feature",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Custom scent product" },
+    { "type": "image_picker", "id": "image", "label": "Image (defaults to the product image)" },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Custom scent requests" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Have a scent in mind?" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Tell us the perfume or fragrance you love. Requests are subject to availability." },
+    { "type": "text", "id": "placeholder", "label": "Input placeholder", "default": "Name the perfume or fragrance" },
+    { "type": "text", "id": "cta", "label": "Button", "default": "Request this scent" },
+    { "type": "text", "id": "included", "label": "What's included (circle badge)", "default": "3 wax melts" }
+  ],
+  "blocks": [
+    { "type": "step", "name": "Step", "limit": 3, "settings": [
+      { "type": "text", "id": "title", "label": "Title" }, { "type": "text", "id": "text", "label": "Text" } ] }
+  ],
+  "presets": [{ "name": "Custom scent feature" }]
+}
+{% endschema %}

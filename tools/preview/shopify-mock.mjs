@@ -70,11 +70,13 @@ for (const g of schema) for (const s of g.settings || []) if (s.id) settings[s.i
 const logoFile = imgNames().find((f) => f.startsWith('Black_and_Beige'));
 settings.logo = logoFile ? { src: `/img/${logoFile}`, width: 1100, height: 1100, alt: 'Graceful Divine Melts' } : null;
 settings.logo_width = 84;
+settings.google_review_link = '';
 settings.care_page = { url: '/pages/wax-melt-care-safety', title: 'Wax melt care & safety' };
 
 const L = (title, url, links = []) => ({ title, url, links, current: false });
 export const linklists = {
-  'main-menu': { links: [L('Shop', '/collections/all', [L('All wax melts', '/collections/wax-melts'), L('Bundle deal', '/products/our-bundle-deal'), L('Mixed Scent Package', '/products/mixed-scent-package'), L('Request a specific scent', '/products/request-a-specific-scent')]), L('Find your scent', '/pages/find-your-scent'), L('Care & FAQ', '/pages/gracefuldivinemeltswax-melt-faq'), L('Contact', '/pages/contact')] },
+  'main-menu': { links: [L('Shop', '/collections/all', [L('All wax melts', '/collections/wax-melts'), L('Bundle deal', '/products/our-bundle-deal'), L('Mixed Scent Package', '/products/mixed-scent-package'), L('Gift & bundles', '/collections/bundles')]), L('Discover Scents', '/pages/find-your-scent'), L('Custom Scent', '/products/request-a-specific-scent'), L('About', '/pages/about')] },
+  secondary: { links: [L('FAQ & care', '/pages/gracefuldivinemeltswax-melt-faq'), L('Delivery & returns', '/pages/delivery-returns'), L('Contact', '/pages/contact')] },
   footer: { links: [L('FAQ', '/pages/gracefuldivinemeltswax-melt-faq'), L('Delivery & returns', '/pages/delivery-returns'), L('Wax melt care & safety', '/pages/wax-melt-care-safety'), L('Contact', '/pages/contact')] },
 };
 export const policies = [{ title: 'Privacy policy', handle: 'privacy-policy', url: '/policies/privacy-policy', body: '<p>(Demo) Shopify-managed privacy policy text appears here. On the live store this record already exists.</p>' }];
@@ -129,7 +131,7 @@ export function makeEngine() {
   engine.registerFilter('preload_tag', (url, ...a) => { const o = kv(a); return `<link rel="preload" href="${url}" as="${o.as}" type="${o.type}" crossorigin>`; });
   engine.registerFilter('structured_data', (p) => JSON.stringify({ '@context': 'http://schema.org/', '@type': 'Product', name: p.title, offers: p.variants.map((v) => ({ '@type': 'Offer', price: (v.price / 100).toFixed(2), priceCurrency: 'GBP', availability: v.available ? 'http://schema.org/InStock' : 'http://schema.org/OutOfStock' })) }));
   engine.registerFilter('payment_button', () => '<div class="shopify-payment-button"><button type="button" class="btn btn--block" style="margin-top:.75rem" disabled>[Shopify dynamic checkout button renders here]</button></div>');
-  engine.registerFilter('video_tag', () => '');
+  engine.registerFilter('video_tag', (v) => (v && v.demoUrl ? `<video src="${v.demoUrl}" poster="${v.poster || ''}" muted loop playsinline preload="none"></video>` : ''));
   engine.registerFilter('default_errors', (e) => (Array.isArray(e) ? e.join('; ') : String(e)));
   engine.registerFilter('format_address', (a) => (a ? Object.values(a).join('<br>') : ''));
   engine.registerFilter('format_code', (c) => c);
@@ -149,7 +151,8 @@ export function makeEngine() {
     *render(ctx, emitter) {
       const type = (this.args.match(/^\s*['"]([^'"]+)['"]/) || [])[1];
       const cls = (this.args.match(/class:\s*['"]([^'"]*)['"]/) || [])[1];
-      const id = (this.args.match(/\bid:\s*['"]([^'"]*)['"]/) || [])[1];
+      let id = (this.args.match(/\bid:\s*['"]([^'"]*)['"]/) || [])[1];
+      if (!id) { const v = (this.args.match(/\bid:\s*([A-Za-z_][\w.]*)/) || [])[1]; if (v) id = ctx.getSync(v.split('.')); }
       const styleAttr = (this.args.match(/style:\s*['"]([^'"]*)['"]/) || [])[1];
       const st = state.forms[type] || {};
       const action = { product: '/cart/add', contact: '/contact', customer: '/contact', customer_login: '/account/login', create_customer: '/account', recover_customer_password: '/account/recover', customer_address: '/account/addresses' }[type] || '/';
@@ -197,7 +200,8 @@ function resolveSetting(def, value) {
     case 'collection': return v ? collections[v] || null : null;
     case 'product': return v ? byHandle[v] || null : null;
     case 'link_list': return v ? linklists[v] || null : null;
-    case 'image_picker': return typeof v === 'string' ? imageByFile(v) : v || null;
+    case 'image_picker': return typeof v === 'string' && v ? imageByFile(v.replace('shopify://shop_images/', '')) : v || null;
+    case 'video': return v || null;
     case 'url': return typeof v === 'string' ? v.replace(/^shopify:\/\/(collections|pages|products)\/(.+)$/, '/$1/$2') : v;
     case 'page': return v || null;
     case 'range': return Number(v);
@@ -205,7 +209,15 @@ function resolveSetting(def, value) {
     default: return v === undefined ? '' : v;
   }
 }
-const imageByFile = (f) => ({ src: `/img/${f}`, width: 1086, height: 1448, alt: '' });
+function dims(file) {
+  try {
+    const b = fs.readFileSync(path.join(FIX, 'img', file));
+    if (b[0] === 0x89) return { w: b.readUInt32BE(16), h: b.readUInt32BE(20) };
+    let i = 2; while (i < b.length) { if (b[i] !== 0xff) { i++; continue; } const m = b[i + 1]; if (m >= 0xc0 && m <= 0xcf && m !== 0xc4 && m !== 0xc8 && m !== 0xcc) return { h: b.readUInt16BE(i + 5), w: b.readUInt16BE(i + 7) }; i += 2 + b.readUInt16BE(i + 2); }
+  } catch { /* fall through */ }
+  return { w: 1086, h: 1448 };
+}
+const imageByFile = (f) => { const d = dims(f); return { src: `/img/${f}`, width: d.w, height: d.h, alt: '', aspect_ratio: d.w / d.h }; };
 export async function renderSection(type, id, data = {}, ctxVars = {}, index = 0, overrides = {}) {
   const { schema, body } = splitSchema(sectionSrc(type));
   const settings_ = {};
@@ -214,19 +226,19 @@ export async function renderSection(type, id, data = {}, ctxVars = {}, index = 0
   const order = data.block_order || Object.keys(data.blocks || {});
   const blocks = order.map((bid) => {
     const b = data.blocks[bid]; const def = blockDefs[b.type] || { settings: [] }; const s = {};
-    for (const sd of def.settings || []) if (sd.id) s[sd.id] = resolveSetting(sd, (b.settings || {})[sd.id]);
+    for (const sd of def.settings || []) if (sd.id) s[sd.id] = resolveSetting(sd, (overrides[`${id}.${bid}`] ?? {})[sd.id] ?? (b.settings || {})[sd.id]);
     return { id: bid, type: b.type, settings: s, shopify_attributes: '' };
   });
   const section = { id, settings: settings_, blocks, index, type };
   const html = await engine.parseAndRender(body, { ...baseVars(), ...ctxVars, section });
   const tag = schema.tag || 'section';
-  return `<${tag} id="shopify-section-${id}" class="shopify-section">${html}</${tag}>`;
+  return `<${tag} id="shopify-section-${id}" class="shopify-section${data.__group ? ' shopify-section-group-' + data.__group : ''}">${html}</${tag}>`;
 }
 let current = { vars: {}, overrides: {} };
 export function setContext(vars, overrides = {}) { current = { vars, overrides }; }
 async function renderGroup(name) {
   const g = readJSON(path.join(THEME, 'sections', `${name}.json`)); let out = ''; let i = 0;
-  for (const id of g.order) out += await renderSection(g.sections[id].type, id, g.sections[id], current.vars, i++, current.overrides);
+  for (const id of g.order) out += await renderSection(g.sections[id].type, id, { ...g.sections[id], __group: `${g.type}-group` }, current.vars, i++, current.overrides);
   return out;
 }
 export async function renderTemplateJSON(file, ctxVars, overrides = {}) {

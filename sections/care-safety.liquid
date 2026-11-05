@@ -1,6 +1,6 @@
 {%- assign head_title = page.title | escape -%}
-{%- render 'page-head', title: head_title, lede: section.settings.lede, blush: true -%}
-<div class="container" style="padding-block:var(--s-7) var(--section-y)">
+{%- render 'page-head', title: head_title, lede: section.settings.lede -%}
+<div class="wrap" style="padding-block:var(--s-7) var(--section-y)">
   <div class="care-grid">
     {%- for block in section.blocks -%}
       {%- if block.type == 'card' -%}

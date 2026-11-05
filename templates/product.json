@@ -12,7 +12,10 @@
         "buy": {
           "type": "buy",
           "settings": {
-            "dynamic_checkout": true
+            "dynamic_checkout": true,
+            "custom_heading": "Tell us the scent you have in mind",
+            "custom_note": "Requests are subject to availability.",
+            "included": "3 wax melts in your requested scent"
           }
         },
         "notes": {
@@ -39,7 +42,7 @@
         "trust": {
           "type": "trust",
           "settings": {
-            "items": "Handmade in small batches\nSecure checkout through Shopify"
+            "items": "Poured by hand in small batches\nSecure checkout through Shopify"
           }
         }
       },
@@ -55,7 +58,8 @@
         "trust"
       ],
       "settings": {
-        "dynamic_checkout": true
+        "dynamic_checkout": true,
+        "faces_collection": "wax-melts"
       }
     },
     "related": {

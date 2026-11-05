@@ -31,13 +31,24 @@
       "no_results_title": "Nothing found for “{{ terms }}”",
       "no_results_text": "Check the spelling, try a simpler word, or browse every scent.",
       "browse_all": "Browse all products",
-      "other": "Pages and articles"
+      "other": "Pages and articles",
+      "shortcuts": "Shop quickly",
+      "popular": "Popular scents",
+      "products": "Products",
+      "clear": "Clear search",
+      "searching": "Searching…",
+      "result_count": {
+        "one": "1 product found",
+        "other": "{{ count }} products found"
+      },
+      "error": "We couldn't load results.",
+      "retry": "Try again"
     },
     "cart": {
-      "label": "Cart",
+      "label": "Bag",
       "items": {
-        "one": "{{ count }} item in cart",
-        "other": "{{ count }} items in cart"
+        "one": "{{ count }} item in your bag",
+        "other": "{{ count }} items in your bag"
       }
     },
     "account": {
@@ -61,6 +72,10 @@
       "title": "This page has drifted off",
       "text": "The page you're looking for doesn't exist or has moved. Try searching, or head back to the scents.",
       "cta": "Shop wax melts"
+    },
+    "rail": {
+      "previous": "Scroll left",
+      "next": "Scroll right"
     }
   },
   "sections": {
@@ -77,10 +92,19 @@
     "quote": {
       "label": "Customer quote",
       "read_reviews": "Read reviews"
+    },
+    "media": {
+      "play": "Play video"
+    },
+    "reviews": {
+      "google": "Google profile",
+      "google_write": "Review us on Google",
+      "trustpilot": "Trustpilot",
+      "shop": "Shop app profile"
     }
   },
   "products": {
-    "add_to_cart": "Add to cart",
+    "add_to_cart": "Add to bag",
     "sold_out": "Sold out",
     "unavailable": "Unavailable",
     "quick_add": "Quick add",
@@ -118,7 +142,8 @@
     "custom_scent": {
       "label": "Which scent would you like?",
       "hint": "Tell us the fragrance you have in mind. We'll review your request and confirm availability.",
-      "property": "Requested scent"
+      "property": "Requested scent",
+      "placeholder": "e.g. the name of a perfume or fragrance"
     },
     "care": {
       "heading": "Use and safety",
@@ -155,15 +180,16 @@
     "empty_filtered": {
       "title": "No products match those filters",
       "text": "Try removing a filter, or browse the whole collection."
-    }
+    },
+    "families": "Browse by scent family"
   },
   "cart": {
-    "title": "Your cart",
+    "title": "Your bag",
     "summary": "Order summary",
     "subtotal": "Subtotal",
     "each": "each",
     "remove": "Remove",
-    "update": "Update cart",
+    "update": "Update bag",
     "continue": "Continue shopping",
     "checkout": "Checkout",
     "quantity_for": "Quantity for {{ title }}",
@@ -171,7 +197,7 @@
     "taxes_included": "Tax included.",
     "shipping_at_checkout": "Shipping and any discount codes are calculated at checkout.",
     "empty": {
-      "title": "Your cart is empty",
+      "title": "Your bag is empty",
       "text": "Pick a scent, or start with the Mixed Scent Package if you're not sure.",
       "cta": "Shop wax melts"
     },
@@ -182,10 +208,10 @@
       "privacy": "Privacy policy"
     },
     "toast": {
-      "added": "Added to your cart.",
-      "view": "View cart",
+      "added": "Added to your bag.",
+      "view": "View bag",
       "checkout": "Checkout",
-      "error": "We couldn't add that to your cart.",
+      "error": "We couldn't add that to your bag.",
       "network": "Something went wrong connecting to the shop. Check your connection and try again."
     }
   },
@@ -226,15 +252,19 @@
     "policies": "Store policies",
     "cookie_preferences": "Cookie preferences",
     "whatsapp": "WhatsApp",
-    "review": "Leave us a review",
+    "review": "Trustpilot",
     "company_number": "Company number {{ number }}",
-    "vat_number": "VAT number {{ number }}"
+    "vat_number": "VAT number {{ number }}",
+    "google": "Google reviews",
+    "shop_profile": "Shop app profile"
   },
   "social": {
     "instagram": "Instagram",
     "tiktok": "TikTok",
     "facebook": "Facebook",
-    "whatsapp": "WhatsApp"
+    "whatsapp": "WhatsApp",
+    "google": "Google Business Profile",
+    "shop": "Shop app profile"
   },
   "faq": {
     "topics": "FAQ topics",

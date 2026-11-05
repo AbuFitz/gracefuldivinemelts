@@ -2,8 +2,8 @@
   Grouped FAQ. Blocks are processed in order: a "Group heading" block starts a new group; "Question" blocks belong to the group above.
 {%- endcomment -%}
 {%- assign head_title = page.title | default: section.settings.heading | escape -%}
-{%- render 'page-head', title: head_title, lede: section.settings.lede, blush: true -%}
-<div class="container" style="padding-block:var(--s-7) var(--section-y)">
+{%- render 'page-head', title: head_title, lede: section.settings.lede -%}
+<div class="wrap" style="padding-block:var(--s-7) var(--section-y)">
   <div class="faq-layout">
     <nav class="faq-nav" aria-label="{{ 'faq.topics' | t }}">
       <ul role="list">

@@ -2,8 +2,18 @@
   "name": "Header group",
   "type": "header",
   "sections": {
-    "announcement": { "type": "announcement-bar", "settings": {} },
-    "header": { "type": "header", "settings": {} }
+    "announcement": { "type": "announcement-bar", "settings": { "text": "Poured with intention, inspired by grace" } },
+    "header": {
+      "type": "header",
+      "settings": { "menu": "main-menu", "popular_collection": "wax-melts", "feature_product": "our-bundle-deal", "search_suggestions": "Floral, Woody, Sweet, Fresh" },
+      "blocks": {
+        "s1": { "type": "shortcut", "settings": { "label": "Shop all wax melts", "link": "shopify://collections/all" } },
+        "s2": { "type": "shortcut", "settings": { "label": "Mixed Scent Package", "link": "shopify://products/mixed-scent-package" } },
+        "s3": { "type": "shortcut", "settings": { "label": "Request a Specific Scent", "link": "shopify://products/request-a-specific-scent" } },
+        "s4": { "type": "shortcut", "settings": { "label": "Discover scents by mood", "link": "shopify://pages/find-your-scent" } }
+      },
+      "block_order": ["s1", "s2", "s3", "s4"]
+    }
   },
   "order": ["announcement", "header"]
 }

@@ -1,0 +1,26 @@
+// Screenshots of interactive states (overlays, dropdown, sticky bar, scrolled nav). Usage: node states.mjs  (env OUT, BASE)
+import { createRequire } from 'node:module';
+import fs from 'node:fs';
+import path from 'node:path';
+const require = createRequire(import.meta.url);
+const { chromium } = require('playwright');
+const BASE = process.env.BASE || 'http://localhost:4173';
+const OUT = process.env.OUT || path.resolve('shots'); fs.mkdirSync(OUT, { recursive: true });
+const b = await chromium.launch();
+const D = await b.newContext({ viewport: { width: 1440, height: 900 } }); const d = await D.newPage();
+const M = await b.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true }); const m = await M.newPage();
+const shot = (p, n) => p.screenshot({ path: path.join(OUT, n + '.png') });
+await d.goto(BASE + '/'); await d.waitForTimeout(400);
+await d.hover('.nav__item:first-child'); await d.waitForTimeout(250); await shot(d, 'state-d-shop-dropdown');
+await d.mouse.move(700, 600); await d.evaluate(() => scrollTo(0, 1400)); await d.waitForTimeout(500); await shot(d, 'state-d-nav-scrolled');
+await d.evaluate(() => scrollTo(0, 0)); await d.click('[data-open-dialog="SearchDialog"]'); await d.waitForTimeout(400); await shot(d, 'state-d-search-open');
+await d.fill('#HeaderSearch', 'dark'); await d.waitForSelector('.search-hit'); await d.waitForTimeout(300); await shot(d, 'state-d-search-results');
+await d.fill('#HeaderSearch', 'zzzz'); await d.waitForTimeout(700); await shot(d, 'state-d-search-empty');
+await m.goto(BASE + '/'); await m.waitForTimeout(400);
+await m.click('[data-open-dialog="MenuDialog"]'); await m.waitForTimeout(400); await shot(m, 'state-m-menu');
+await m.keyboard.press('Escape'); await m.click('[data-open-dialog="SearchDialog"]'); await m.waitForTimeout(400); await shot(m, 'state-m-search-open');
+await m.fill('#HeaderSearch', 'rose'); await m.waitForSelector('.search-hit'); await m.waitForTimeout(300); await shot(m, 'state-m-search-results');
+await m.keyboard.press('Escape'); await m.keyboard.press('Escape');
+await m.goto(BASE + '/products/dark-desire'); await m.evaluate(() => scrollTo(0, 1500)); await m.waitForTimeout(700); await shot(m, 'state-m-pdp-stickybar');
+await m.goto(BASE + '/products/request-a-specific-scent?scent=Baccarat%20Rouge'); await m.waitForTimeout(400); await m.evaluate(() => scrollTo(0, 560)); await m.waitForTimeout(500); await shot(m, 'state-m-custom-prefilled');
+await b.close(); console.log('states captured');

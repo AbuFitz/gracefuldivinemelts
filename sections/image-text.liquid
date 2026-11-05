@@ -1,5 +1,5 @@
 <section class="section" aria-labelledby="it-h-{{ section.id }}">
-  <div class="container">
+  <div class="wrap">
     <div class="split{% if section.settings.flip %} split--flip{% endif %}">
       <div class="split__media" data-reveal>
         {%- if section.settings.image -%}{%- render 'image', image: section.settings.image, sizes: '(min-width: 860px) 50vw, 100vw', widths: '480,720,960,1280' -%}{%- else -%}{{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder' }}{%- endif -%}
@@ -8,7 +8,7 @@
         {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
         <h2 id="it-h-{{ section.id }}">{{ section.settings.heading }}</h2>
         <div class="prose">{{ section.settings.text }}</div>
-        {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}<a class="link-arrow" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+        {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}<a class="link" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
       </div>
     </div>
   </div>

@@ -18,7 +18,7 @@ rm(path.join(here, '_data/img')); // keep the function small: photos are served 
 
 // 2. theme + runtime
 for (const d of ['layout', 'sections', 'snippets', 'templates', 'config', 'locales']) cp(path.join(repo, d), path.join(here, '_theme', d));
-for (const f of ['shopify-mock.mjs', 'serve.mjs', 'demo-metafields.json']) { fs.mkdirSync(path.join(here, '_runtime'), { recursive: true }); fs.copyFileSync(path.join(repo, 'tools/preview', f), path.join(here, '_runtime', f)); }
+for (const f of ['shopify-mock.mjs', 'serve.mjs', 'demo-metafields.json', 'demo-media.json']) { fs.mkdirSync(path.join(here, '_runtime'), { recursive: true }); fs.copyFileSync(path.join(repo, 'tools/preview', f), path.join(here, '_runtime', f)); }
 
 // 3. static assets
 cp(path.join(repo, 'assets'), path.join(here, 'public/assets'));

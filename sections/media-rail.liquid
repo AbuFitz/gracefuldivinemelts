@@ -1,0 +1,71 @@
+<section class="section" aria-labelledby="media-h-{{ section.id }}" style="padding-top:0">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h2 id="media-h-{{ section.id }}">{{ section.settings.heading }}</h2>
+      </div>
+      <div style="display:flex;gap:var(--s-5);align-items:center">
+        {%- if settings.social_instagram != blank -%}<a class="link" href="{{ settings.social_instagram }}" rel="noopener" target="_blank">@{{ settings.instagram_handle }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+        <div class="rail-ctl js-only">
+          <button type="button" class="round-btn" data-rail-prev aria-label="{{ 'general.rail.previous' | t }}">{% render 'icon', name: 'left' %}</button>
+          <button type="button" class="round-btn" data-rail-next aria-label="{{ 'general.rail.next' | t }}">{% render 'icon', name: 'right' %}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rail media-rail" data-rail tabindex="0" role="group" aria-label="{{ section.settings.heading | escape }}">
+    {%- for block in section.blocks -%}
+      <div {{ block.shopify_attributes }}>
+        {%- case block.type -%}
+          {%- when 'photo' -%}
+            {%- if block.settings.image -%}
+              <figure class="tile tile--{{ block.settings.shape }}">
+                {%- render 'image', image: block.settings.image, sizes: '(min-width: 900px) 20vw, 58vw', widths: '360,480,640,800', alt: block.settings.alt -%}
+                {%- if block.settings.caption != blank -%}<figcaption>{{ block.settings.caption }}</figcaption>{%- endif -%}
+              </figure>
+            {%- endif -%}
+          {%- when 'video' -%}
+            {%- if block.settings.video != blank -%}
+              <div class="tile tile--tall" data-video-tile>
+                {%- if block.settings.poster -%}
+                  {%- assign poster_url = block.settings.poster | image_url: width: 640 -%}
+                  {{ block.settings.video | video_tag: image_size: '640x', autoplay: false, loop: true, muted: true, controls: false, preload: 'none', playsinline: true, poster: poster_url }}
+                {%- else -%}
+                  {{ block.settings.video | video_tag: image_size: '640x', autoplay: false, loop: true, muted: true, controls: false, preload: 'none', playsinline: true }}
+                {%- endif -%}
+                <button type="button" class="tile__play js-only" data-video-play aria-label="{{ 'sections.media.play' | t }}"><span>{% render 'icon', name: 'play' %}</span></button>
+                {%- if block.settings.caption != blank -%}<span class="tile__cap" style="position:absolute;left:.9rem;bottom:.9rem;color:#fff;font-size:var(--t-xs);font-weight:650;text-shadow:0 1px 10px rgb(0 0 0 / .6)">{{ block.settings.caption }}</span>{%- endif -%}
+              </div>
+            {%- endif -%}
+        {%- endcase -%}
+      </div>
+    {%- endfor -%}
+    {%- if settings.social_instagram != blank -%}
+      <a class="follow" href="{{ settings.social_instagram }}" rel="noopener" target="_blank">{% render 'icon', name: 'instagram' %}<b>{{ section.settings.follow_text }}</b><span>@{{ settings.instagram_handle }}</span></a>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Media rail (social)",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Behind the pour" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "As seen on Instagram." },
+    { "type": "text", "id": "follow_text", "label": "Follow card text", "default": "See more and follow along" }
+  ],
+  "blocks": [
+    { "type": "photo", "name": "Photo", "settings": [
+      { "type": "image_picker", "id": "image", "label": "Image (upload originals you own)" },
+      { "type": "select", "id": "shape", "label": "Shape", "default": "portrait", "options": [
+        { "value": "tall", "label": "Tall (9:14)" }, { "value": "portrait", "label": "Portrait (4:5)" }, { "value": "square", "label": "Square" }, { "value": "wide", "label": "Landscape (4:3)" } ] },
+      { "type": "text", "id": "caption", "label": "Caption (optional)" },
+      { "type": "text", "id": "alt", "label": "Alt text" } ] },
+    { "type": "video", "name": "Video", "settings": [
+      { "type": "video", "id": "video", "label": "Video (uploaded to Shopify Files)" },
+      { "type": "image_picker", "id": "poster", "label": "Poster image" },
+      { "type": "text", "id": "caption", "label": "Caption (optional)" } ] }
+  ],
+  "presets": [{ "name": "Media rail (social)" }]
+}
+{% endschema %}

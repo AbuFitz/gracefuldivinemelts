@@ -1,5 +1,5 @@
-<div class="container" style="padding-block:var(--s-7) var(--section-y)">
-  <p><a class="link-arrow" href="{{ routes.account_url }}">{{ 'customer.order.back' | t }}</a></p>
+<div class="wrap" style="padding-block:var(--s-7) var(--section-y)">
+  <p><a class="link" href="{{ routes.account_url }}">{{ 'customer.order.back' | t }}</a></p>
   <h1 style="font-size:var(--t-h2);margin:var(--s-5) 0">{{ 'customer.order.title' | t: name: order.name }}</h1>
   <p class="muted">{{ order.created_at | time_tag: '%d %B %Y' }}{% if order.cancelled %} · {{ 'customer.order.cancelled' | t }}{% endif %}</p>
   <div class="table-wrap" style="margin-top:var(--s-6)"><table class="table">

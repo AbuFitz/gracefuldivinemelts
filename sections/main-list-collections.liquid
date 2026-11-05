@@ -1,13 +1,13 @@
 {%- assign head_title = 'collections.list.title' | t -%}
-{%- render 'page-head', title: head_title, blush: true -%}
-<div class="container" style="padding-block:var(--s-7) var(--section-y)">
+{%- render 'page-head', title: head_title -%}
+<div class="wrap" style="padding-block:var(--s-7) var(--section-y)">
   {%- if collections.size > 0 -%}
-    <ul class="grid" role="list">
+    <ul class="catalogue" role="list">
       {%- for c in collections -%}
         <li>
-          <article class="card">
-            <div class="card__media">{%- if c.featured_image -%}{%- render 'image', image: c.featured_image, sizes: '(min-width: 760px) 33vw, 50vw' -%}{%- elsif c.products.first.featured_image -%}{%- render 'image', image: c.products.first.featured_image, sizes: '(min-width: 760px) 33vw, 50vw' -%}{%- endif -%}</div>
-            <div class="card__body"><h2 class="card__title"><a href="{{ c.url }}">{{ c.title | escape }}</a></h2><span class="card__meta">{{ 'collections.count' | t: count: c.products_count }}</span></div>
+          <article class="item">
+            <div class="item__media">{%- if c.featured_image -%}{%- render 'image', image: c.featured_image, sizes: '(min-width: 760px) 33vw, 50vw' -%}{%- elsif c.products.first.featured_image -%}{%- render 'image', image: c.products.first.featured_image, sizes: '(min-width: 760px) 33vw, 50vw' -%}{%- endif -%}</div>
+            <div class="item__body"><h2 class="item__title"><a href="{{ c.url }}">{{ c.title | escape }}</a></h2><span class="item__meta">{{ 'collections.count' | t: count: c.products_count }}</span></div>
           </article>
         </li>
       {%- endfor -%}

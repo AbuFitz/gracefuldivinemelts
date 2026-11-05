@@ -1,0 +1,22 @@
+{%- assign g = settings.google_review_link | default: settings.google_profile -%}
+{%- if g != blank or settings.review_link != blank or settings.shop_profile != blank -%}
+<section class="section" style="padding-block:var(--s-8)" aria-labelledby="rev-h-{{ section.id }}">
+  <div class="wrap">
+    <div class="reviews">
+      <h2 id="rev-h-{{ section.id }}">{{ section.settings.heading }}</h2>
+      <ul role="list">
+        {%- if g != blank -%}<li><a class="chip" href="{{ g }}" rel="noopener" target="_blank">{% render 'icon', name: 'google' %}&nbsp;{% if settings.google_review_link != blank %}{{ 'sections.reviews.google_write' | t }}{% else %}{{ 'sections.reviews.google' | t }}{% endif %}</a></li>{%- endif -%}
+        {%- if settings.review_link != blank -%}<li><a class="chip" href="{{ settings.review_link }}" rel="noopener" target="_blank">{{ 'sections.reviews.trustpilot' | t }}</a></li>{%- endif -%}
+        {%- if settings.shop_profile != blank -%}<li><a class="chip" href="{{ settings.shop_profile }}" rel="noopener" target="_blank">{{ 'sections.reviews.shop' | t }}</a></li>{%- endif -%}
+      </ul>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Review links",
+  "settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Bought from us? Tell people what you thought." }],
+  "presets": [{ "name": "Review links" }]
+}
+{% endschema %}

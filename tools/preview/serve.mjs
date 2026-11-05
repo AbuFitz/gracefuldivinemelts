@@ -10,9 +10,8 @@ const FIX = process.env.GDM_FIXTURES_DIR || path.join(import.meta.dirname, 'fixt
 const PORT = Number(process.env.PORT || 4173);
 const mime = { '.css': 'text/css', '.js': 'text/javascript', '.woff2': 'font/woff2', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.txt': 'text/plain' };
 const exists = (p) => fs.existsSync(p);
-const find = (prefix) => imgNames().find((f) => f.startsWith(prefix));
-const DEMO_IMG = { hero: find('B8B5F1DE'), story: find('1254') || find('9FDA295B'), hearts: find('B4CE0A0E'), bundle: find('9FDA295B') };
-const overrides = { hero: { image: DEMO_IMG.hero }, story: { image: DEMO_IMG.bundle }, bundle: { image: DEMO_IMG.bundle }, mixed: { image: DEMO_IMG.hearts } };
+const demo = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'demo-media.json'), 'utf8'));
+const overrides = { 'media.v': { video: { demoUrl: demo.video.src, poster: '/img/video-poster.jpg' }, poster: { src: '/img/video-poster.jpg', width: 900, height: 1200 } } };
 
 const PAGES = { contact: 'page.contact', 'gracefuldivinemeltswax-melt-faq': 'page.faq', 'wax-melt-care-safety': 'page.care', 'delivery-returns': 'page.delivery', 'find-your-scent': 'page.find-scent', about: 'page.about', policies: 'page.policies', 'terms-test': 'page' };
 const PAGE_TITLES = { contact: 'Contact', 'gracefuldivinemeltswax-melt-faq': 'Wax Melt Care & Use – FAQ', 'wax-melt-care-safety': 'Wax melt care & safety', 'delivery-returns': 'Delivery & returns', 'find-your-scent': 'Find your scent', about: 'About', policies: 'Policies & legal' };

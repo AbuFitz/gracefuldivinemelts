@@ -3,8 +3,8 @@
   Plain-language summary blocks are owner-editable; anything not yet confirmed stays a visible placeholder.
 {%- endcomment -%}
 {%- assign head_title = page.title | escape -%}
-{%- render 'page-head', title: head_title, lede: section.settings.lede, blush: true -%}
-<div class="container container--narrow" style="padding-block:var(--s-7) var(--section-y)">
+{%- render 'page-head', title: head_title, lede: section.settings.lede -%}
+<div class="wrap wrap--narrow" style="padding-block:var(--s-7) var(--section-y)">
   {%- for block in section.blocks -%}
     {%- case block.type -%}
       {%- when 'summary' -%}
@@ -16,7 +16,7 @@
           <h2 style="font-size:var(--t-h3);margin-bottom:var(--s-4)">{{ block.settings.title | default: pol.title }}</h2>
           {%- if pol != blank and pol.body != blank -%}
             <div class="prose">{{ pol.body }}</div>
-            <p style="margin-top:var(--s-4)"><a class="link-arrow" href="{{ pol.url }}">{{ 'policies.open_full' | t }}</a></p>
+            <p style="margin-top:var(--s-4)"><a class="link" href="{{ pol.url }}">{{ 'policies.open_full' | t }}</a></p>
           {%- else -%}
             <div class="placeholder-box"><strong>{{ 'policies.missing.title' | t }}</strong><br>{{ 'policies.missing.text' | t: policy: which }}</div>
           {%- endif -%}

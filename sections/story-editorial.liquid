@@ -1,0 +1,45 @@
+<section class="sheet sheet--paper" aria-labelledby="story-h-{{ section.id }}">
+  <div class="wrap">
+    <div class="story">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        <h2 class="visually-hidden" id="story-h-{{ section.id }}">{{ section.settings.heading }}</h2>
+        {%- liquid
+          assign q = section.settings.quote | escape
+          if section.settings.highlight != blank
+            assign hl = section.settings.highlight | escape
+            assign rep = '<span>' | append: hl | append: '</span>'
+            assign q = q | replace: hl, rep
+          endif
+        -%}
+        <p class="story__quote">{{ q }}</p>
+        {%- if section.settings.text != blank -%}<div class="prose">{{ section.settings.text }}</div>{%- endif -%}
+        <p class="story__by" style="margin-top:var(--s-6)">
+          {%- if section.settings.source_link != blank -%}<a href="{{ section.settings.source_link }}" rel="noopener" target="_blank">{{ section.settings.source_label }}</a>{%- else -%}<span>{{ section.settings.source_label }}</span>{%- endif -%}
+          {%- if settings.social_instagram != blank -%}<a class="link" href="{{ settings.social_instagram }}" rel="noopener" target="_blank">@{{ settings.instagram_handle }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+        </p>
+      </div>
+      <div class="story__shots" data-reveal>
+        <figure>{%- if section.settings.image -%}{%- render 'image', image: section.settings.image, sizes: '(min-width: 900px) 30vw, 66vw', widths: '480,720,960' -%}{%- endif -%}</figure>
+        <figure>{%- if section.settings.image_2 -%}{%- render 'image', image: section.settings.image_2, sizes: '(min-width: 900px) 24vw, 52vw', widths: '360,480,720' -%}{%- endif -%}</figure>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Brand story",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Our story" },
+    { "type": "text", "id": "heading", "label": "Accessible heading", "default": "Our story" },
+    { "type": "textarea", "id": "quote", "label": "Statement", "default": "Graceful Divine Melts was created from our genuine love for perfumes and candles, and the way beautiful scents have always made us feel good, calm and uplifted." },
+    { "type": "text", "id": "highlight", "label": "Words to highlight", "default": "love for perfumes and candles" },
+    { "type": "richtext", "id": "text", "label": "Supporting text", "default": "<p>We poured that feeling into every product, wanting others to experience the same comfort and joy we find in fragrance.</p>" },
+    { "type": "text", "id": "source_label", "label": "Source line", "default": "From our Shop profile" },
+    { "type": "url", "id": "source_link", "label": "Source link" },
+    { "type": "image_picker", "id": "image", "label": "Large image (portrait, shown in an arch)" },
+    { "type": "image_picker", "id": "image_2", "label": "Second image (landscape)" }
+  ],
+  "presets": [{ "name": "Brand story" }]
+}
+{% endschema %}

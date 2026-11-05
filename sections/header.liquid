@@ -1,89 +1,121 @@
 {%- assign menu = section.settings.menu | default: linklists['main-menu'] -%}
-<header class="header" style="--logo-w: {{ settings.logo_width }}px">
-  <div class="container header__bar">
-    <div class="header__lead" style="display:flex;align-items:center;gap:.25rem">
-      <button type="button" class="icon-btn header__menu-btn js-only" data-open-dialog="MenuDialog" aria-expanded="false" aria-controls="MenuDialog" aria-label="{{ 'general.menu.open' | t }}">{% render 'icon', name: 'menu' %}</button>
-      <nav class="header__nav" aria-label="{{ 'general.menu.main' | t }}">
-        <ul class="nav-list" role="list">
-          {%- for link in menu.links -%}
-            <li class="nav-item">
-              <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title | escape }}</a>
-              {%- if link.links != blank -%}
-                <ul class="nav-sub" role="list">
-                  {%- for child in link.links -%}<li><a href="{{ child.url }}" {% if child.current %}aria-current="page"{% endif %}>{{ child.title | escape }}</a></li>{%- endfor -%}
-                </ul>
-              {%- endif -%}
-            </li>
-          {%- endfor -%}
-        </ul>
-      </nav>
-      <noscript><a class="link-arrow" href="{{ routes.all_products_collection_url }}">{{ 'general.menu.shop' | t }}</a></noscript>
-    </div>
-
-    <a class="header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+{%- assign feature = section.settings.feature_product -%}
+{%- assign popular = section.settings.popular_collection -%}
+<div class="nav">
+  <div class="nav__bar">
+    <a class="nav__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
       {%- if settings.logo -%}
-        {%- render 'image', image: settings.logo, sizes: '200px', widths: '200,300,400', loading: 'eager', alt: shop.name -%}
+        {%- render 'image', image: settings.logo, sizes: '80px', widths: '160,240,320', loading: 'eager', alt: '' -%}
       {%- else -%}
-        <span class="header__wordmark">Graceful<br>Divine Melts</span>
+        <span class="nav__wordmark">Graceful<br>Divine<br>Melts</span>
       {%- endif -%}
     </a>
 
-    <div class="header__actions">
-      <button type="button" class="icon-btn js-only" data-open-dialog="SearchDialog" aria-expanded="false" aria-controls="SearchDialog" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}</button>
-      <a class="icon-btn no-js-only" href="{{ routes.search_url }}" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}</a>
-      {%- if shop.customer_accounts_enabled -%}
-        <a class="icon-btn" href="{{ routes.account_url }}" aria-label="{{ 'general.account.label' | t }}">{% render 'icon', name: 'account' %}</a>
-      {%- endif -%}
-      <a class="icon-btn" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart.label' | t }}">
-        {% render 'icon', name: 'cart' %}
-        <span class="cart-count" data-cart-count data-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
+    <nav aria-label="{{ 'general.menu.main' | t }}" style="display:contents">
+      <ul class="nav__links" role="list">
+        {%- for link in menu.links -%}
+          {%- if link.links != blank -%}
+            <li class="nav__item">
+              <a class="nav__link" href="{{ link.url }}" {% if link.child_active or link.active %}aria-current="page"{% endif %} aria-haspopup="true">{{ link.title | escape }}{% render 'icon', name: 'chevron' %}</a>
+              <div class="nav__panel">
+                <ul role="list">
+                  {%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>{%- endfor -%}
+                </ul>
+                {%- if feature != blank and forloop.first -%}
+                  <a class="nav__feature" href="{{ feature.url }}">
+                    {%- if feature.featured_image -%}{%- render 'image', image: feature.featured_image, sizes: '192px', widths: '240,360,480', alt: '' -%}{%- endif -%}
+                    <strong>{{ feature.title | escape }}</strong>{% render 'price', product: feature, show_from: true %}
+                  </a>
+                {%- endif -%}
+              </div>
+            </li>
+          {%- else -%}
+            <li class="nav__item"><a class="nav__link" href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="nav__actions">
+      <button type="button" class="pill-btn pill-btn--search js-only" data-open-dialog="SearchDialog" aria-expanded="false" aria-controls="SearchDialog" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}<span class="nav__search-label">{{ 'general.search.open' | t }}</span></button>
+      <a class="pill-btn pill-btn--icon no-js-only" href="{{ routes.search_url }}" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}</a>
+      <a class="pill-btn pill-btn--bag" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart.label' | t }}">
+        {% render 'icon', name: 'bag' %}<span class="bag-count" data-cart-count data-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
         <span class="visually-hidden">{{ 'general.cart.items' | t: count: cart.item_count }}</span>
       </a>
+      <button type="button" class="pill-btn pill-btn--icon nav__menu-btn js-only" data-open-dialog="MenuDialog" aria-expanded="false" aria-controls="MenuDialog" aria-label="{{ 'general.menu.open' | t }}">{% render 'icon', name: 'menu' %}</button>
+      <noscript><a class="pill-btn" href="{{ routes.all_products_collection_url }}">{{ 'general.menu.shop' | t }}</a></noscript>
     </div>
   </div>
-</header>
+</div>
 
-<dialog class="drawer" id="MenuDialog" aria-label="{{ 'general.menu.main' | t }}">
-  <div class="drawer__panel">
-    <div class="drawer__top">
+<dialog class="overlay" id="MenuDialog" aria-label="{{ 'general.menu.main' | t }}">
+  <div class="sheetbox menu-sheet">
+    <div class="menu-sheet__top">
       <span class="eyebrow" style="margin:0">{{ shop.name | escape }}</span>
-      <button type="button" class="icon-btn" data-close-dialog aria-label="{{ 'general.menu.close' | t }}">{% render 'icon', name: 'close' %}</button>
+      <button type="button" class="pill-btn pill-btn--icon" style="background:var(--c-ink);color:#fff" data-close-dialog aria-label="{{ 'general.menu.close' | t }}">{% render 'icon', name: 'close' %}</button>
     </div>
     <nav aria-label="{{ 'general.menu.main' | t }}">
-      <ul class="drawer__nav" role="list">
+      <ul role="list">
         {%- for link in menu.links -%}
           <li>
-            <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title | escape }}</a>
+            <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title | escape }}{% render 'icon', name: 'right' %}</a>
             {%- if link.links != blank -%}<ul role="list">{%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>{%- endfor -%}</ul>{%- endif -%}
           </li>
         {%- endfor -%}
       </ul>
     </nav>
-    <div class="drawer__foot">
+    <div class="menu-sheet__foot">
+      {%- if section.settings.menu_secondary != blank -%}
+        <ul role="list" style="list-style:none;display:flex;flex-wrap:wrap;gap:.25rem 1.25rem">{%- for l in section.settings.menu_secondary.links -%}<li><a href="{{ l.url }}">{{ l.title | escape }}</a></li>{%- endfor -%}</ul>
+      {%- endif -%}
       {%- if settings.business_email != blank -%}<a href="mailto:{{ settings.business_email }}">{{ settings.business_email }}</a>{%- endif -%}
-      {%- render 'social-links' -%}
+      <div style="color:var(--c-ink)">{%- render 'social-links' -%}</div>
     </div>
   </div>
 </dialog>
 
-<dialog class="drawer drawer--top" id="SearchDialog" aria-label="{{ 'general.search.label' | t }}">
-  <div class="search-panel">
-    <div class="container">
-      <form class="search-form" action="{{ routes.search_url }}" method="get" role="search">
+<dialog class="overlay" id="SearchDialog" aria-label="{{ 'general.search.label' | t }}">
+  <div class="sheetbox search-sheet">
+    <form class="search-top" action="{{ routes.search_url }}" method="get" role="search" data-search-form>
+      <div class="search-field">
+        {% render 'icon', name: 'search' %}
         <label class="visually-hidden" for="HeaderSearch">{{ 'general.search.label' | t }}</label>
-        <input class="input" id="HeaderSearch" type="search" name="q" value="" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off" data-search-input data-autofocus>
-        <input type="hidden" name="type" value="product">
-        <button class="btn" type="submit">{{ 'general.search.submit' | t }}</button>
-        <button class="icon-btn" type="button" data-close-dialog aria-label="{{ 'general.search.close' | t }}">{% render 'icon', name: 'close' %}</button>
-      </form>
-      <div class="search-results" data-search-results aria-live="polite"></div>
-      {%- if section.settings.search_suggestions != blank -%}
-        <div class="search-suggest">
-          <span class="muted" style="font-size:var(--t-sm);align-self:center">{{ 'general.search.try' | t }}</span>
-          {%- assign terms = section.settings.search_suggestions | split: ',' -%}
-          {%- for term in terms -%}<a class="chip" href="{{ routes.search_url }}?type=product&q={{ term | strip | url_encode }}">{{ term | strip }}</a>{%- endfor -%}
-        </div>
-      {%- endif -%}
+        <input id="HeaderSearch" type="search" name="q" value="" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="SearchHits" aria-autocomplete="list" data-search-input data-autofocus>
+        <button type="button" class="pill-btn pill-btn--icon search-clear" hidden data-search-clear aria-label="{{ 'general.search.clear' | t }}">{% render 'icon', name: 'close' %}</button>
+      </div>
+      <input type="hidden" name="type" value="product">
+      <button class="btn" type="submit">{{ 'general.search.submit' | t }}</button>
+      <button class="pill-btn pill-btn--icon" type="button" style="background:var(--c-blush)" data-close-dialog aria-label="{{ 'general.search.close' | t }}">{% render 'icon', name: 'close' %}</button>
+    </form>
+
+    <div class="search-body">
+      <div data-search-shortcuts>
+        <h2>{{ 'general.search.shortcuts' | t }}</h2>
+        <ul class="shortcuts" role="list">
+          {%- for block in section.blocks -%}<li {{ block.shopify_attributes }}><a href="{{ block.settings.link }}">{{ block.settings.label }}{% render 'icon', name: 'right' %}</a></li>{%- endfor -%}
+        </ul>
+        {%- if section.settings.search_suggestions != blank -%}
+          <div class="search-chips">
+            {%- assign terms = section.settings.search_suggestions | split: ',' -%}
+            {%- for term in terms -%}<a class="chip" href="{{ routes.search_url }}?type=product&q={{ term | strip | url_encode }}">{{ term | strip }}</a>{%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+      <div data-search-panel>
+        <p class="search-status" role="status" aria-live="polite" data-search-status></p>
+        {%- if popular != blank -%}
+          <div data-search-popular>
+            <h2>{{ 'general.search.popular' | t }}</h2>
+            <div class="search-popular">
+              {%- for p in popular.products limit: 3 -%}
+                <a href="{{ p.url }}">{%- if p.featured_image -%}{%- render 'image', image: p.featured_image, sizes: '200px', widths: '240,360,480', alt: '' -%}{%- endif -%}{{ p.title | escape }}<br><span class="muted" style="font-weight:500">{% render 'price', product: p, show_from: true %}</span></a>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+        <div data-search-results></div>
+      </div>
     </div>
   </div>
 </dialog>
@@ -91,8 +123,16 @@
 {
   "name": "Header",
   "settings": [
-    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
-    { "type": "text", "id": "search_suggestions", "label": "Search suggestions (comma separated)", "default": "Floral, Woody, Sweet, Bundle" }
+    { "type": "link_list", "id": "menu", "label": "Main menu", "default": "main-menu" },
+    { "type": "link_list", "id": "menu_secondary", "label": "Secondary menu (shown in the mobile menu: FAQ, Contact…)" },
+    { "type": "product", "id": "feature_product", "label": "Product featured in the Shop dropdown" },
+    { "type": "collection", "id": "popular_collection", "label": "Collection shown as 'Popular scents' when search opens" },
+    { "type": "text", "id": "search_suggestions", "label": "Search suggestions (comma separated)", "default": "Floral, Woody, Sweet, Fresh" }
+  ],
+  "blocks": [
+    { "type": "shortcut", "name": "Search shortcut", "settings": [
+      { "type": "text", "id": "label", "label": "Label", "default": "Shop all wax melts" },
+      { "type": "url", "id": "link", "label": "Link" } ] }
   ]
 }
 {% endschema %}

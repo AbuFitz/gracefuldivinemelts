@@ -12,13 +12,17 @@
         "buy": {
           "type": "buy",
           "settings": {
-            "dynamic_checkout": true
+            "dynamic_checkout": true,
+            "custom_heading": "Tell us the scent you have in mind",
+            "custom_note": "Requests are subject to availability.",
+            "included": "3 wax melts in your requested scent"
           }
         },
-        "desc": {
-          "type": "description",
+        "how": {
+          "type": "accordion",
           "settings": {
-            "heading": "How it works"
+            "heading": "How it works",
+            "content": "<p>Tell us the scent you have in mind and add it to your bag. We check availability and confirm your scent. Requests are subject to availability.</p>"
           }
         },
         "care": {
@@ -32,12 +36,13 @@
         "title",
         "price",
         "buy",
-        "desc",
+        "how",
         "care",
         "links"
       ],
       "settings": {
-        "dynamic_checkout": true
+        "dynamic_checkout": true,
+        "faces_collection": "wax-melts"
       }
     },
     "related": {

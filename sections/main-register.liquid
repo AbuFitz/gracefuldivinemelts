@@ -1,4 +1,4 @@
-<div class="container container--narrow" style="padding-block:var(--s-8) var(--section-y)">
+<div class="wrap wrap--narrow" style="padding-block:var(--s-8) var(--section-y)">
   <h1 style="font-size:var(--t-h2);margin-bottom:var(--s-6)">{{ 'customer.register.title' | t }}</h1>
   {%- form 'create_customer', novalidate: 'novalidate' -%}
     {%- if form.errors -%}<div class="notice notice--error" role="alert">{{ form.errors | default_errors }}</div>{%- endif -%}

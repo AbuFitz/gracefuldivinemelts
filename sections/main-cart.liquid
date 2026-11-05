@@ -1,29 +1,27 @@
 <div data-cart-root>
-<div class="container" data-cart>
-  <header class="page-head" style="border:0;padding-bottom:var(--s-4)">
-    {%- render 'breadcrumbs' -%}
-    <h1 style="font-size:var(--t-h2)">{{ 'cart.title' | t }}</h1>
-  </header>
+{%- assign head_title = 'cart.title' | t -%}
+{%- render 'page-head', title: head_title -%}
+<div class="wrap" data-cart>
   <p class="visually-hidden" role="status" aria-live="polite" data-cart-live></p>
 
   {%- if cart.item_count == 0 -%}
-    <div class="empty" style="padding-bottom:var(--section-y)">
+    <div class="empty" style="padding-bottom:var(--section-y);padding-top:var(--s-7)">
       <h2>{{ 'cart.empty.title' | t }}</h2>
       <p class="muted">{{ 'cart.empty.text' | t }}</p>
       <a class="btn" href="{{ routes.all_products_collection_url }}">{{ 'cart.empty.cta' | t }}{% render 'icon', name: 'arrow' %}</a>
     </div>
   {%- else -%}
-    <form class="cart" action="{{ routes.cart_url }}" method="post" id="CartForm" novalidate>
+    <form class="bag" style="padding-top:var(--s-6)" action="{{ routes.cart_url }}" method="post" id="CartForm" novalidate>
       <div>
-        <ul class="cart-lines" role="list">
+        <ul class="bag-lines" role="list">
           {%- for item in cart.items -%}
-            <li class="cart-line">
-              <a class="cart-line__img" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+            <li class="bag-line">
+              <a class="bag-line__img" href="{{ item.url }}" tabindex="-1" aria-hidden="true">
                 {%- if item.image -%}{%- render 'image', image: item.image, sizes: '120px', widths: '120,240,360', alt: '' -%}{%- endif -%}
               </a>
               <div>
-                <a class="cart-line__title" href="{{ item.url }}">{{ item.product.title | escape }}</a>
-                <div class="cart-line__meta">
+                <a class="bag-line__title" href="{{ item.url }}">{{ item.product.title | escape }}</a>
+                <div class="bag-line__meta">
                   {%- unless item.product.has_only_default_variant -%}
                     {%- for option in item.options_with_values -%}<div><span>{{ option.name | escape }}:</span> <span>{{ option.value | escape }}</span></div>{%- endfor -%}
                   {%- endunless -%}
@@ -33,7 +31,7 @@
                   {%- endfor -%}
                   {%- for allocation in item.line_level_discount_allocations -%}<div>{{ allocation.discount_application.title | escape }} (&minus;{{ allocation.amount | money }})</div>{%- endfor -%}
                 </div>
-                <div class="cart-line__ctl">
+                <div class="bag-line__ctl">
                   <div class="qty">
                     <button type="button" class="js-only" data-qty-step="-1" aria-label="{{ 'products.quantity.decrease' | t }}">&minus;</button>
                     <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" data-cart-qty data-line="{{ forloop.index }}" aria-label="{{ 'cart.quantity_for' | t: title: item.product.title }}">
@@ -42,7 +40,7 @@
                   <a class="link-btn" href="{{ item.url_to_remove }}" data-cart-remove data-line="{{ forloop.index }}">{{ 'cart.remove' | t }}<span class="visually-hidden"> {{ item.product.title | escape }}</span></a>
                 </div>
               </div>
-              <div class="cart-line__total">
+              <div class="bag-line__total">
                 {%- if item.original_line_price > item.final_line_price -%}<s class="muted">{{ item.original_line_price | money }}</s> {%- endif -%}
                 <span>{{ item.final_line_price | money }}</span>
                 {%- if item.quantity > 1 -%}<div class="muted" style="font-size:var(--t-xs);font-weight:400">{{ item.final_price | money }} {{ 'cart.each' | t }}</div>{%- endif -%}
@@ -50,11 +48,11 @@
             </li>
           {%- endfor -%}
         </ul>
-        <noscript><button class="btn btn--secondary" type="submit" name="update" style="margin-top:var(--s-4)">{{ 'cart.update' | t }}</button></noscript>
-        <p style="margin-top:var(--s-5)"><a class="link-arrow" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a></p>
+        <noscript><button class="btn btn--ghost" type="submit" name="update" style="margin-top:var(--s-4)">{{ 'cart.update' | t }}</button></noscript>
+        <p style="margin-top:var(--s-5)"><a class="link" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a></p>
       </div>
 
-      <aside class="cart__summary" aria-labelledby="CartSummaryH">
+      <aside class="bag__summary" aria-labelledby="CartSummaryH">
         <h2 id="CartSummaryH">{{ 'cart.summary' | t }}</h2>
         {%- if settings.cart_note_enabled -%}
           <div class="field">
@@ -73,7 +71,7 @@
         </p>
         <button type="submit" name="checkout" class="btn btn--block">{{ 'cart.checkout' | t }}{% render 'icon', name: 'arrow' %}</button>
         {%- if additional_checkout_buttons -%}<div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}
-        <div class="cart__links">
+        <div class="bag__links">
           {%- if shop.shipping_policy.url -%}<a href="{{ shop.shipping_policy.url }}">{{ 'cart.links.shipping' | t }}</a>{%- endif -%}
           {%- if shop.refund_policy.url -%}<a href="{{ shop.refund_policy.url }}">{{ 'cart.links.returns' | t }}</a>{%- endif -%}
           {%- if shop.terms_of_service.url -%}<a href="{{ shop.terms_of_service.url }}">{{ 'cart.links.terms' | t }}</a>{%- endif -%}

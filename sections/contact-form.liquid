@@ -1,6 +1,6 @@
 {%- assign head_title = page.title | escape -%}
-{%- render 'page-head', title: head_title, lede: section.settings.lede, blush: true -%}
-<div class="container contact-grid">
+{%- render 'page-head', title: head_title, lede: section.settings.lede -%}
+<div class="wrap contact-grid">
   <div>
     <h2 style="font-size:var(--t-h3);margin-bottom:var(--s-5)">{{ 'contact.routes' | t }}</h2>
     <ul class="contact-routes" role="list">

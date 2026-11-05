@@ -3,74 +3,58 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "heading": "Perfume-inspired scents for the home.",
-        "eyebrow": "Handmade wax melts",
-        "text": "Crafted with care, our approach embraces the art of handmade quality, ensuring every product resonates with warmth and authenticity.",
+        "image": "shopify://shop_images/B8B5F1DE-4923-459A-8A4B-5E4DEA0E5B43.jpg",
+        "image_2": "shopify://shop_images/20260820041440_38331383.jpg",
+        "eyebrow": "Handmade wax melts · UK",
+        "heading": "Wax melts inspired by perfume.",
+        "highlight": "perfume.",
+        "text": "Poured by hand in small batches. Choose a scent, or tell us the one you love.",
         "cta_label": "Shop wax melts",
         "cta_link": "shopify://collections/wax-melts",
-        "cta2_label": "Not sure? Find your scent",
+        "cta2_label": "Find your scent",
         "cta2_link": "shopify://pages/find-your-scent"
-      }
-    },
-    "usp": {
-      "type": "usp-strip",
+      },
       "blocks": {
-        "a": {
-          "type": "point",
+        "h1": {
+          "type": "hotspot",
           "settings": {
-            "title": "Handmade",
-            "text": "Prepared in small batches with care."
-          }
-        },
-        "b": {
-          "type": "point",
-          "settings": {
-            "title": "Perfume-inspired",
-            "text": "Fragrances inspired by popular luxury perfumes."
-          }
-        },
-        "c": {
-          "type": "point",
-          "settings": {
-            "title": "Not sure which?",
-            "text": "Start with the Mixed Scent Package."
+            "product": "mixed-scent-package",
+            "x": 38,
+            "y": 50
           }
         }
       },
       "block_order": [
-        "a",
-        "b",
-        "c"
-      ],
-      "settings": {
-        "dark": false
-      }
+        "h1"
+      ]
     },
-    "shop": {
-      "type": "featured-collection",
+    "rail": {
+      "type": "product-rail",
       "settings": {
         "collection": "wax-melts",
-        "heading": "Our wax melts",
-        "eyebrow": "The collection",
-        "limit": 8,
-        "columns": "4",
+        "eyebrow": "The scents",
+        "heading": "Pick a scent.",
+        "limit": 10,
         "quick_add": true,
+        "sheet": true,
         "tint": false
       }
     },
-    "families": {
-      "type": "scent-families",
+    "explorer": {
+      "type": "scent-explorer",
       "settings": {
-        "heading": "Choose by mood, not by guess.",
-        "eyebrow": "Find your scent",
-        "text": "You can't smell a wax melt through a screen, so every scent is described by its notes and its family."
+        "collection": "wax-melts",
+        "eyebrow": "Discover by mood",
+        "heading": "What do you like to smell?",
+        "text": "You can't smell a wax melt through a screen, so choose a mood and we'll show you the scents.",
+        "tone": "blush"
       },
       "blocks": {
         "a": {
           "type": "family",
           "settings": {
-            "name": "Floral & fresh",
-            "description": "Jasmine, rose, lily of the valley, citrus and soft musk.",
+            "name": "Floral",
+            "description": "Jasmine, rose, lily of the valley and soft musk.",
             "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
             "cta": "Shop floral"
           }
@@ -78,7 +62,7 @@
         "b": {
           "type": "family",
           "settings": {
-            "name": "Sweet & warm",
+            "name": "Sweet",
             "description": "Vanilla, amber, caramel and creamy musk.",
             "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
             "cta": "Shop sweet"
@@ -87,8 +71,8 @@
         "c": {
           "type": "family",
           "settings": {
-            "name": "Woody & bold",
-            "description": "Leather, woods, spice and fresh peppermint.",
+            "name": "Woody",
+            "description": "Leather, woods, spice and a cool mint lift.",
             "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
             "cta": "Shop woody"
           }
@@ -100,65 +84,237 @@
         "c"
       ]
     },
-    "bundle": {
-      "type": "bundle-spotlight",
+    "custom": {
+      "type": "custom-scent-feature",
       "settings": {
-        "product": "our-bundle-deal",
-        "eyebrow": "The bundle deal",
-        "heading": "Everything to start. Two bars, a mixed pack and a burner.",
-        "text": "Choose your pair of scents and we do the rest.",
-        "cta": "Choose your bundle"
+        "product": "request-a-specific-scent",
+        "image": "shopify://shop_images/IMG-0641.png",
+        "eyebrow": "Custom scent requests",
+        "heading": "Have a scent in mind?",
+        "text": "Tell us the perfume or fragrance you love and we'll make it as a wax melt. Requests are subject to availability.",
+        "placeholder": "Name the perfume or fragrance",
+        "cta": "Request this scent",
+        "included": "3 wax melts"
       },
       "blocks": {
-        "a": {
-          "type": "item",
+        "s1": {
+          "type": "step",
           "settings": {
-            "item": "2 wax melt snap bars of your choice"
+            "title": "Tell us the scent",
+            "text": "Name the fragrance you'd like."
           }
         },
-        "b": {
-          "type": "item",
+        "s2": {
+          "type": "step",
           "settings": {
-            "item": "1 packet of mixed scent"
+            "title": "We check availability",
+            "text": "Requests are subject to availability."
           }
         },
-        "c": {
-          "type": "item",
+        "s3": {
+          "type": "step",
           "settings": {
-            "item": "1 wax burner"
+            "title": "Enjoy your melts",
+            "text": "Your three wax melts arrive in your requested scent."
           }
         }
       },
       "block_order": [
-        "a",
-        "b",
-        "c"
+        "s1",
+        "s2",
+        "s3"
+      ]
+    },
+    "bundle": {
+      "type": "bundle-showcase",
+      "settings": {
+        "product": "our-bundle-deal",
+        "eyebrow": "The bundle deal",
+        "heading": "Everything to get started.",
+        "text": "Two snap bars, a mixed scent packet and a wax burner, in one order.",
+        "scents_label": "Choose any two of these scents",
+        "cta": "Choose your pair",
+        "tone": "field"
+      },
+      "blocks": {
+        "i1": {
+          "type": "include",
+          "settings": {
+            "qty": "2",
+            "item": "wax melt snap bars of your choice"
+          }
+        },
+        "i2": {
+          "type": "include",
+          "settings": {
+            "qty": "1",
+            "item": "packet of mixed scent"
+          }
+        },
+        "i3": {
+          "type": "include",
+          "settings": {
+            "qty": "1",
+            "item": "wax burner"
+          }
+        },
+        "s1": {
+          "type": "scent",
+          "settings": {
+            "product": "candles-example-product-4"
+          }
+        },
+        "s2": {
+          "type": "scent",
+          "settings": {
+            "product": "candles-example-product-3"
+          }
+        },
+        "s3": {
+          "type": "scent",
+          "settings": {
+            "product": "paradox-wax-melt"
+          }
+        },
+        "s4": {
+          "type": "scent",
+          "settings": {
+            "product": "dark-desire"
+          }
+        },
+        "s5": {
+          "type": "scent",
+          "settings": {
+            "product": "golden-goddess"
+          }
+        },
+        "s6": {
+          "type": "scent",
+          "settings": {
+            "product": "modern-muse"
+          }
+        },
+        "s7": {
+          "type": "scent",
+          "settings": {
+            "product": "rose-elegance"
+          }
+        },
+        "p1": {
+          "type": "pin",
+          "settings": {
+            "label": "Wax burner",
+            "x": 30,
+            "y": 20
+          }
+        },
+        "p2": {
+          "type": "pin",
+          "settings": {
+            "label": "2 snap bars of your choice",
+            "x": 22,
+            "y": 62
+          }
+        },
+        "p3": {
+          "type": "pin",
+          "settings": {
+            "label": "Mixed scent packet",
+            "x": 72,
+            "y": 70
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "p1",
+        "p2",
+        "p3"
       ]
     },
     "story": {
-      "type": "image-text",
+      "type": "story-editorial",
       "settings": {
-        "eyebrow": "Made in small batches",
-        "heading": "Handmade, with attention to every batch.",
-        "text": "<p>Our wax melts are carefully prepared in small batches with care and attention to quality.</p>",
-        "cta_label": "How to use your melts",
-        "cta_link": "shopify://pages/wax-melt-care-safety"
+        "eyebrow": "Our story",
+        "heading": "Our story",
+        "image": "shopify://shop_images/B4CE0A0E-F326-4A16-9652-569A94A410AF.png",
+        "image_2": "shopify://shop_images/instagram-image-33691ada-f79d-4c12-ae82-4dd3eb3a1a3c.jpg",
+        "source_label": "From our Shop profile",
+        "source_link": "https://shop.app/m/gracefuldivinemelts"
       }
     },
-    "quote": {
-      "type": "quote",
+    "media": {
+      "type": "media-rail",
       "settings": {
-        "quote": "",
-        "source": ""
-      }
+        "eyebrow": "Behind the pour",
+        "heading": "As seen on Instagram.",
+        "follow_text": "See more and follow along"
+      },
+      "blocks": {
+        "v": {
+          "type": "video",
+          "settings": {
+            "caption": "Poured with intention"
+          }
+        },
+        "p1": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/instagram-image-0dd90166-7cfe-40a9-81ca-9984b6342fe1.jpg",
+            "shape": "portrait",
+            "alt": "A hand holding three snap bars of wax melts in blue, yellow and black"
+          }
+        },
+        "p2": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/instagram-image-33691ada-f79d-4c12-ae82-4dd3eb3a1a3c.jpg",
+            "shape": "wide",
+            "caption": "Pouring and setting",
+            "alt": "Pink wax poured into heart and bar moulds on a glass table"
+          }
+        },
+        "p3": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/20260820041440_38331383.jpg",
+            "shape": "tall",
+            "alt": "A hand holding a pink heart-shaped wax melt beside pink flowers"
+          }
+        },
+        "p4": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/3D815A4E-00F9-4200-A8C9-F7B010B05AF3.png",
+            "shape": "square",
+            "alt": "Two pink pouches of mixed heart-shaped wax melts"
+          }
+        }
+      },
+      "block_order": [
+        "v",
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
     },
     "faq": {
       "type": "faq",
       "settings": {
-        "heading": "Questions, answered.",
         "eyebrow": "Good to know",
-        "link_label": "Read the full care guide",
-        "link": "shopify://pages/wax-melt-care-safety"
+        "heading": "Quick answers.",
+        "link_label": "All questions and the care guide",
+        "link": "shopify://pages/gracefuldivinemeltswax-melt-faq"
       },
       "blocks": {
         "q0": {
@@ -171,15 +327,15 @@
         "q1": {
           "type": "qa",
           "settings": {
-            "question": "How do I use wax melts safely?",
-            "answer": "<p>Place a small piece of wax in the top dish of a suitable wax burner. If using a tealight burner, place one unscented four-hour tealight underneath and light it carefully. Never add water, never leave the burner unattended and always keep it away from children, pets, draughts and flammable materials.</p>"
+            "question": "Which scent is best for me?",
+            "answer": "<p>This depends on the type of fragrance you enjoy. We offer fresh, woody, spicy, floral, sweet, amber and warm scents. Read the notes on each product page, try the Mixed Scent Package, or message us for help choosing.</p>"
           }
         },
         "q2": {
           "type": "qa",
           "settings": {
-            "question": "Which scent is best for me?",
-            "answer": "<p>This depends on the type of fragrance you enjoy. We offer fresh, woody, spicy, floral, sweet, amber and warm scents. Read the scent description on each product page, try the Mixed Scent Package, or message us for help choosing.</p>"
+            "question": "Are the scents the same as the perfumes?",
+            "answer": "<p>Our fragrances are inspired by popular luxury perfumes. Graceful Divine Melts is not affiliated with, endorsed by or connected to any designer perfume brand, and our products are not identical copies of the originals.</p>"
           }
         },
         "q3": {
@@ -197,23 +353,22 @@
         "q3"
       ]
     },
-    "newsletter": {
-      "type": "newsletter",
+    "reviews": {
+      "type": "review-links",
       "settings": {
-        "heading": "Join our community",
-        "text": "Sign up for discount codes, new scents and restocks."
+        "heading": "Bought from us? Tell people what you thought."
       }
     }
   },
   "order": [
     "hero",
-    "usp",
-    "shop",
-    "families",
+    "rail",
+    "explorer",
+    "custom",
     "bundle",
     "story",
-    "quote",
+    "media",
     "faq",
-    "newsletter"
+    "reviews"
   ]
 }

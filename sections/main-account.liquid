@@ -1,4 +1,4 @@
-<div class="container">
+<div class="wrap">
   <header class="page-head" style="border:0"><h1 style="font-size:var(--t-h2)">{{ 'customer.account.title' | t }}</h1><p class="lede">{{ 'customer.account.welcome' | t: name: customer.first_name | default: customer.email }}</p></header>
   <div class="account">
     <div>
@@ -21,8 +21,8 @@
       <h2 style="font-size:var(--t-h3);margin-bottom:var(--s-4)">{{ 'customer.account.details' | t }}</h2>
       <p>{{ customer.name }}<br>{{ customer.email }}</p>
       {%- if customer.default_address -%}<p>{{ customer.default_address | format_address }}</p>{%- endif -%}
-      <p><a class="link-arrow" href="{{ routes.account_addresses_url }}">{{ 'customer.addresses.title' | t }}</a></p>
-      <p style="margin-top:var(--s-5)"><a class="btn btn--secondary" href="{{ routes.account_logout_url }}">{{ 'customer.account.logout' | t }}</a></p>
+      <p><a class="link" href="{{ routes.account_addresses_url }}">{{ 'customer.addresses.title' | t }}</a></p>
+      <p style="margin-top:var(--s-5)"><a class="btn btn--ghost" href="{{ routes.account_logout_url }}">{{ 'customer.account.logout' | t }}</a></p>
     </aside>
   </div>
 </div>

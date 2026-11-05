@@ -3,10 +3,10 @@
   assign rec_url = routes.product_recommendations_url | append: '?section_id=' | append: section.id | append: '&product_id=' | append: product.id | append: '&limit=' | append: section.settings.limit | append: '&intent=related'
 -%}
 <section class="section related" data-recommendations data-url="{{ rec_url }}" aria-labelledby="rel-h-{{ section.id }}">
-  <div class="container">
+  <div class="wrap">
     {%- if recommendations.performed and recs.size > 0 or section.settings.fallback != blank -%}
-      <div class="section-head"><div><h2 id="rel-h-{{ section.id }}">{{ section.settings.heading }}</h2></div></div>
-      <ul class="grid grid--4" role="list">
+      <div class="head"><div><h2 id="rel-h-{{ section.id }}" style="font-size:var(--t-h3)">{{ section.settings.heading }}</h2></div></div>
+      <ul class="catalogue catalogue--4" role="list">
         {%- if recommendations.performed and recs.size > 0 -%}
           {%- for p in recs limit: section.settings.limit -%}<li>{% render 'product-card', product: p, quick_add: true %}</li>{%- endfor -%}
         {%- else -%}

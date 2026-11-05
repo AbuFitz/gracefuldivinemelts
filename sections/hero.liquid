@@ -1,22 +1,40 @@
-{%- assign img = section.settings.image -%}
-<section class="hero{% if section.settings.flip %} hero--flip{% endif %}" aria-labelledby="hero-h-{{ section.id }}">
-  <div class="hero__copy">
-    {%- render 'icon', name: 'wisp' -%}
-    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="margin:0">{{ section.settings.eyebrow }}</p>{%- endif -%}
-    <h1 id="hero-h-{{ section.id }}">{{ section.settings.heading }}</h1>
-    {%- if section.settings.text != blank -%}<p class="lede">{{ section.settings.text }}</p>{%- endif -%}
-    <div class="hero__ctas">
-      {%- if section.settings.cta_label != blank -%}<a class="btn" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">{{ section.settings.cta_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
-      {%- if section.settings.cta2_label != blank -%}<a class="btn btn--secondary" href="{{ section.settings.cta2_link | default: routes.root_url }}">{{ section.settings.cta2_label }}</a>{%- endif -%}
+{%- liquid
+  assign h = section.settings.heading | escape
+  if section.settings.highlight != blank
+    assign hl = section.settings.highlight | escape
+    assign rep = '<em>' | append: hl | append: '</em>'
+    assign h = h | replace: hl, rep
+  endif
+-%}
+<section class="hero" aria-labelledby="hero-h-{{ section.id }}">
+  <div class="wrap hero__grid">
+    <div class="hero__type">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" style="color:var(--c-ink)">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 id="hero-h-{{ section.id }}">{{ h }}</h1>
+      {%- if section.settings.text != blank -%}<p class="hero__sub">{{ section.settings.text }}</p>{%- endif -%}
+      <div class="hero__ctas">
+        {%- if section.settings.cta_label != blank -%}<a class="btn" href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}">{{ section.settings.cta_label }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}
+        {%- if section.settings.cta2_label != blank -%}<a class="btn btn--light" href="{{ section.settings.cta2_link | default: routes.root_url }}">{{ section.settings.cta2_label }}</a>{%- endif -%}
+      </div>
     </div>
-    {%- if section.settings.note != blank -%}<p class="hero__note">{{ section.settings.note }}</p>{%- endif -%}
-  </div>
-  <div class="hero__media">
-    {%- if img -%}
-      {%- render 'image', image: img, sizes: '(min-width: 900px) 48vw, 100vw', loading: 'eager', fetchpriority: 'high', widths: '480,720,960,1280,1600' -%}
-    {%- else -%}
-      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
-    {%- endif -%}
+    <div class="hero__stage">
+      <div class="hero__arch">
+        {%- if section.settings.image -%}
+          {%- render 'image', image: section.settings.image, sizes: '(min-width: 900px) 32vw, 78vw', loading: 'eager', fetchpriority: 'high', widths: '480,720,960,1280' -%}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder' }}
+        {%- endif -%}
+      </div>
+      {%- if section.settings.image_2 -%}
+        <div class="hero__orb">{%- render 'image', image: section.settings.image_2, sizes: '240px', loading: 'eager', widths: '240,360,480', alt: '' -%}</div>
+      {%- endif -%}
+      {%- for block in section.blocks -%}
+        {%- assign p = block.settings.product -%}
+        {%- if p != blank -%}
+          <a class="hot" href="{{ p.url }}" style="left:{{ block.settings.x }}%;top:{{ block.settings.y }}%" {{ block.shopify_attributes }}><i></i><span>{{ p.title | escape }} <small>{% render 'price', product: p %}</small></span></a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
   </div>
 </section>
 {% schema %}
@@ -24,16 +42,22 @@
   "name": "Hero",
   "tag": "div",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Image (use real product photography)" },
-    { "type": "checkbox", "id": "flip", "label": "Image on the left (desktop)", "default": false },
-    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Handmade wax melts" },
-    { "type": "textarea", "id": "heading", "label": "Heading", "default": "Perfume-inspired scents for the home." },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Crafted with care, our approach embraces the art of handmade quality, ensuring every product resonates with warmth and authenticity." },
+    { "type": "image_picker", "id": "image", "label": "Main image (portrait; shown in an arch)" },
+    { "type": "image_picker", "id": "image_2", "label": "Second image (shown as a circle)" },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Handmade wax melts · UK" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Wax melts inspired by perfume." },
+    { "type": "text", "id": "highlight", "label": "Word to highlight", "default": "perfume." },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Perfume-inspired scents, poured by hand in small batches." },
     { "type": "text", "id": "cta_label", "label": "Primary button", "default": "Shop wax melts" },
     { "type": "url", "id": "cta_link", "label": "Primary link" },
-    { "type": "text", "id": "cta2_label", "label": "Secondary button", "default": "Not sure? Find your scent" },
-    { "type": "url", "id": "cta2_link", "label": "Secondary link" },
-    { "type": "text", "id": "note", "label": "Small note under buttons" }
+    { "type": "text", "id": "cta2_label", "label": "Secondary button", "default": "Find your scent" },
+    { "type": "url", "id": "cta2_link", "label": "Secondary link" }
+  ],
+  "blocks": [
+    { "type": "hotspot", "name": "Product hotspot", "limit": 3, "settings": [
+      { "type": "product", "id": "product", "label": "Product" },
+      { "type": "range", "id": "x", "min": 5, "max": 95, "step": 1, "unit": "%", "label": "Horizontal position", "default": 50 },
+      { "type": "range", "id": "y", "min": 5, "max": 95, "step": 1, "unit": "%", "label": "Vertical position", "default": 50 } ] }
   ],
   "presets": [{ "name": "Hero" }]
 }

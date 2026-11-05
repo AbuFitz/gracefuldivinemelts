@@ -1,0 +1,12 @@
+{
+  "_note": "Files the owner has already published on her own Shopify store (Settings > Files / Instagram sync). Used ONLY by the local preview + temporary Vercel demo so the theme's shopify://shop_images/<name> references resolve. Nothing is copied into the theme. Source: cdn.shopify.com/s/files/1/0969/1437/4982/files/<name>",
+  "files": [
+    "instagram-image-0dd90166-7cfe-40a9-81ca-9984b6342fe1.jpg",
+    "instagram-image-33691ada-f79d-4c12-ae82-4dd3eb3a1a3c.jpg",
+    "20260820041440_38331383.jpg"
+  ],
+  "video": {
+    "src": "https://gracefuldivinemelts.com/cdn/shop/videos/c/vp/20afbb3fb3dc42db82549a902861ff5e/20afbb3fb3dc42db82549a902861ff5e.HD-1080p-7.2Mbps-73208164.mp4",
+    "poster": "https://gracefuldivinemelts.com/cdn/shop/files/preview_images/20afbb3fb3dc42db82549a902861ff5e.thumbnail.0000000000_2500x.jpg"
+  }
+}

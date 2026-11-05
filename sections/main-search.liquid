@@ -1,9 +1,9 @@
 {%- paginate search.results by 12 -%}
-  <header class="page-head page-head--blush">
-    <div class="container">
+  <header class="page-head">
+    <div class="wrap">
       {%- render 'breadcrumbs' -%}
       <h1>{{ 'general.search.title' | t }}</h1>
-      <form class="search-form" action="{{ routes.search_url }}" method="get" role="search" style="margin-top:var(--s-6);max-width:36rem">
+      <form class="search-top" action="{{ routes.search_url }}" method="get" role="search" style="margin-top:var(--s-6);max-width:36rem">
         <label class="visually-hidden" for="SearchPage">{{ 'general.search.label' | t }}</label>
         <input class="input" id="SearchPage" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" autocomplete="off">
         <input type="hidden" name="type" value="product,article,page">
@@ -11,13 +11,13 @@
       </form>
     </div>
   </header>
-  <div class="container" style="padding-block:var(--s-6) var(--section-y)">
+  <div class="wrap" style="padding-block:var(--s-6) var(--section-y)">
     {%- if search.performed -%}
       {%- if search.results_count > 0 -%}
         <p class="toolbar__count" role="status" style="margin-bottom:var(--s-6)">{{ 'general.search.results_for' | t: count: search.results_count, terms: search.terms }}</p>
         {%- assign prods = search.results | where: 'object_type', 'product' -%}
         {%- if prods.size > 0 -%}
-          <ul class="grid grid--4" role="list">{%- for item in prods -%}<li>{% render 'product-card', product: item, quick_add: true %}</li>{%- endfor -%}</ul>
+          <ul class="catalogue catalogue--4" role="list">{%- for item in prods -%}<li>{% render 'product-card', product: item, quick_add: true %}</li>{%- endfor -%}</ul>
         {%- endif -%}
         {%- assign others = search.results | where: 'object_type', 'page' -%}
         {%- assign arts = search.results | where: 'object_type', 'article' -%}

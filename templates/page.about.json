@@ -1,27 +1,26 @@
 {
   "sections": {
     "main": {
-      "type": "main-page",
-      "settings": {
-        "blush": true
-      }
+      "type": "main-page"
     },
     "story": {
-      "type": "image-text",
+      "type": "story-editorial",
       "settings": {
         "eyebrow": "Our story",
-        "heading": "Handmade wax melts, prepared in small batches.",
-        "text": "<p>Graceful Divine Melts makes perfume-inspired wax melts, prepared in small batches with care and attention to quality.</p>",
-        "flip": false
+        "heading": "Our story",
+        "image": "shopify://shop_images/B4CE0A0E-F326-4A16-9652-569A94A410AF.png",
+        "image_2": "shopify://shop_images/instagram-image-33691ada-f79d-4c12-ae82-4dd3eb3a1a3c.jpg",
+        "source_label": "From our Shop profile",
+        "source_link": "https://shop.app/m/gracefuldivinemelts"
       }
     },
-    "newsletter": {
-      "type": "newsletter"
+    "reviews": {
+      "type": "review-links"
     }
   },
   "order": [
     "main",
     "story",
-    "newsletter"
+    "reviews"
   ]
 }

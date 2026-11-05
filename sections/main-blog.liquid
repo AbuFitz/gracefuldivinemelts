@@ -1,13 +1,13 @@
 {%- paginate blog.articles by 9 -%}
   {%- assign head_title = blog.title | escape -%}
-  {%- render 'page-head', title: head_title, blush: true -%}
-  <div class="container" style="padding-block:var(--s-7) var(--section-y)">
+  {%- render 'page-head', title: head_title -%}
+  <div class="wrap" style="padding-block:var(--s-7) var(--section-y)">
     {%- if blog.articles.size > 0 -%}
-      <ul class="grid" role="list">
+      <ul class="catalogue" role="list">
         {%- for article in blog.articles -%}
-          <li><article class="card">
-            {%- if article.image -%}<a class="card__media" href="{{ article.url }}" tabindex="-1" aria-hidden="true">{%- render 'image', image: article.image, sizes: '(min-width: 760px) 33vw, 50vw' -%}</a>{%- endif -%}
-            <div class="card__body"><h2 class="card__title"><a href="{{ article.url }}">{{ article.title | escape }}</a></h2><span class="card__meta">{{ article.published_at | time_tag: '%d %B %Y' }}</span></div>
+          <li><article class="item">
+            {%- if article.image -%}<a class="item__media" href="{{ article.url }}" tabindex="-1" aria-hidden="true">{%- render 'image', image: article.image, sizes: '(min-width: 760px) 33vw, 50vw' -%}</a>{%- endif -%}
+            <div class="item__body"><h2 class="item__title"><a href="{{ article.url }}">{{ article.title | escape }}</a></h2><span class="item__meta">{{ article.published_at | time_tag: '%d %B %Y' }}</span></div>
           </article></li>
         {%- endfor -%}
       </ul>

@@ -1,6 +1,6 @@
-{%- comment -%} Params: title, lede (optional), blush (bool) {%- endcomment -%}
-<header class="page-head{% if blush %} page-head--blush{% endif %}">
-  <div class="container">
+{%- comment -%} Params: title, lede (optional), plain (bool: paper background instead of the pink field) {%- endcomment -%}
+<header class="page-head{% if plain %} page-head--plain{% endif %}">
+  <div class="wrap">
     {%- render 'breadcrumbs' -%}
     <h1>{{ title }}</h1>
     {%- if lede != blank -%}<p class="lede">{{ lede }}</p>{%- endif -%}

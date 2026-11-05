@@ -10,67 +10,238 @@
   {
     "name": "Brand colours",
     "settings": [
-      { "type": "paragraph", "content": "Keep text on paper and rose-on-paper at readable contrast. Changing these affects every page." },
-      { "type": "color", "id": "color_paper", "label": "Page background", "default": "#FCF7F4" },
-      { "type": "color", "id": "color_ink", "label": "Text and dark surfaces", "default": "#1A1214" },
-      { "type": "color", "id": "color_blush", "label": "Blush surfaces", "default": "#F9E3EC" },
-      { "type": "color", "id": "color_pink", "label": "Brand pink (decorative)", "default": "#F26BB0" },
-      { "type": "color", "id": "color_rose", "label": "Rose (links, buttons, accents)", "default": "#A5256B" }
+      {
+        "type": "paragraph",
+        "content": "Keep text on paper and rose-on-paper at readable contrast. Changing these affects every page."
+      },
+      {
+        "type": "color",
+        "id": "color_paper",
+        "label": "Page background",
+        "default": "#FFFAFB"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Text and dark surfaces",
+        "default": "#170A10"
+      },
+      {
+        "type": "color",
+        "id": "color_blush",
+        "label": "Blush surfaces",
+        "default": "#FBE4EE"
+      },
+      {
+        "type": "color",
+        "id": "color_pink",
+        "label": "Brand pink (decorative)",
+        "default": "#F26BB0"
+      },
+      {
+        "type": "color",
+        "id": "color_field",
+        "label": "Pink field (large colour areas)",
+        "default": "#F7B9D1"
+      },
+      {
+        "type": "color",
+        "id": "color_rose",
+        "label": "Rose (links, buttons, accents)",
+        "default": "#A5256B"
+      }
     ]
   },
   {
     "name": "Logo",
     "settings": [
-      { "type": "image_picker", "id": "logo", "label": "Logo (re-use the existing store logo)" },
-      { "type": "range", "id": "logo_width", "min": 60, "max": 200, "step": 5, "unit": "px", "label": "Logo width", "default": 96 }
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo (re-use the existing store logo)"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 60,
+        "max": 200,
+        "step": 5,
+        "unit": "px",
+        "label": "Logo width",
+        "default": 96
+      }
     ]
   },
   {
     "name": "Layout",
     "settings": [
-      { "type": "range", "id": "page_width", "min": 1100, "max": 1600, "step": 20, "unit": "px", "label": "Maximum page width", "default": 1320 },
-      { "type": "select", "id": "card_ratio", "label": "Product image shape", "default": "portrait", "options": [
-        { "value": "portrait", "label": "Portrait (3:4, matches current photography)" },
-        { "value": "square", "label": "Square" }
-      ] }
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1100,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "label": "Maximum page width",
+        "default": 1320
+      },
+      {
+        "type": "select",
+        "id": "card_ratio",
+        "label": "Product image shape",
+        "default": "portrait",
+        "options": [
+          {
+            "value": "portrait",
+            "label": "Portrait (3:4, matches current photography)"
+          },
+          {
+            "value": "square",
+            "label": "Square"
+          }
+        ]
+      }
     ]
   },
   {
     "name": "Business details",
     "settings": [
-      { "type": "paragraph", "content": "Shown in the footer and on the contact page only where filled in. Leave anything unconfirmed blank." },
-      { "type": "text", "id": "business_legal_name", "label": "Legal / trading name" },
-      { "type": "textarea", "id": "business_address", "label": "Business address (only if you want it displayed)" },
-      { "type": "text", "id": "business_email", "label": "Customer email", "default": "gracefuldivinemelts@outlook.com" },
-      { "type": "url", "id": "business_whatsapp", "label": "WhatsApp link", "default": "https://wa.me/message/R7CWQSXLBVTRG1" },
-      { "type": "text", "id": "business_phone", "label": "Phone (optional)" },
-      { "type": "text", "id": "business_hours", "label": "Reply times (e.g. 'We reply within 2 working days')" },
-      { "type": "text", "id": "company_number", "label": "Company number (if registered)" },
-      { "type": "text", "id": "vat_number", "label": "VAT number (only if VAT-registered)" }
+      {
+        "type": "paragraph",
+        "content": "Shown in the footer and on the contact page only where filled in. Leave anything unconfirmed blank."
+      },
+      {
+        "type": "text",
+        "id": "business_legal_name",
+        "label": "Legal / trading name"
+      },
+      {
+        "type": "textarea",
+        "id": "business_address",
+        "label": "Business address (only if you want it displayed)"
+      },
+      {
+        "type": "text",
+        "id": "business_email",
+        "label": "Customer email",
+        "default": "gracefuldivinemelts@outlook.com"
+      },
+      {
+        "type": "url",
+        "id": "business_whatsapp",
+        "label": "WhatsApp link",
+        "default": "https://wa.me/message/R7CWQSXLBVTRG1"
+      },
+      {
+        "type": "text",
+        "id": "business_phone",
+        "label": "Phone (optional)"
+      },
+      {
+        "type": "text",
+        "id": "business_hours",
+        "label": "Reply times (e.g. 'We reply within 2 working days')"
+      },
+      {
+        "type": "text",
+        "id": "company_number",
+        "label": "Company number (if registered)"
+      },
+      {
+        "type": "text",
+        "id": "vat_number",
+        "label": "VAT number (only if VAT-registered)"
+      }
     ]
   },
   {
     "name": "Social and reviews",
     "settings": [
-      { "type": "url", "id": "social_instagram", "label": "Instagram", "default": "https://www.instagram.com/gracefuldivinemelts" },
-      { "type": "url", "id": "social_tiktok", "label": "TikTok", "default": "https://www.tiktok.com/@gracefuldivine2" },
-      { "type": "url", "id": "social_facebook", "label": "Facebook" },
-      { "type": "url", "id": "review_link", "label": "Leave-a-review link", "default": "https://uk.trustpilot.com/review/www.gracefuldivinemelts.com" }
+      {
+        "type": "url",
+        "id": "social_instagram",
+        "label": "Instagram (verified: @gracefuldivinemelts)",
+        "default": "https://www.instagram.com/gracefuldivinemelts"
+      },
+      {
+        "type": "text",
+        "id": "instagram_handle",
+        "label": "Instagram handle",
+        "default": "gracefuldivinemelts"
+      },
+      {
+        "type": "url",
+        "id": "social_tiktok",
+        "label": "TikTok (add only once confirmed)"
+      },
+      {
+        "type": "url",
+        "id": "social_facebook",
+        "label": "Facebook (optional)"
+      },
+      {
+        "type": "url",
+        "id": "google_profile",
+        "label": "Google Business Profile link",
+        "default": "https://www.google.com/search?q=Graceful+Divine+Melts&kgmid=/g/11zxdwrt_5"
+      },
+      {
+        "type": "url",
+        "id": "google_review_link",
+        "label": "Google 'write a review' link (ask Google for your short review link)",
+        "info": "Leave blank until you have it; the site then links to the profile instead."
+      },
+      {
+        "type": "url",
+        "id": "shop_profile",
+        "label": "Shop app profile",
+        "default": "https://shop.app/m/gracefuldivinemelts"
+      },
+      {
+        "type": "url",
+        "id": "review_link",
+        "label": "Trustpilot link (existing)",
+        "default": "https://uk.trustpilot.com/review/www.gracefuldivinemelts.com"
+      }
     ]
   },
   {
     "name": "Cart",
     "settings": [
-      { "type": "text", "id": "cart_note_label", "label": "Order note label", "default": "Add a note to your order" },
-      { "type": "checkbox", "id": "cart_note_enabled", "label": "Show order note field", "default": true },
-      { "type": "text", "id": "free_shipping_threshold_text", "label": "Delivery reassurance line (leave blank until confirmed)", "info": "Do not enter delivery prices or times here unless they match your Shopify shipping rates." }
+      {
+        "type": "text",
+        "id": "cart_note_label",
+        "label": "Order note label",
+        "default": "Add a note to your order"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_note_enabled",
+        "label": "Show order note field",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "free_shipping_threshold_text",
+        "label": "Delivery reassurance line (leave blank until confirmed)",
+        "info": "Do not enter delivery prices or times here unless they match your Shopify shipping rates."
+      }
     ]
   },
   {
     "name": "Product pages",
     "settings": [
-      { "type": "page", "id": "care_page", "label": "Wax melt care and safety page" },
-      { "type": "text", "id": "inspired_disclaimer", "label": "Inspired-by disclaimer", "default": "Inspired by a well-known perfume. Graceful Divine Melts is not affiliated with, endorsed by, or manufactured by the original brand. The scent is designed to be similar and may not smell exactly the same as the original fragrance." }
+      {
+        "type": "page",
+        "id": "care_page",
+        "label": "Wax melt care and safety page"
+      },
+      {
+        "type": "text",
+        "id": "inspired_disclaimer",
+        "label": "Inspired-by disclaimer",
+        "default": "Inspired by a well-known perfume. Graceful Divine Melts is not affiliated with, endorsed by, or manufactured by the original brand. The scent is designed to be similar and may not smell exactly the same as the original fragrance."
+      }
     ]
   }
 ]

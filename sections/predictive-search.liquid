@@ -1,15 +1,19 @@
-{%- comment -%} Rendered by /search/suggest via the Section Rendering API; consumed by theme.js. {%- endcomment -%}
-<div data-predictive>
+{%- comment -%} Rendered by Shopify's /search/suggest (Section Rendering API); consumed by assets/theme.js. {%- endcomment -%}
+<div data-predictive data-count="{{ predictive_search.resources.products.size }}">
   {%- if predictive_search.performed -%}
     {%- assign products = predictive_search.resources.products -%}
     {%- if products.size > 0 -%}
-      <ul role="list">
+      <h3>{{ 'general.search.products' | t }}</h3>
+      <ul class="search-hits" role="listbox" id="SearchHits" aria-label="{{ 'general.search.products' | t }}">
         {%- for product in products -%}
-          <li>
-            <a class="search-hit" href="{{ product.url }}">
-              {%- if product.featured_image -%}{%- render 'image', image: product.featured_image, sizes: '60px', widths: '120,180' -%}{%- else -%}<span></span>{%- endif -%}
-              <span class="search-hit__title">{{ product.title | escape }}</span>
-              <span>{% render 'price', product: product, show_from: true %}</span>
+          <li role="presentation">
+            <a class="search-hit" role="option" id="hit-{{ forloop.index }}" aria-selected="false" href="{{ product.url }}">
+              {%- if product.featured_image -%}{%- render 'image', image: product.featured_image, sizes: '68px', widths: '136,204', alt: '' -%}{%- else -%}<span class="ph"></span>{%- endif -%}
+              <span>
+                <span class="search-hit__t">{{ product.title | escape }}</span><br>
+                <span class="search-hit__m">{% render 'price', product: product, show_from: true %}</span>
+              </span>
+              <span class="search-hit__a{% unless product.available %} is-out{% endunless %}">{% if product.available %}{{ 'products.in_stock' | t }}{% else %}{{ 'products.out_of_stock' | t }}{% endif %}</span>
             </a>
           </li>
         {%- endfor -%}
@@ -17,12 +21,16 @@
     {%- endif -%}
     {%- assign cols = predictive_search.resources.collections -%}
     {%- if cols.size > 0 -%}
-      <div class="search-suggest">{%- for c in cols -%}<a class="chip" href="{{ c.url }}">{{ c.title | escape }}</a>{%- endfor -%}</div>
+      <div class="search-chips">{%- for c in cols -%}<a class="chip" href="{{ c.url }}">{{ c.title | escape }}</a>{%- endfor -%}</div>
     {%- endif -%}
     {%- if products.size == 0 and cols.size == 0 -%}
-      <p class="muted">{{ 'general.search.no_results' | t: terms: predictive_search.terms }}</p>
+      <div class="empty" style="padding-block:var(--s-5);text-align:left;margin:0">
+        <h3 style="font-size:var(--t-h4)">{{ 'general.search.no_results_title' | t: terms: predictive_search.terms }}</h3>
+        <p class="muted">{{ 'general.search.no_results_text' | t }}</p>
+        <a class="btn btn--ghost" href="{{ routes.all_products_collection_url }}">{{ 'general.search.browse_all' | t }}</a>
+      </div>
     {%- else -%}
-      <p style="margin-top:var(--s-4)"><a class="link-arrow" href="{{ routes.search_url }}?type=product&q={{ predictive_search.terms | url_encode }}">{{ 'general.search.see_all' | t }}</a></p>
+      <p style="margin-top:var(--s-5)"><a class="link" href="{{ routes.search_url }}?type=product&q={{ predictive_search.terms | url_encode }}">{{ 'general.search.see_all' | t }}{% render 'icon', name: 'arrow' %}</a></p>
     {%- endif -%}
   {%- endif -%}
 </div>
