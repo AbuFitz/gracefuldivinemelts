@@ -55,3 +55,4 @@ Both sections stay separate, as in V2. The seam between them is a soft vertical 
 - Mobile search: popular scents (pictures) first, written shortcuts underneath; shortcuts hide while results show.
 - Wording: removed the "Behind the pour" label; "Watch us pour." is now "Follow along."; "In her own words" is now "A note from Tamara".
 - About portrait: demo-only stand-in is a post from the brand Instagram (founder holding a burner and melts, no text). Low resolution (480x640); the owner should upload a high-resolution original in the theme editor.
+- Footer: the curved dome is back (the straight-edge experiment is reverted).

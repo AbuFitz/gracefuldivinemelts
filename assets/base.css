@@ -580,7 +580,7 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .bag.is-updating .bag-lines { opacity: .5; pointer-events: none; }
 
 /* ---------- footer ---------- */
-.footer { position: relative; background: var(--c-ink); color: #fff; padding-top: var(--s-8); font-size: var(--t-sm); overflow: hidden; border-top: 1px solid rgb(255 255 255 / .12); }
+.footer { position: relative; background: var(--c-ink); color: #fff; margin-top: calc(var(--sheet-r) * -1); padding-top: calc(var(--sheet-r) + var(--s-8)); border-radius: 50% 50% 0 0 / var(--sheet-r) var(--sheet-r) 0 0; font-size: var(--t-sm); overflow: hidden; }
 .footer a { text-decoration: none; }
 .footer a:hover { color: var(--c-field); text-decoration: underline; }
 .footer__top { display: grid; gap: var(--s-6); padding-bottom: var(--s-8); }
