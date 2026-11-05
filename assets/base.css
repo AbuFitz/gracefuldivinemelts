@@ -725,3 +725,40 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .marquee__item--video img { width: 100%; height: 100%; object-fit: cover; }
 .lane--tiktok .marquee__group > .marquee__item:nth-child(even) { margin-top: 0; }
 @media (prefers-reduced-motion: reduce) { .marquee--reverse .marquee__track { animation: none; } }
+
+/* About: founder */
+.founder__hero { background: var(--c-field); padding: calc(var(--nav-h) + 3rem) 0 calc(clamp(56px, 9vw, 132px) + 3rem); overflow: hidden; }
+.founder__grid { display: grid; gap: var(--s-7); align-items: center; }
+@media (min-width: 900px) { .founder__grid { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--s-8); } }
+.founder__intro h1 { font-size: clamp(3.2rem, 1.2rem + 8vw, 8rem); letter-spacing: -.06em; line-height: .9; margin: 0 0 var(--s-5); }
+.founder__role { font-size: var(--t-lg, 1.25rem); max-width: 22rem; margin: 0 0 var(--s-6); }
+.founder__cta { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+.founder__cta .btn svg { width: 1.1rem; height: 1.1rem; }
+.founder__media { position: relative; justify-self: center; width: min(100%, 27rem); }
+.founder__portrait { margin: 0; aspect-ratio: 3 / 4; border-radius: var(--arch); overflow: hidden; background: var(--c-blush); box-shadow: 0 30px 60px -30px rgb(23 10 16 / .45); }
+.founder__portrait img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.founder__placeholder { width: 100%; height: 100%; background: var(--c-blush); }
+.founder__orb { position: absolute; margin: 0; left: -16%; bottom: 8%; width: 36%; aspect-ratio: 1; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 6px var(--c-field), 0 16px 30px -12px rgb(23 10 16 / .4); }
+.founder__orb img { width: 100%; height: 100%; object-fit: cover; }
+.founder__tag { position: absolute; right: -4%; bottom: 5%; display: grid; gap: .1rem; margin: 0; padding: .7rem 1.1rem; background: #fff; border-radius: 999px; box-shadow: 0 14px 30px -14px rgb(23 10 16 / .5); line-height: 1.15; }
+.founder__tag b { font-size: var(--t-base); }
+.founder__tag span { font-size: var(--t-xs); color: var(--c-ink-soft); }
+.founder__words { padding-top: calc(var(--section-y) * .45); }
+.founder__note { max-width: 56rem; margin-inline: auto; text-align: center; }
+.founder__quote { margin: 0 0 var(--s-6); }
+.founder__quote p { font-size: clamp(1.8rem, 1rem + 3.2vw, 3.6rem); font-weight: 650; letter-spacing: -.04em; line-height: 1.06; text-wrap: balance; margin: 0; }
+.founder__quote span { color: var(--c-rose); }
+.founder__text { max-width: 38rem; margin-inline: auto; font-size: var(--t-base); }
+.founder__sign { margin-top: var(--s-5); font-size: clamp(2rem, 1.4rem + 2vw, 3rem); font-weight: 300; font-style: italic; letter-spacing: -.03em; color: var(--c-rose); }
+.founder__facts { list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin: var(--s-7) 0; padding: 0; }
+.founder__facts li { padding: .6rem 1.2rem; border-radius: 999px; background: var(--c-blush); font-weight: 650; font-size: var(--t-sm); }
+.founder__work h2 { font-size: var(--t-xs); letter-spacing: .14em; text-transform: uppercase; margin-bottom: var(--s-4); }
+.founder__mosaic { list-style: none; display: grid; gap: var(--s-3); grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0; }
+@media (min-width: 900px) { .founder__mosaic { grid-template-columns: repeat(4, minmax(0, 1fr)); } .founder__mosaic li:nth-child(even) { margin-top: 2.5rem; } }
+.founder__mosaic li { aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--r-soft); background: var(--c-blush); }
+.founder__mosaic li:nth-child(odd) { border-radius: var(--arch); }
+.founder__mosaic img { width: 100%; height: 100%; object-fit: cover; }
+.founder__follow { margin-top: var(--s-8); display: grid; gap: var(--s-4); justify-items: center; text-align: center; }
+.founder__follow p { margin: 0; font-size: var(--t-lg, 1.25rem); font-weight: 600; }
+.founder__follow .showcase__follow { justify-content: center; }
+@media (max-width: 899px) { .founder__orb { left: 0; width: 30%; } .founder__tag { right: 0; } }

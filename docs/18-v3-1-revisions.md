@@ -22,3 +22,9 @@ Client feedback on V3 reversed several V3 decisions. This note records what chan
 - Theme Check: 0 errors, 0 warnings.
 - Browser suite: 28/28 pass, no page errors. Layout check at 360/390/430/768/1024/1440 widths: no horizontal overflow.
 - Not yet verified: a real Shopify dev store. The Shop icon is a Shopify glyph stand-in.
+
+## About page (founder)
+New `about-founder` section: "Hi, I'm Tamara." hero with an arch portrait, her own words from her TikTok/Shop post (quoted, not rewritten), a signature, three brand facts, a photo mosaic of the work, and follow buttons. The portrait is an image slot; the preview uses a cover of her own TikTok video as a stand-in, so she should upload her chosen portrait in the theme editor. The photo shown on her TikTok post is deliberately not used.
+
+## Homepage sections
+Hero, Pick a scent, Custom scent, Bundle, Our story (dome restored), social showcase, FAQ and reviews are all present. The only section retired is the V3 scent selector, replaced by Pick a scent.

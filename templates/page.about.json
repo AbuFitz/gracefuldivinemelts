@@ -1,26 +1,53 @@
 {
   "sections": {
-    "main": {
-      "type": "main-page"
-    },
-    "story": {
-      "type": "story-editorial",
+    "founder": {
+      "type": "about-founder",
       "settings": {
-        "eyebrow": "Our story",
-        "heading": "Our story",
-        "image": "shopify://shop_images/B4CE0A0E-F326-4A16-9652-569A94A410AF.png",
-        "image_2": "shopify://shop_images/instagram-image-33691ada-f79d-4c12-ae82-4dd3eb3a1a3c.jpg",
-        "source_label": "From our Shop profile",
-        "source_link": "https://shop.app/m/gracefuldivinemelts"
-      }
+        "orb": "shopify://shop_images/20260820041440_38331383.jpg"
+      },
+      "blocks": {
+        "p1": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/instagram-image-0dd90166-7cfe-40a9-81ca-9984b6342fe1.jpg",
+            "alt": "A hand holding three snap bars of wax melts in blue, yellow and black"
+          }
+        },
+        "p2": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/9FDA295B-6575-4B27-8E83-873BED1ECD7D.png",
+            "alt": "A wax burner with pink and purple wax melts, tealights and flowers"
+          }
+        },
+        "p3": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/B4CE0A0E-F326-4A16-9652-569A94A410AF.png",
+            "alt": "A hand holding a purple heart-shaped wax melt over a dish of heart melts"
+          }
+        },
+        "p4": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/B8B5F1DE-4923-459A-8A4B-5E4DEA0E5B43.jpg",
+            "alt": "Two pink pouches of heart-shaped wax melts beside a pink card"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ]
     },
     "reviews": {
       "type": "review-links"
     }
   },
   "order": [
-    "main",
-    "story",
+    "founder",
     "reviews"
   ]
 }
