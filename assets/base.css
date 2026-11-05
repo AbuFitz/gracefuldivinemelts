@@ -784,4 +784,4 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 
 
 /* soft blend between two sections (no curve) */
-.sheet--blend { border-radius: 0; margin-top: 0; padding-top: calc(var(--section-y) * .8); background: linear-gradient(to bottom, var(--c-paper) 0, var(--c-blush) clamp(7rem, 16vw, 14rem)); }
+.sheet--blend { border-radius: 0; margin-top: 0; padding-top: calc(clamp(7rem, 16vw, 14rem) + var(--section-y) * .5); background: linear-gradient(to bottom, var(--c-paper) 0, var(--c-blush) clamp(7rem, 16vw, 14rem)); }
