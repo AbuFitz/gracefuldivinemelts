@@ -172,7 +172,14 @@
       {
         "type": "url",
         "id": "social_tiktok",
-        "label": "TikTok (add only once confirmed)"
+        "label": "TikTok (verified: @gracefuldivinemelts)",
+        "default": "https://www.tiktok.com/@gracefuldivinemelts"
+      },
+      {
+        "type": "text",
+        "id": "tiktok_handle",
+        "label": "TikTok handle",
+        "default": "gracefuldivinemelts"
       },
       {
         "type": "url",

@@ -229,6 +229,20 @@
     }));
   });
 
+  /* ---------- moods: filter the rail by real scent family ---------- */
+  $$('[data-rail-section]').forEach((sec) => {
+    const moods = $('[data-moods]', sec); if (!moods) return;
+    const tabs = $$('.moods__tab', moods), desc = $('[data-moods-desc]', moods), rail = $('[data-rail]', sec);
+    tabs.forEach((tab) => tab.addEventListener('click', () => {
+      tabs.forEach((t) => t.setAttribute('aria-pressed', t === tab ? 'true' : 'false'));
+      const fam = tab.dataset.mood;
+      $$('li[data-family]', rail).forEach((li) => { li.hidden = !!fam && li.dataset.family !== fam; li.classList.add('is-in'); });
+      desc.textContent = fam ? (tab.dataset.desc || '') : '';
+      if (fam && tab.dataset.link) { const a = document.createElement('a'); a.className = 'link'; a.href = tab.dataset.link; a.textContent = tab.dataset.cta || 'Shop all'; desc.append(' ', a); }
+      rail.scrollTo({ left: 0, behavior: reduced ? 'auto' : 'smooth' }); rail.dispatchEvent(new Event('scroll'));
+    }));
+  });
+
   /* ---------- video tiles: muted autoplay only when visible, motion allowed and data not saved ---------- */
   $$('[data-video-tile]').forEach((tile) => {
     const v = $('video', tile), btn = $('[data-video-play]', tile); if (!v) return;

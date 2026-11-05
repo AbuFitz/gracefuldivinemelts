@@ -1,15 +1,51 @@
 {
   "sections": {
     "explorer": {
-      "type": "scent-selector",
+      "type": "product-rail",
       "settings": {
         "collection": "wax-melts",
-        "limit": 12,
-        "eyebrow": "Find your scent",
+        "eyebrow": "Discover by mood",
         "heading": "Find your scent",
-        "text": "Each scent is a perfume-inspired blend. Pick one to see its notes.",
-        "tone": "paper"
-      }
+        "text": "Choose a mood to see the scents that suit it.",
+        "limit": 14,
+        "quick_add": true,
+        "tone": "paper",
+        "curve": "flat"
+      },
+      "blocks": {
+        "m1": {
+          "type": "mood",
+          "settings": {
+            "name": "Floral",
+            "description": "Soft blooms, jasmine, rose and lily of the valley.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
+            "cta": "Shop floral"
+          }
+        },
+        "m2": {
+          "type": "mood",
+          "settings": {
+            "name": "Sweet",
+            "description": "Vanilla, amber, caramel and creamy musk.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
+            "cta": "Shop sweet"
+          }
+        },
+        "m3": {
+          "type": "mood",
+          "settings": {
+            "name": "Woody",
+            "description": "Leather, woods and spice.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
+            "cta": "Shop woody"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3"
+      ]
     },
     "custom": {
       "type": "custom-scent-feature",

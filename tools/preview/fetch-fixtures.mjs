@@ -24,5 +24,6 @@ for (const u of urls) {
   console.log('saved', name);
 }
 { const r = await get(`${demo.video.poster}?width=900`); await fs.writeFile(path.join(out, 'img', 'video-poster.jpg'), Buffer.from(await r.arrayBuffer())); }
+try { for (const f of await fs.readdir(path.join(import.meta.dirname, 'demo-assets'))) await fs.copyFile(path.join(import.meta.dirname, 'demo-assets', f), path.join(out, 'img', f)); } catch { /* optional */ }
 await fs.writeFile(path.join(out, 'img-list.json'), JSON.stringify(await fs.readdir(path.join(out, 'img'))));
 console.log(`${products.length} products, ${collections.length} collections`);

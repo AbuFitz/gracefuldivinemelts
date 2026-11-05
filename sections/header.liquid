@@ -39,7 +39,7 @@
     </a>
 
     <div class="nav__actions">
-      <button type="button" class="pill-btn pill-btn--search js-only" data-open-dialog="SearchDialog" aria-expanded="false" aria-controls="SearchDialog" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}<span class="nav__search-label">{{ 'general.search.nav_label' | t }}</span></button>
+      <button type="button" class="pill-btn pill-btn--search js-only" data-open-dialog="SearchDialog" aria-expanded="false" aria-controls="SearchDialog" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}<span class="nav__search-label">{{ 'general.search.open' | t }}</span></button>
       <a class="pill-btn pill-btn--icon no-js-only" href="{{ routes.search_url }}" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}</a>
       {%- if shop.customer_accounts_enabled -%}<a class="pill-btn pill-btn--icon nav__account" href="{{ routes.account_url }}" aria-label="{{ 'general.account.label' | t }}">{% render 'icon', name: 'account' %}</a>{%- endif -%}
       <a class="pill-btn pill-btn--bag" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart.label' | t }}">

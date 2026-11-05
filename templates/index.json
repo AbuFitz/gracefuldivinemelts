@@ -3,19 +3,30 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "collection": "wax-melts",
-        "limit": 5,
+        "image": "shopify://shop_images/B8B5F1DE-4923-459A-8A4B-5E4DEA0E5B43.jpg",
+        "image_2": "shopify://shop_images/20260820041440_38331383.jpg",
         "eyebrow": "Handmade wax melts · UK",
         "heading": "Wax melts inspired by perfume.",
         "highlight": "perfume.",
-        "text": "Poured by hand in small batches. Pick a scent, or tell us the one you love.",
+        "text": "Poured by hand in small batches. Choose a scent, or tell us the one you love.",
         "cta_label": "Shop wax melts",
         "cta_link": "shopify://collections/wax-melts",
         "cta2_label": "Find your scent",
-        "cta2_link": "shopify://pages/find-your-scent",
-        "aside_product": "mixed-scent-package",
-        "aside_text": "New here? Start with"
-      }
+        "cta2_link": "shopify://pages/find-your-scent"
+      },
+      "blocks": {
+        "h1": {
+          "type": "hotspot",
+          "settings": {
+            "product": "mixed-scent-package",
+            "x": 38,
+            "y": 50
+          }
+        }
+      },
+      "block_order": [
+        "h1"
+      ]
     },
     "rail": {
       "type": "product-rail",
@@ -23,22 +34,46 @@
         "collection": "wax-melts",
         "eyebrow": "The scents",
         "heading": "Pick a scent.",
-        "limit": 10,
+        "text": "Choose a mood to see the scents that suit it.",
+        "limit": 12,
         "quick_add": true,
-        "sheet": true,
-        "tint": false
-      }
-    },
-    "explorer": {
-      "type": "scent-selector",
-      "settings": {
-        "collection": "wax-melts",
-        "limit": 10,
-        "eyebrow": "Find your scent",
-        "heading": "Smell it before you buy it.",
-        "text": "Pick a scent to see its notes, then add it straight to your bag.",
-        "tone": "blush"
-      }
+        "tone": "blush",
+        "curve": "swell"
+      },
+      "blocks": {
+        "m1": {
+          "type": "mood",
+          "settings": {
+            "name": "Floral",
+            "description": "Jasmine, rose, lily of the valley and soft musk.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Floral",
+            "cta": "Shop floral"
+          }
+        },
+        "m2": {
+          "type": "mood",
+          "settings": {
+            "name": "Sweet",
+            "description": "Vanilla, amber, caramel and creamy musk.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Sweet",
+            "cta": "Shop sweet"
+          }
+        },
+        "m3": {
+          "type": "mood",
+          "settings": {
+            "name": "Woody",
+            "description": "Leather, woods and a cool mint lift.",
+            "link": "/collections/all?filter.p.m.custom.scent_family=Woody",
+            "cta": "Shop woody"
+          }
+        }
+      },
+      "block_order": [
+        "m1",
+        "m2",
+        "m3"
+      ]
     },
     "custom": {
       "type": "custom-scent-feature",
@@ -90,7 +125,8 @@
         "text": "Two snap bars, a mixed scent packet and a wax burner, in one order.",
         "scents_label": "Choose any two of these scents",
         "cta": "Choose your pair",
-        "tone": "field"
+        "tone": "field",
+        "curve": "flat"
       },
       "blocks": {
         "i1": {
@@ -205,80 +241,130 @@
         "image": "shopify://shop_images/B4CE0A0E-F326-4A16-9652-569A94A410AF.png",
         "image_2": "shopify://shop_images/instagram-image-33691ada-f79d-4c12-ae82-4dd3eb3a1a3c.jpg",
         "source_label": "From our Shop profile",
-        "source_link": "https://shop.app/m/gracefuldivinemelts"
+        "source_link": "https://shop.app/m/gracefuldivinemelts",
+        "curve": "flat"
       }
     },
     "media": {
       "type": "media-rail",
       "settings": {
         "eyebrow": "Behind the pour",
-        "heading": "As seen on Instagram.",
-        "follow_text": "Follow"
+        "heading": "Watch us pour.",
+        "text": "New scents, restocks and the making of every batch, on Instagram and TikTok."
       },
       "blocks": {
-        "v": {
-          "type": "video",
-          "settings": {
-            "caption": "Poured with intention"
-          }
-        },
-        "p1": {
-          "type": "photo",
+        "i1": {
+          "type": "instagram",
           "settings": {
             "image": "shopify://shop_images/instagram-image-0dd90166-7cfe-40a9-81ca-9984b6342fe1.jpg",
             "alt": "A hand holding three snap bars of wax melts in blue, yellow and black",
             "caption": ""
           }
         },
-        "p2": {
-          "type": "photo",
+        "i2": {
+          "type": "instagram",
           "settings": {
             "image": "shopify://shop_images/instagram-image-33691ada-f79d-4c12-ae82-4dd3eb3a1a3c.jpg",
             "alt": "Pink wax poured into heart and bar moulds on a glass table",
             "caption": "Pouring and setting"
           }
         },
-        "p3": {
-          "type": "photo",
+        "i3": {
+          "type": "instagram",
           "settings": {
             "image": "shopify://shop_images/20260820041440_38331383.jpg",
             "alt": "A hand holding a pink heart-shaped wax melt beside pink flowers",
             "caption": ""
           }
         },
-        "p4": {
-          "type": "photo",
+        "i4": {
+          "type": "instagram",
           "settings": {
             "image": "shopify://shop_images/3D815A4E-00F9-4200-A8C9-F7B010B05AF3.png",
             "alt": "Two pink pouches of mixed heart-shaped wax melts",
             "caption": ""
           }
         },
-        "p5": {
-          "type": "photo",
+        "i5": {
+          "type": "instagram",
           "settings": {
             "image": "shopify://shop_images/B4CE0A0E-F326-4A16-9652-569A94A410AF.png",
             "alt": "A hand holding a purple heart-shaped wax melt over a dish of heart melts",
             "caption": ""
           }
         },
-        "p6": {
-          "type": "photo",
+        "i6": {
+          "type": "instagram",
           "settings": {
             "image": "shopify://shop_images/B8B5F1DE-4923-459A-8A4B-5E4DEA0E5B43.jpg",
             "alt": "Two pink pouches of heart-shaped wax melts beside a pink card",
             "caption": ""
           }
+        },
+        "t1": {
+          "type": "tiktok",
+          "settings": {
+            "caption": "Just a girl who loves her wax melts",
+            "link": "https://www.tiktok.com/@gracefuldivinemelts/video/7648708860500266262"
+          }
+        },
+        "t2": {
+          "type": "tiktok",
+          "settings": {
+            "caption": "It's time…",
+            "link": "https://www.tiktok.com/@gracefuldivinemelts/video/7587516138045656342"
+          }
+        },
+        "t3": {
+          "type": "tiktok",
+          "settings": {
+            "caption": "A new snap bar",
+            "link": "https://www.tiktok.com/@gracefuldivinemelts/video/7701087030180187414"
+          }
+        },
+        "t4": {
+          "type": "tiktok",
+          "settings": {
+            "caption": "Parisian Bloom",
+            "link": "https://www.tiktok.com/@gracefuldivinemelts/video/7695729689356143894"
+          }
+        },
+        "t5": {
+          "type": "tiktok",
+          "settings": {
+            "caption": "Introducing Graceful Divine Melts",
+            "link": "https://www.tiktok.com/@gracefuldivinemelts/video/7684198297648549142"
+          }
+        },
+        "t6": {
+          "type": "tiktok",
+          "settings": {
+            "caption": "Crimson Luxe",
+            "link": "https://www.tiktok.com/@gracefuldivinemelts/video/7682451182903627030"
+          }
+        },
+        "t7": {
+          "type": "tiktok",
+          "settings": {
+            "caption": "We sell the best wax melts",
+            "link": "https://www.tiktok.com/@gracefuldivinemelts/video/7681707990457568534"
+          }
         }
       },
       "block_order": [
-        "v",
-        "p1",
-        "p2",
-        "p3",
-        "p4",
-        "p5",
-        "p6"
+        "i1",
+        "i2",
+        "i3",
+        "i4",
+        "i5",
+        "i6",
+        "t1",
+        "t2",
+        "t3",
+        "t4",
+        "t5",
+        "t6",
+        "t7"
       ]
     },
     "faq": {
@@ -336,7 +422,6 @@
   "order": [
     "hero",
     "rail",
-    "explorer",
     "custom",
     "bundle",
     "story",

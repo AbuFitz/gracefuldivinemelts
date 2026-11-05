@@ -1,6 +1,6 @@
 {%- assign p = section.settings.product -%}
 {%- if p != blank -%}
-<section class="sheet sheet--{{ section.settings.tone }}" aria-labelledby="bun-h-{{ section.id }}">
+<section class="sheet sheet--{{ section.settings.tone }}{% if section.settings.curve != 'dome' %} sheet--{{ section.settings.curve }}{% endif %}" aria-labelledby="bun-h-{{ section.id }}">
   <div class="wrap">
     <div class="bundle">
       <div class="bundle__stage">
@@ -48,6 +48,7 @@
     { "type": "textarea", "id": "text", "label": "Text" },
     { "type": "text", "id": "scents_label", "label": "Label above the scents", "default": "Choose any two of these scents" },
     { "type": "text", "id": "cta", "label": "Button", "default": "Choose your pair" },
+    { "type": "select", "id": "curve", "label": "Top edge", "default": "flat", "options": [{ "value": "dome", "label": "Dome" }, { "value": "swell", "label": "Soft swell" }, { "value": "flat", "label": "Flat" }] },
     { "type": "select", "id": "tone", "label": "Background", "default": "field", "options": [{ "value": "paper", "label": "Paper" }, { "value": "blush", "label": "Blush" }, { "value": "field", "label": "Pink" }] }
   ],
   "blocks": [

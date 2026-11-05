@@ -112,6 +112,9 @@
     "selector": {
       "families": "Scent families",
       "all": "All"
+    },
+    "showcase": {
+      "follow": "Follow on"
     }
   },
   "products": {
