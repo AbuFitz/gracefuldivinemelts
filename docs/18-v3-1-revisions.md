@@ -38,3 +38,8 @@ The V2 product card and its CSS (large unframed arch/soft-cornered images, stagg
 
 ## Scents to Discover by mood seam
 Both sections stay separate, as in V2. The seam between them is a soft vertical fade (paper to blush) instead of a second curved dome; `edge` setting on the explorer (blend / dome).
+
+## Bundle popup, announcement bar, Our story
+- Bundle is no longer a homepage section. A small non-modal popup (section `bundle-popup` in the footer group) appears after 25s or about halfway down the page, once per visit, remembers dismissal for 7 days, and is never shown on the cart or product pages. All settings are in the theme editor.
+- The announcement bar is white to match the navigation.
+- Our story: shorter copy, soft-swell seam (different from the domes), offset arch frame plus round inset.

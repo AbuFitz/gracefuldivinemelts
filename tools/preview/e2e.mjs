@@ -104,6 +104,17 @@ await t('footer: brand icons incl. TikTok with accessible names; payments (demo)
   assert((await d.locator('.footer .payments li').count()) === 7, 'payments'); assert((await txt(d, '.footer')).toLowerCase().includes('demo only'), 'demo note');
   const m2 = await mk(true); await m2.goto(BASE + '/'); const w = await m2.$eval('.footer__mark', (e) => ({ sw: e.scrollWidth, cw: e.clientWidth, ws: getComputedStyle(e).whiteSpace, h: e.getBoundingClientRect().height, fs: parseFloat(getComputedStyle(e).fontSize) })); assert(w.ws === 'nowrap' && w.sw > w.cw, 'wordmark should run off screen ' + JSON.stringify(w)); assert(w.h < w.fs * 1.2, 'wordmark stacked ' + JSON.stringify(w)); assert(w.fs >= 60, 'wordmark too small ' + w.fs); await m2.context().close();
 });
+await t('bundle popup: hidden at first, appears after scrolling halfway, closes, stays closed; absent from cart + product pages; bundle is no longer a homepage section', async () => {
+  const p = await mk(false); await p.goto(BASE + '/'); assert(!(await p.isVisible('[data-bundle-popup]')), 'visible too early'); assert((await p.locator('.bundle').count()) === 0, 'bundle section still on homepage');
+  await p.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await p.waitForSelector('[data-bundle-popup]:not([hidden])', { timeout: 4000 }); assert((await p.getAttribute('[data-bundle-popup]', 'role')) === 'dialog', 'role');
+  assert(/bundle/i.test(await txt(p, '[data-bundle-popup]')) && /£\d/.test(await txt(p, '[data-bundle-popup]')), 'content'); assert((await p.getAttribute('[data-bundle-popup] a.btn', 'href')).includes('our-bundle-deal'), 'link');
+  await p.click('[data-bpop-close]'); assert(!(await p.isVisible('[data-bundle-popup]')), 'did not close'); await p.reload(); await p.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await p.waitForTimeout(800); assert(!(await p.isVisible('[data-bundle-popup]')), 'came back after dismiss');
+  const q = await mk(false); await q.goto(BASE + '/cart'); assert((await q.locator('[data-bundle-popup]').count()) === 0, 'popup on cart'); await q.goto(BASE + '/products/our-bundle-deal'); assert((await q.locator('[data-bundle-popup]').count()) === 0, 'popup on bundle page');
+  const r = await mk(false); await r.goto(BASE + '/'); await r.evaluate(() => { document.querySelector('[data-bundle-popup]').dataset.delay = '5'; }); await p.context().close(); await q.context().close(); await r.context().close();
+});
+await t('announcement bar is white like the navigation', async () => {
+  await d.goto(BASE + '/'); const bg = await d.$eval('.announce', (e) => getComputedStyle(e).backgroundColor); assert(bg === 'rgb(255, 255, 255)', 'announce ' + bg);
+});
 await t('demo banner: green, says Design preview / Created by OneSimpleSite, link works; absent from theme files', async () => {
   await d.goto(BASE + '/'); const b = await d.$eval('#osp-banner', (e) => ({ bg: getComputedStyle(e).backgroundColor, text: e.innerText, href: e.querySelector('a').href })); assert(b.bg === 'rgb(31, 92, 63)', 'bg ' + b.bg); assert(/design preview/i.test(b.text) && /created by onesimplesite/i.test(b.text), 'text'); assert(b.href.startsWith('https://onesimplesite.co.uk'), 'href');
   const m3 = await mk(true); await m3.goto(BASE + '/'); const box = await m3.$eval('#osp-banner', (e) => e.getBoundingClientRect().width); assert(box <= 390, 'banner overflows mobile'); await m3.context().close();

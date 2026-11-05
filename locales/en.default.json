@@ -115,6 +115,9 @@
     },
     "showcase": {
       "follow": "Follow on"
+    },
+    "bundle_popup": {
+      "close": "Close bundle offer"
     }
   },
   "products": {

@@ -308,4 +308,24 @@
     const io = new IntersectionObserver((ens) => ens.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -6% 0px' });
     $$('[data-reveal]').forEach((el) => { const r = el.getBoundingClientRect(); if (r.top > innerHeight) { el.classList.add('reveal'); io.observe(el); } });
   }
+
+  /* ---------- timed bundle popup (non-modal; once per visit; remembers dismissal) ---------- */
+  $$('[data-bundle-popup]').forEach((pop) => {
+    const key = pop.dataset.key, days = Number(pop.dataset.days) || 7, delay = (Number(pop.dataset.delay) || 25) * 1000;
+    const remember = () => { try { localStorage.setItem(key, String(Date.now() + days * 864e5)); } catch (e) { /* storage blocked */ } };
+    let until = 0; try { until = Number(localStorage.getItem(key)) || 0; } catch (e) { /* storage blocked */ }
+    if (until > Date.now()) return;
+    let shown = false, timer = null;
+    const onScroll = () => { const h = document.documentElement; if ((scrollY + innerHeight) / h.scrollHeight > 0.5) show(); };
+    function show() {
+      if (shown) return;
+      if (document.querySelector('dialog[open]') || document.hidden) { clearTimeout(timer); timer = setTimeout(show, 4000); return; }
+      shown = true; clearTimeout(timer); pop.hidden = false; removeEventListener('scroll', onScroll);
+    }
+    const hide = () => { pop.hidden = true; remember(); };
+    addEventListener('scroll', onScroll, { passive: true }); timer = setTimeout(show, delay);
+    pop.querySelector('[data-bpop-close]').addEventListener('click', hide);
+    pop.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+    pop.querySelector('a.btn').addEventListener('click', remember);
+  });
 })();
