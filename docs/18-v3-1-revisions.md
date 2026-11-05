@@ -32,3 +32,6 @@ Instagram and TikTok are one section and one continuous row: photos and video co
 
 ## Homepage sections
 Hero, Pick a scent, Custom scent, Bundle, Our story (dome restored), social showcase, FAQ and reviews are all present. The V3 scent selector is retired; the V2 scents rail and Discover by mood explorer are both back.~~
+
+## Product frames
+The V2 product card and its CSS (large unframed arch/soft-cornered images, staggered rail, family label above the title, round-free quick add) are restored exactly; the V3.1 bordered-card variant is removed.

@@ -1,7 +1,6 @@
 {%- comment -%}
-  Product item: restrained frame, image first, title + price on one line, availability in words (no badge clutter).
-  Params: product (required), loading, sizes, show_family (default true), quick_add (bool), heading_level (default 3)
-  Second image appears on hover only when the product has one; family comes from metafield custom.scent_family.
+  Product item (no card chrome: image + type). Params: product (required), loading, sizes, show_family (default true), quick_add (bool), heading_level (default 3), arch (bool)
+  Scent family comes from the optional metafield custom.scent_family; renders cleanly without it.
 {%- endcomment -%}
 {%- liquid
   assign family = product.metafields.custom.scent_family.value
@@ -11,13 +10,13 @@
   endif
   assign second = product.media[1]
   assign hl = heading_level | default: 3
-  assign item_sizes = sizes | default: '(min-width: 1100px) 24vw, (min-width: 760px) 30vw, 62vw'
+  assign item_sizes = sizes | default: '(min-width: 1100px) 24vw, (min-width: 760px) 30vw, 66vw'
   assign single = false
   if product.variants.size == 1 and product.available
     assign single = true
   endif
 -%}
-<article class="item{% unless product.available %} item--sold{% endunless %}">
+<article class="item{% unless product.available %} item--sold{% endunless %}{% if arch %} item--arch{% endif %}">
   <div class="item__media {{ media_class }}">
     {%- if product.featured_media -%}
       {%- render 'image', image: product.featured_media.preview_image, sizes: item_sizes, loading: loading, widths: '360,480,640,800,1080' -%}
@@ -27,18 +26,20 @@
     {%- else -%}
       {{ 'product-1' | placeholder_svg_tag: 'placeholder' }}
     {%- endif -%}
-    {%- if product.available and product.compare_at_price > product.price -%}<div class="item__flags"><span class="badge badge--accent">{{ 'products.badge.sale' | t }}</span></div>{%- endif -%}
-    {%- if quick_add and single -%}
-      {%- form 'product', product, class: 'item__quick js-quick-add' -%}
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-        <button type="submit" aria-label="{{ 'products.quick_add' | t }}: {{ product.title | escape }}"><span aria-hidden="true">+</span></button>
-      {%- endform -%}
-    {%- endif -%}
+    <div class="item__flags">
+      {%- unless product.available -%}<span class="badge badge--sold">{{ 'products.badge.sold_out' | t }}</span>{%- endunless -%}
+      {%- if product.available and product.compare_at_price > product.price -%}<span class="badge badge--accent">{{ 'products.badge.sale' | t }}</span>{%- endif -%}
+    </div>
   </div>
   <div class="item__body">
+    {%- if family != blank and show_family != false -%}<span class="item__family">{{ family }}</span>{%- endif -%}
     <h{{ hl }} class="item__title"><a href="{{ product.url }}">{{ product.title | escape }}</a></h{{ hl }}>
     <span class="item__meta">{% render 'price', product: product, show_from: true %}</span>
-    {%- if family != blank and show_family != false -%}<span class="item__family">{{ family }}</span>{%- endif -%}
-    {%- unless product.available -%}<span class="item__avail">{{ 'products.sold_out' | t }}</span>{%- endunless -%}
   </div>
+  {%- if quick_add and single -%}
+    {%- form 'product', product, class: 'item__quick js-quick-add' -%}
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+      <button type="submit" class="btn btn--ghost" data-add-label="{{ 'products.quick_add' | t }}">{{ 'products.quick_add' | t }}<span class="visually-hidden"> — {{ product.title | escape }}</span></button>
+    {%- endform -%}
+  {%- endif -%}
 </article>
