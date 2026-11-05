@@ -140,7 +140,6 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 
 /* ---------- announcement + floating navigation ---------- */
 .announce { background: #fff; color: var(--c-ink); font-size: var(--t-xs); font-weight: 600; letter-spacing: .02em; text-align: center; }
-.announce .wrap { padding-block: .5rem; }
 .announce a { text-decoration: none; }
 .shopify-section-group-header-group:has(> .nav) { position: sticky; top: 0; z-index: 60; height: 0; }
 .nav { position: absolute; inset: .85rem 0 auto; padding-inline: clamp(.6rem, 2vw, 1.5rem); pointer-events: none; }
@@ -581,7 +580,7 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .bag.is-updating .bag-lines { opacity: .5; pointer-events: none; }
 
 /* ---------- footer ---------- */
-.footer { position: relative; background: var(--c-ink); color: #fff; margin-top: calc(var(--sheet-r) * -1); padding-top: calc(var(--sheet-r) + var(--s-8)); border-radius: 50% 50% 0 0 / var(--sheet-r) var(--sheet-r) 0 0; font-size: var(--t-sm); overflow: hidden; }
+.footer { position: relative; background: var(--c-ink); color: #fff; padding-top: var(--s-8); font-size: var(--t-sm); overflow: hidden; border-top: 1px solid rgb(255 255 255 / .12); }
 .footer a { text-decoration: none; }
 .footer a:hover { color: var(--c-field); text-decoration: underline; }
 .footer__top { display: grid; gap: var(--s-6); padding-bottom: var(--s-8); }
@@ -785,11 +784,52 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 /* soft blend between two sections (no curve) */
 .sheet--blend { border-radius: 0; margin-top: 0; padding-top: calc(clamp(7rem, 16vw, 14rem) + var(--section-y) * .5); background: linear-gradient(to bottom, var(--c-paper) 0, var(--c-blush) clamp(7rem, 16vw, 14rem)); }
 
-/* Our story: shorter copy, offset arch frame + round inset (one idea, done once) */
-.story__quote { font-size: clamp(2rem, 1.1rem + 3.6vw, 4.2rem); max-width: 16ch; text-wrap: balance; margin-bottom: var(--s-4); }
-.story .prose { font-size: var(--t-lg); max-width: 22rem; }
+/* Our story (V2 layout), smaller: framed quote card + pink panel behind the floating frames */
+.sheet--story { padding-block: clamp(3rem, 6vw, 5rem); }
+.story { gap: var(--s-6); }
 @media (min-width: 900px) { .story { align-items: center; } }
-.story__shots { min-height: 28rem; }
-@media (min-width: 900px) { .story__shots { min-height: 36rem; } }
-.story__shots figure:nth-child(1) { right: 8%; top: 0; width: 64%; aspect-ratio: 3 / 4; border-radius: var(--arch); box-shadow: 16px -16px 0 0 var(--c-paper), 16px -16px 0 2px var(--c-rose); overflow: hidden; }
-.story__shots figure:nth-child(2) { left: 2%; bottom: 3%; width: 38%; aspect-ratio: 1; border-radius: 50%; box-shadow: 0 0 0 8px var(--c-paper), 0 18px 34px -14px rgb(23 10 16 / .4); }
+.story__card { background: #fff; border-radius: 28px; padding: clamp(1.4rem, 1rem + 1.6vw, 2.2rem); box-shadow: 0 0 0 1.5px var(--c-ink), 8px 8px 0 0 var(--c-field); position: relative; max-width: 30rem; }
+.story__card::before { content: "\201C"; position: absolute; top: -.05em; left: .8rem; font-size: 4.5rem; line-height: 1; font-weight: 800; color: var(--c-pink); }
+.story__card .story__quote { font-size: clamp(1.2rem, 1rem + .9vw, 1.6rem); font-weight: 600; letter-spacing: -.02em; line-height: 1.3; margin: 1.2rem 0 var(--s-3); max-width: none; }
+.story__card .prose { font-size: var(--t-sm); color: var(--c-ink-soft); margin: 0; }
+.story__card .prose p { margin: 0; }
+.story__by { margin-top: var(--s-5); }
+.story__shots { min-height: 24rem; isolation: isolate; }
+@media (min-width: 900px) { .story__shots { min-height: 28rem; } }
+.story__shots::before { content: ""; position: absolute; z-index: -1; inset: 8% 0 0 14%; background: var(--c-field); border-radius: 40px; }
+.story__shots figure:nth-child(1) { right: 6%; top: 0; width: 56%; }
+.story__shots figure:nth-child(2) { left: 0; bottom: 4%; width: 46%; }
+
+/* Watch us pour: its own colour so it never merges with the section above or below */
+.showcase { background: var(--c-blush); padding-block: clamp(3rem, 6vw, 5rem); }
+
+/* Discover by mood on phones: pill tabs, one description, a swipeable row of framed picks */
+@media (max-width: 899px) {
+  .explorer { gap: var(--s-4); }
+  .explorer__tabs { display: flex; flex-wrap: nowrap; overflow-x: auto; gap: .5rem; margin-inline: calc(var(--gutter, 1.25rem) * -1); padding-inline: var(--gutter, 1.25rem); scrollbar-width: none; }
+  .explorer__tabs::-webkit-scrollbar { display: none; }
+  .explorer__tab { flex: none; font-size: var(--t-base); font-weight: 650; letter-spacing: -.01em; padding: .65rem 1.3rem; border: 1.5px solid var(--c-ink); border-radius: 999px; color: var(--c-ink); background: transparent; min-height: 2.75rem; }
+  .explorer__tab::before { display: none !important; }
+  .explorer__tab[aria-selected="true"] { background: var(--c-ink); color: #fff; }
+  .explorer__desc { font-size: var(--t-base); margin: 0 0 var(--s-4); }
+  .explorer__shots { display: flex; gap: var(--s-3); overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(var(--gutter, 1.25rem) * -1); padding: 0 var(--gutter, 1.25rem) var(--s-3); scrollbar-width: none; }
+  .explorer__shots::-webkit-scrollbar { display: none; }
+  .explorer__shot { flex: 0 0 58vw; scroll-snap-align: start; }
+  .explorer__shot:nth-child(n) img { aspect-ratio: 4 / 5; border-radius: var(--arch); }
+  .explorer__shot:nth-child(2) img { border-radius: 28px; }
+}
+
+.explorer > * { min-width: 0; }
+@media (max-width: 899px) { .explorer { grid-template-columns: minmax(0, 1fr); } }
+
+/* Announcement bar: rolling messages */
+.announce { --h: 2.4rem; overflow: hidden; }
+.announce__viewport { height: var(--h); overflow: hidden; }
+.announce__track { list-style: none; margin: 0; padding: 0; transition: transform 650ms cubic-bezier(.65, 0, .35, 1); }
+.announce__item { height: var(--h); display: flex; align-items: center; justify-content: center; padding-inline: var(--gutter); text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.announce__item > * { overflow: hidden; text-overflow: ellipsis; }
+.announce a { text-decoration: none; }
+.announce a:hover { text-decoration: underline; }
+.announce__track.is-instant { transition: none; }
+@media (prefers-reduced-motion: reduce) { .announce__track { transition: none; } }
+.announce__item > a { display: flex; align-items: center; justify-content: center; height: 100%; min-height: 2.4rem; padding-inline: .75rem; }

@@ -1,4 +1,4 @@
-<section class="sheet sheet--paper{% if section.settings.curve != 'dome' %} sheet--{{ section.settings.curve }}{% endif %}" aria-labelledby="story-h-{{ section.id }}">
+<section class="sheet sheet--paper sheet--story{% if section.settings.curve != 'dome' %} sheet--{{ section.settings.curve }}{% endif %}" aria-labelledby="story-h-{{ section.id }}">
   <div class="wrap">
     <div class="story">
       <div>
@@ -12,8 +12,10 @@
             assign q = q | replace: hl, rep
           endif
         -%}
-        <p class="story__quote">{{ q }}</p>
-        {%- if section.settings.text != blank -%}<div class="prose">{{ section.settings.text }}</div>{%- endif -%}
+        <div class="story__card">
+          <p class="story__quote">{{ q }}</p>
+          {%- if section.settings.text != blank -%}<div class="prose">{{ section.settings.text }}</div>{%- endif -%}
+        </div>
         <p class="story__by" style="margin-top:var(--s-6)">
           {%- if section.settings.source_link != blank -%}<a href="{{ section.settings.source_link }}" rel="noopener" target="_blank">{{ section.settings.source_label }}</a>{%- else -%}<span>{{ section.settings.source_label }}</span>{%- endif -%}
           {%- if settings.social_instagram != blank -%}<a class="link" href="{{ settings.social_instagram }}" rel="noopener" target="_blank">@{{ settings.instagram_handle }}{% render 'icon', name: 'arrow' %}</a>{%- endif -%}

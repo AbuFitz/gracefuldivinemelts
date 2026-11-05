@@ -1,6 +1,6 @@
 {%- assign g = settings.google_review_link | default: settings.google_profile -%}
 {%- if g != blank or settings.review_link != blank or settings.shop_profile != blank -%}
-<section class="section" style="padding-block:var(--s-8) calc(var(--s-8) + var(--sheet-r))" aria-labelledby="rev-h-{{ section.id }}">
+<section class="section" style="padding-block:var(--s-8)" aria-labelledby="rev-h-{{ section.id }}">
   <div class="wrap">
     <div class="reviews">
       <h2 id="rev-h-{{ section.id }}">{{ section.settings.heading }}</h2>

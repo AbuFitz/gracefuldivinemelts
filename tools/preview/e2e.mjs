@@ -107,8 +107,11 @@ await t('footer: brand icons incl. TikTok with accessible names; payments (demo)
 await t('bundle: homepage shows the bundle section (no popup anywhere)', async () => {
   await d.goto(BASE + '/'); assert((await d.locator('.bundle').count()) === 1, 'bundle section'); assert((await d.locator('.bundle a.btn').getAttribute('href')).includes('our-bundle-deal'), 'bundle link'); assert((await d.locator('[data-bundle-popup], .bpop').count()) === 0, 'popup present');
 });
-await t('announcement bar is white like the navigation', async () => {
+await t('announcement bar: white, rolls through every message automatically, pauses on hover, static under reduced motion', async () => {
   await d.goto(BASE + '/'); const bg = await d.$eval('.announce', (e) => getComputedStyle(e).backgroundColor); assert(bg === 'rgb(255, 255, 255)', 'announce ' + bg);
+  const n = await d.locator('.announce__item').count(); assert(n >= 6, 'items + clone ' + n); const t0 = await d.$eval('.announce__track', (e) => e.style.transform || 'none');
+  await d.waitForFunction(() => (document.querySelector('.announce__track').style.transform || '') !== '' && document.querySelector('.announce__track').style.transform !== 'translateY(0px)', null, { timeout: 9000 }); assert(t0 !== (await d.$eval('.announce__track', (e) => e.style.transform)), 'did not roll');
+  const p = await mk(false, { reducedMotion: 'reduce' }); await p.goto(BASE + '/'); await p.waitForTimeout(6500); assert(((await p.$eval('.announce__track', (e) => e.style.transform)) || '') === '', 'moves under reduced motion'); await p.context().close();
 });
 await t('demo banner: green, says Design preview / Created by OneSimpleSite, link works; absent from theme files', async () => {
   await d.goto(BASE + '/'); const b = await d.$eval('#osp-banner', (e) => ({ bg: getComputedStyle(e).backgroundColor, text: e.innerText, href: e.querySelector('a').href })); assert(b.bg === 'rgb(31, 92, 63)', 'bg ' + b.bg); assert(/design preview/i.test(b.text) && /created by onesimplesite/i.test(b.text), 'text'); assert(b.href.startsWith('https://onesimplesite.co.uk'), 'href');

@@ -43,3 +43,10 @@ Both sections stay separate, as in V2. The seam between them is a soft vertical 
 - (Reverted) Bundle popup removed at the client's request; the bundle section is back on the homepage after Custom scent. `sections/bundle-popup.liquid` is an inert stub to delete. Original note: a small non-modal popup (section `bundle-popup` in the footer group) appears after 25s or about halfway down the page, once per visit, remembers dismissal for 7 days, and is never shown on the cart or product pages. All settings are in the theme editor.
 - The announcement bar is white to match the navigation.
 - Our story: shorter copy, soft-swell seam (different from the domes), offset arch frame plus round inset.
+
+## Round: mood, story, colours, footer, announcement
+- Discover by mood on phones: pill tabs, one description, swipeable row of framed picks (fixed a sideways overflow).
+- Our story: V2 dome layout restored; quote is small and sits in a framed card; section is smaller; a pink panel sits behind the floating frames.
+- Watch us pour has its own blush background; Our story stays paper.
+- Footer: straight edge with a hairline instead of a dome.
+- Announcement bar: five rolling messages (auto, vertical slide, pauses on hover/focus, static under reduced motion). Messages only restate things the business already says; no shipping or discount claims.

@@ -308,4 +308,23 @@
     const io = new IntersectionObserver((ens) => ens.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } }), { rootMargin: '0px 0px -6% 0px' });
     $$('[data-reveal]').forEach((el) => { const r = el.getBoundingClientRect(); if (r.top > innerHeight) { el.classList.add('reveal'); io.observe(el); } });
   }
+
+  /* ---------- announcement bar: rolling messages (auto; pauses on hover/focus/hidden tab; static when reduced motion) ---------- */
+  $$('[data-announce]').forEach((bar) => {
+    const track = $('.announce__track', bar), items = $$('.announce__item', bar);
+    if (!track || items.length < 2 || reduced) return;
+    const gap = (Number(bar.dataset.interval) || 5) * 1000;
+    const clone = items[0].cloneNode(true); clone.setAttribute('aria-hidden', 'true'); clone.querySelectorAll('a').forEach((a) => { a.tabIndex = -1; }); track.appendChild(clone);
+    const h = () => items[0].getBoundingClientRect().height;
+    let i = 0, timer = null, paused = false;
+    const mark = () => items.forEach((el, k) => { const on = k === i % items.length; el.setAttribute('aria-hidden', on ? 'false' : 'true'); el.querySelectorAll('a').forEach((a) => { a.tabIndex = on ? 0 : -1; }); });
+    const go = () => { i += 1; track.style.transform = `translateY(${-i * h()}px)`; mark(); };
+    track.addEventListener('transitionend', () => { if (i >= items.length) { track.classList.add('is-instant'); i = 0; track.style.transform = 'translateY(0)'; void track.offsetHeight; track.classList.remove('is-instant'); mark(); } });
+    const start = () => { stop(); timer = setInterval(() => { if (!paused && !document.hidden) go(); }, gap); };
+    const stop = () => { clearInterval(timer); };
+    bar.addEventListener('pointerenter', () => { paused = true; }); bar.addEventListener('pointerleave', () => { paused = false; });
+    bar.addEventListener('focusin', () => { paused = true; }); bar.addEventListener('focusout', () => { paused = false; });
+    addEventListener('resize', () => { track.classList.add('is-instant'); track.style.transform = `translateY(${-(i % items.length) * h()}px)`; void track.offsetHeight; track.classList.remove('is-instant'); });
+    mark(); start();
+  });
 })();
