@@ -313,6 +313,123 @@
         "b",
         "c"
       ]
+    },
+    "bundle": {
+      "type": "bundle-showcase",
+      "settings": {
+        "product": "our-bundle-deal",
+        "eyebrow": "The bundle deal",
+        "heading": "Everything to get started.",
+        "text": "Two snap bars, a mixed scent packet and a wax burner, in one order.",
+        "scents_label": "Choose any two of these scents",
+        "cta": "Choose your pair",
+        "tone": "field",
+        "curve": "flat"
+      },
+      "blocks": {
+        "i1": {
+          "type": "include",
+          "settings": {
+            "qty": "2",
+            "item": "wax melt snap bars of your choice"
+          }
+        },
+        "i2": {
+          "type": "include",
+          "settings": {
+            "qty": "1",
+            "item": "packet of mixed scent"
+          }
+        },
+        "i3": {
+          "type": "include",
+          "settings": {
+            "qty": "1",
+            "item": "wax burner"
+          }
+        },
+        "s1": {
+          "type": "scent",
+          "settings": {
+            "product": "candles-example-product-4"
+          }
+        },
+        "s2": {
+          "type": "scent",
+          "settings": {
+            "product": "candles-example-product-3"
+          }
+        },
+        "s3": {
+          "type": "scent",
+          "settings": {
+            "product": "paradox-wax-melt"
+          }
+        },
+        "s4": {
+          "type": "scent",
+          "settings": {
+            "product": "dark-desire"
+          }
+        },
+        "s5": {
+          "type": "scent",
+          "settings": {
+            "product": "golden-goddess"
+          }
+        },
+        "s6": {
+          "type": "scent",
+          "settings": {
+            "product": "modern-muse"
+          }
+        },
+        "s7": {
+          "type": "scent",
+          "settings": {
+            "product": "rose-elegance"
+          }
+        },
+        "p1": {
+          "type": "pin",
+          "settings": {
+            "label": "Wax burner",
+            "x": 30,
+            "y": 20
+          }
+        },
+        "p2": {
+          "type": "pin",
+          "settings": {
+            "label": "2 snap bars of your choice",
+            "x": 22,
+            "y": 62
+          }
+        },
+        "p3": {
+          "type": "pin",
+          "settings": {
+            "label": "Mixed scent packet",
+            "x": 72,
+            "y": 70
+          }
+        }
+      },
+      "block_order": [
+        "i1",
+        "i2",
+        "i3",
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "p1",
+        "p2",
+        "p3"
+      ]
     }
   },
   "order": [
@@ -320,6 +437,7 @@
     "rail",
     "explorer",
     "custom",
+    "bundle",
     "story",
     "media",
     "faq",

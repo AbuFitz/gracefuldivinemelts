@@ -104,13 +104,8 @@ await t('footer: brand icons incl. TikTok with accessible names; payments (demo)
   assert((await d.locator('.footer .payments li').count()) === 7, 'payments'); assert((await txt(d, '.footer')).toLowerCase().includes('demo only'), 'demo note');
   const m2 = await mk(true); await m2.goto(BASE + '/'); const w = await m2.$eval('.footer__mark', (e) => ({ sw: e.scrollWidth, cw: e.clientWidth, ws: getComputedStyle(e).whiteSpace, h: e.getBoundingClientRect().height, fs: parseFloat(getComputedStyle(e).fontSize) })); assert(w.ws === 'nowrap' && w.sw > w.cw, 'wordmark should run off screen ' + JSON.stringify(w)); assert(w.h < w.fs * 1.2, 'wordmark stacked ' + JSON.stringify(w)); assert(w.fs >= 60, 'wordmark too small ' + w.fs); await m2.context().close();
 });
-await t('bundle popup: hidden at first, appears after scrolling halfway, closes, stays closed; absent from cart + product pages; bundle is no longer a homepage section', async () => {
-  const p = await mk(false); await p.goto(BASE + '/'); assert(!(await p.isVisible('[data-bundle-popup]')), 'visible too early'); assert((await p.locator('.bundle').count()) === 0, 'bundle section still on homepage');
-  await p.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await p.waitForSelector('[data-bundle-popup]:not([hidden])', { timeout: 4000 }); assert((await p.getAttribute('[data-bundle-popup]', 'role')) === 'dialog', 'role');
-  assert(/bundle/i.test(await txt(p, '[data-bundle-popup]')) && /£\d/.test(await txt(p, '[data-bundle-popup]')), 'content'); assert((await p.getAttribute('[data-bundle-popup] a.btn', 'href')).includes('our-bundle-deal'), 'link');
-  await p.click('[data-bpop-close]'); assert(!(await p.isVisible('[data-bundle-popup]')), 'did not close'); await p.reload(); await p.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await p.waitForTimeout(800); assert(!(await p.isVisible('[data-bundle-popup]')), 'came back after dismiss');
-  const q = await mk(false); await q.goto(BASE + '/cart'); assert((await q.locator('[data-bundle-popup]').count()) === 0, 'popup on cart'); await q.goto(BASE + '/products/our-bundle-deal'); assert((await q.locator('[data-bundle-popup]').count()) === 0, 'popup on bundle page');
-  const r = await mk(false); await r.goto(BASE + '/'); await r.evaluate(() => { document.querySelector('[data-bundle-popup]').dataset.delay = '5'; }); await p.context().close(); await q.context().close(); await r.context().close();
+await t('bundle: homepage shows the bundle section (no popup anywhere)', async () => {
+  await d.goto(BASE + '/'); assert((await d.locator('.bundle').count()) === 1, 'bundle section'); assert((await d.locator('.bundle a.btn').getAttribute('href')).includes('our-bundle-deal'), 'bundle link'); assert((await d.locator('[data-bundle-popup], .bpop').count()) === 0, 'popup present');
 });
 await t('announcement bar is white like the navigation', async () => {
   await d.goto(BASE + '/'); const bg = await d.$eval('.announce', (e) => getComputedStyle(e).backgroundColor); assert(bg === 'rgb(255, 255, 255)', 'announce ' + bg);

@@ -34,23 +34,9 @@
       "settings": {
         "show_payments": true
       }
-    },
-    "bundle-popup": {
-      "type": "bundle-popup",
-      "settings": {
-        "enabled": true,
-        "product": "our-bundle-deal",
-        "eyebrow": "The bundle deal",
-        "heading": "Everything to get started.",
-        "text": "Two snap bars, a mixed scent packet and a wax burner, in one order.",
-        "cta": "Choose your pair",
-        "delay": 25,
-        "remind_days": 7
-      }
     }
   },
   "order": [
-    "footer",
-    "bundle-popup"
+    "footer"
   ]
 }

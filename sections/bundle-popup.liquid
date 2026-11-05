@@ -1,38 +1,7 @@
 {%- comment -%}
-  Timed bundle-deal popup. A small, non-blocking card (not a modal): it never steals focus, never covers the page with a backdrop,
-  appears once per visit after a delay or when the visitor has scrolled about halfway, and stays dismissed for a set number of days.
-  It is not shown on the cart, on product pages (the sticky bag bar owns the bottom there), or while the menu/search is open.
+  Retired. The timed bundle popup was removed at the client's request; the bundle deal is a homepage section again.
+  This inert file only exists because deletions are not possible in the build environment; delete it in the repo or theme.
 {%- endcomment -%}
-{%- assign p = section.settings.product -%}
-{%- if section.settings.enabled and p != blank and request.page_type != 'cart' and request.page_type != 'product' -%}
-  <aside class="bpop" role="dialog" aria-labelledby="bpop-h-{{ section.id }}" hidden data-bundle-popup data-delay="{{ section.settings.delay }}" data-days="{{ section.settings.remind_days }}" data-key="gdm-bpop-{{ p.handle }}">
-    <button class="bpop__close" type="button" data-bpop-close aria-label="{{ 'sections.bundle_popup.close' | t }}">{% render 'icon', name: 'close' %}</button>
-    <a class="bpop__media" href="{{ p.url }}" tabindex="-1" aria-hidden="true">
-      {%- assign img = section.settings.image | default: p.featured_image -%}
-      {%- if img -%}{%- render 'image', image: img, sizes: '120px', widths: '160,240,320', alt: '' -%}{%- endif -%}
-    </a>
-    <div class="bpop__body">
-      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
-      <p class="bpop__title" id="bpop-h-{{ section.id }}">{{ section.settings.heading | default: p.title }}</p>
-      {%- if section.settings.text != blank -%}<p class="bpop__text">{{ section.settings.text }}</p>{%- endif -%}
-      <p class="bpop__price">{% render 'price', product: p, show_from: true %}</p>
-      <a class="btn" href="{{ p.url }}">{{ section.settings.cta }}{% render 'icon', name: 'arrow' %}</a>
-    </div>
-  </aside>
-{%- endif -%}
 {% schema %}
-{
-  "name": "Bundle popup",
-  "settings": [
-    { "type": "checkbox", "id": "enabled", "label": "Show the popup", "default": true },
-    { "type": "product", "id": "product", "label": "Bundle product" },
-    { "type": "image_picker", "id": "image", "label": "Image (defaults to the product image)" },
-    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "The bundle deal" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Everything to get started." },
-    { "type": "textarea", "id": "text", "label": "Text", "default": "Two snap bars, a mixed scent packet and a wax burner, in one order." },
-    { "type": "text", "id": "cta", "label": "Button", "default": "Choose your pair" },
-    { "type": "range", "id": "delay", "min": 5, "max": 90, "step": 5, "unit": "s", "label": "Show after", "default": 25 },
-    { "type": "range", "id": "remind_days", "min": 1, "max": 30, "step": 1, "unit": "d", "label": "Stay hidden after it is closed", "default": 7 }
-  ]
-}
+{ "name": "Retired (delete me)", "settings": [] }
 {% endschema %}
