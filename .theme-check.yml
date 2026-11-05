@@ -1,6 +1,6 @@
 extends: theme-check:recommended
 ignore:
-  - node_modules
-  - tools
-  - docs
-  - demo
+  - node_modules/**
+  - tools/**
+  - docs/**
+  - demo/**
