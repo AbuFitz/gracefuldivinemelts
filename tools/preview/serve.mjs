@@ -55,7 +55,6 @@ const inner = async (req, res) => {
       // Agency preview layer. Lives ONLY in this preview server; the Shopify theme contains none of it.
       const bar = `<div id="osp-banner" role="note" style="background:#1F5C3F;color:#fff;font:500 13px/1.35 'DM Sans',system-ui,sans-serif;padding:8px 14px;display:flex;flex-wrap:wrap;gap:2px 14px;justify-content:center;align-items:center;text-align:center;letter-spacing:.01em"><strong style="font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:11.5px;background:rgb(255 255 255 / .16);padding:3px 9px;border-radius:99px">Design preview</strong><span>Created by OneSimpleSite</span><a href="https://onesimplesite.co.uk" target="_blank" rel="noopener" style="color:#fff;font-weight:650;text-underline-offset:3px;display:inline-block;padding:6px 2px">onesimplesite.co.uk</a></div>`;
       b = b.replace('<head>', '<head><meta name="robots" content="noindex,nofollow">').replace(/(<a class="skip-link"[^>]*>[^<]*<\/a>)/, `$1${bar}`);
-      b = b.replace(/(<ul class="payments"[\s\S]*?<\/ul>)/, `$1<p style="flex-basis:100%;margin:.4rem 0 0;font-size:11px;color:#f7b9d1;font-weight:600">Demo only: placeholder payment icons. The live store shows only the methods enabled in Shopify.</p>`);
     }
     res.writeHead(s, { 'content-type': ct }); res.end(b);
   };

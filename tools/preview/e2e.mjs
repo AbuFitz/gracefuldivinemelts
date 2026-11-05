@@ -99,9 +99,9 @@ await t('instagram + tiktok showcase: ONE seamless CSS row mixing both; never pa
   const w = await d.$$eval('.marquee__group', (g) => g.map((x) => Math.round(x.getBoundingClientRect().width))); assert(Math.abs(w[0] - w[1]) <= 1, 'seam ' + w);
   assert((await d.locator('.showcase__follow a').count()) === 2, 'follow buttons'); const p = await mk(false, { reducedMotion: 'reduce' }); await p.goto(BASE + '/'); const r = await p.$eval('.marquee__track', (e) => getComputedStyle(e).animationName); assert(r === 'none', 'animates under reduced motion'); await p.context().close();
 });
-await t('footer: brand icons incl. TikTok with accessible names; payments (demo) + note; one-line cropped wordmark on mobile', async () => {
+await t('footer: brand icons incl. TikTok with accessible names; payments (demo placeholders); one-line cropped wordmark on mobile', async () => {
   await d.goto(BASE + '/'); const names = await d.$$eval('.footer .socials a', (a) => a.map((x) => x.getAttribute('aria-label'))); for (const n of ['Instagram', 'TikTok', 'Google', 'Shop', 'Trustpilot', 'WhatsApp']) assert(names.some((x) => x && x.includes(n)), 'icon ' + n + ' in ' + names);
-  assert((await d.locator('.footer .payments li').count()) === 7, 'payments'); assert((await txt(d, '.footer')).toLowerCase().includes('demo only'), 'demo note');
+  assert((await d.locator('.footer .payments li').count()) === 7, 'payments'); assert(!(await txt(d, '.footer')).toLowerCase().includes('demo only'), 'demo note should be gone');
   const m2 = await mk(true); await m2.goto(BASE + '/'); const w = await m2.$eval('.footer__mark', (e) => ({ sw: e.scrollWidth, cw: e.clientWidth, ws: getComputedStyle(e).whiteSpace, h: e.getBoundingClientRect().height, fs: parseFloat(getComputedStyle(e).fontSize) })); assert(w.ws === 'nowrap' && w.sw > w.cw, 'wordmark should run off screen ' + JSON.stringify(w)); assert(w.h < w.fs * 1.2, 'wordmark stacked ' + JSON.stringify(w)); assert(w.fs >= 60, 'wordmark too small ' + w.fs); await m2.context().close();
 });
 await t('bundle: homepage shows the bundle section (no popup anywhere)', async () => {
