@@ -155,3 +155,15 @@ The requested list covers nearly everything. Items worth confirming are included
 
 ## Note: FAQ address
 The FAQ page uses the short address `/pages/faq` (her old site used `/pages/gracefuldivinemeltswax-melt-faq`). After the old page is deleted, add a redirect so old links keep working: Online Store > Navigation > **View URL redirects** > **Create URL redirect**: from `/pages/gracefuldivinemeltswax-melt-faq` to `/pages/faq`.
+
+## Order matters: templates only appear once the theme is published
+Shopify's page **Template** dropdown lists only the templates of the *published* theme. Until the new theme is published, our templates (`about`, `find-scent`, `faq`, `care`, `delivery`, `policies`) will not be offered.
+
+**Before go-live:** create About, Find your scent, Wax melt care & safety, Delivery & returns and Policies & legal as **Hidden** pages on the Default template. Do not edit the live **main menu** (it is also the old site's menu). Leave the existing FAQ and Contact pages alone.
+
+**At go-live, in one sitting, straight after Publish:**
+1. Set each new page's Template and make it Visible.
+2. Existing FAQ page: change its handle to `faq` (tick "create a URL redirect"), template `faq`.
+3. Existing Contact page: template `contact`.
+4. Update the main and footer menus.
+5. Run the checklist in section 5.
