@@ -27,7 +27,7 @@
   --section-y: clamp(4rem, 2rem + 8vw, 9rem);
   --gutter: clamp(1.25rem, .5rem + 3.6vw, 3.5rem);
   --w-page: 1360px; --w-prose: 38rem;
-  --nav-h: 5.35rem;
+  --nav-h: 5rem;
   --sheet-r: clamp(28px, 6vw, 84px);
   --rail-pad: max(var(--gutter), calc((100vw - var(--w-page)) / 2 + var(--gutter)));
 
@@ -142,15 +142,14 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 .announce { background: #fff; color: var(--c-ink); font-size: var(--t-xs); font-weight: 600; letter-spacing: .02em; text-align: center; }
 .announce a { text-decoration: none; }
 .shopify-section-group-header-group:has(> .nav) { position: sticky; top: 0; z-index: 60; height: 0; }
-.nav { position: absolute; inset: 1.2rem 0 auto; padding-inline: clamp(.6rem, 2vw, 1.5rem); pointer-events: none; }
+.nav { position: absolute; inset: .85rem 0 auto; padding-inline: clamp(.6rem, 2vw, 1.5rem); pointer-events: none; }
 /* one compact floating surface: links | logo | utilities, clustered around the centre */
 .nav__bar { pointer-events: auto; position: relative; width: min(80rem, 100%); margin-inline: auto; height: 4.25rem; display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: var(--s-4); padding: 0 .55rem 0 1.5rem; background: #fff; color: var(--c-ink); border-radius: 999px; isolation: isolate; filter: drop-shadow(0 0 .5px rgb(23 10 16 / .38)) drop-shadow(0 12px 16px rgb(23 10 16 / .16)); transition: filter var(--dur) var(--ease); }
 .is-scrolled .nav__bar { filter: drop-shadow(0 0 .5px rgb(23 10 16 / .45)) drop-shadow(0 14px 18px rgb(23 10 16 / .22)); }
 .nav__left { display: flex; align-items: center; justify-content: flex-start; min-width: 0; }
-.nav__logo { display: block; position: relative; width: 5.5rem; align-self: stretch; text-decoration: none; left: -.475rem; }
-/* an oval crown rises from the top of the pill so the whole mark (flame included) sits inside the white shape */
-.nav__logo::before { content: ""; position: absolute; z-index: -1; left: 50%; top: -1.0rem; width: 8.2rem; height: 3.1rem; transform: translateX(-50%); background: #fff; border-radius: 50%; }
-.nav__logo img { position: absolute; left: 0; top: -.62rem; width: 5.5rem; height: 5.5rem; }
+.nav__logo { display: block; position: relative; width: 4.8rem; align-self: stretch; text-decoration: none; left: -.475rem; }
+/* the whole mark (flame included) is scaled to sit inside the pill with even space above and below */
+.nav__logo img { position: absolute; left: 0; top: .145rem; width: 4.8rem; height: 4.8rem; }
 .nav__wordmark { display: block; font-weight: 800; font-size: .8rem; line-height: 1; letter-spacing: -.02em; text-align: center; padding-block: 1rem; }
 .nav__links { list-style: none; display: none; gap: 0; }
 .nav__item { position: relative; }
@@ -987,3 +986,8 @@ label, .label { font-size: var(--t-sm); font-weight: 650; }
 
 /* the real Shop wordmark, recoloured with the link colour */
 .brand-shop { display: block; width: 1.9rem; height: .78rem; background: currentColor; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; -webkit-mask-size: contain; mask-size: contain; }
+
+/* social icons outside the dark footer (contact page, mobile menu) need dark ink, not white */
+.contact-grid .socials a { color: var(--c-ink); border-color: rgb(23 10 16 / .4); }
+.contact-grid .socials a:hover, .contact-grid .socials a:focus-visible { background: var(--c-ink); color: #fff; border-color: var(--c-ink); }
+.contact-grid .socials { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: var(--s-5); }

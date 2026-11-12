@@ -15,7 +15,7 @@ const paths = process.argv.slice(2);
 const browser = await chromium.launch();
 let problems = 0;
 for (const sz of sizes) {
-  const ctx = await browser.newContext(ALL[sz]);
+  const ctx = await browser.newContext(ALL[sz]); await ctx.addInitScript(() => { try { localStorage.setItem('gdm-subpop-subscribed', '1'); } catch (e) { /* none */ } });
   for (const p of paths) {
     const page = await ctx.newPage(); const errs = [];
     page.on('console', (m) => { if (m.type() === 'error') errs.push(m.text()); });

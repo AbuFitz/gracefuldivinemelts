@@ -50,6 +50,33 @@ Fill these in on each scent product. The "Find your scent" page, "Discover by mo
 
 Then Customise > Theme settings: business email, phone, hours, WhatsApp link, Instagram, TikTok, Google review link, Trustpilot and Shop links. Upload her chosen **portrait** (About page) and **thumbnails** for the Instagram/TikTok row.
 
+
+## 3b. Legal pages: what you actually need to build **[admin]**
+
+You do **not** build the legal pages in the theme. Shopify generates them from **Settings > Policies**; the theme only styles them and links them in the footer. For the UK, create these four (Shopify has a "Create from template" button for each; read it and edit to match her real business):
+
+| Policy | Notes |
+|---|---|
+| **Privacy policy** | Already exists (updated 1 Nov 2026). Check her contact details inside it. |
+| **Refund policy** | 14-day cancellation right for online orders, returns condition, who pays return postage, faulty or damaged goods. |
+| **Shipping policy** | Carrier, prices, dispatch and delivery times, tracking. |
+| **Terms of service** | Standard template is fine; check business name and address. |
+
+Also add the trading name, address and company number (if she has one) under Theme settings so the footer shows them. Shopify's templates are a starting point, not legal advice; if she wants certainty, have a professional read them once. Wax melts are a product with heat and fragrance: the **Care & safety** page already carries sensible guidance; keep it matching her real labels.
+
+The **Policies & legal** page and the footer links fill in by themselves as soon as the policies exist. Until then the preview shows a "Policy not yet published" note; on her live store that disappears once they are saved.
+
+## 3c. The contact form: how it works **[admin]**
+
+It is Shopify's built-in contact form, so it needs no app and no extra setup beyond the store email:
+
+1. A visitor fills it in; Shopify spam protection (reCAPTCHA) runs in the background.
+2. Shopify emails the message to the **store contact email** (Settings > Store details > *Store contact email*). Check this is an inbox she reads (currently gracefuldivinemelts@outlook.com).
+3. The visitor sees "Thanks, message sent". The sender's address is on the message, so she replies from her normal email.
+4. The message is also saved as a customer record (Customers) if the visitor is new.
+
+Test it before going live: send a test message from the preview, and confirm it arrives in her inbox (check junk too). If it does not, the cause is almost always the store contact email under Settings > Store details. Shopify's **Inbox** or an app is optional and not needed.
+
 ## 4. Welcome offer: 10% for new subscribers
 
 **Please confirm with her that 10% is the offer she wants.** Everything below is editable afterwards.
@@ -90,6 +117,7 @@ Run on the **unpublished** theme preview, on a real phone and a laptop:
 - ☐ **Welcome popup:** sign up with a real test address; the customer appears in Customers with both tags; the code works at checkout; closing it does not bring it back.
 - ☐ **Checkout test without charging a card:** add the product, apply a 100%-off test code (create one, then delete it), complete the order, then cancel and archive it. (Alternatively, use Shopify Payments test mode for a short window; remember to switch it off.)
 - ☐ Payments: footer shows the methods enabled in Settings > Payments.
+- ☐ Contact form test message arrives in her inbox.
 - ☐ Email links, WhatsApp and social links open the right places.
 - ☐ No console errors; no sideways scroll on a small phone; keyboard Tab works through the menu and popup; Esc closes the popup.
 
