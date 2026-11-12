@@ -17,7 +17,7 @@ It never deletes anything and never touches products, orders, customers or polic
 
 ## 1. Get a token (5 minutes)
 1. In her admin: **Settings > Apps and sales channels > Develop apps > Create an app** (turn on "Allow custom app development" if asked). Name it `GDM setup`.
-2. **Configure Admin API scopes**, tick only: `read_products`, `write_content`, `write_online_store_pages`, `read_online_store_navigation`, `write_online_store_navigation`, `read_discounts`, `write_discounts`, `read_metaobject_definitions`, `write_metaobject_definitions`, `read_products` and **`write_products`** (product field definitions are managed under the products scope). If a name is not offered, pick the closest in Content, Online Store, Discounts and Products.
+2. **Configure Admin API scopes**, tick only: `read_products` and `write_products` (product field definitions live here), `write_content` (pages), `read_online_store_navigation` and `write_online_store_navigation` (menus), `read_discounts` and `write_discounts`. Scope names change occasionally: if one is not offered, pick the closest under Products, Content, Online Store and Discounts. If a step fails with "access denied", the message names the missing scope; add it and run again.
 3. **Install app**, then **Reveal token once**. It starts `shpat_`. Copy it somewhere safe; you cannot see it again.
 
 ## 2. Run it (on your own computer; Node 18 or newer)
