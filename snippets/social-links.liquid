@@ -6,7 +6,7 @@
 <ul class="socials" role="list">
   {%- if settings.social_instagram != blank -%}<li><a style="--brand:#E4405F" href="{{ settings.social_instagram }}" rel="noopener" target="_blank" aria-label="{{ 'social.instagram' | t }}">{% render 'brand-icon', name: 'instagram' %}</a></li>{%- endif -%}
   {%- if g != blank -%}<li><a style="--brand:#4285F4" href="{{ g }}" rel="noopener" target="_blank" aria-label="{{ 'social.google' | t }}">{% render 'brand-icon', name: 'google' %}</a></li>{%- endif -%}
-  {%- if settings.shop_profile != blank -%}<li><a style="--brand:#5A31F4" href="{{ settings.shop_profile }}" rel="noopener" target="_blank" aria-label="{{ 'social.shop' | t }}">{% render 'brand-icon', name: 'shopify' %}</a></li>{%- endif -%}
+  {%- if settings.shop_profile != blank -%}<li><a style="--brand:#5A31F4" href="{{ settings.shop_profile }}" rel="noopener" target="_blank" aria-label="{{ 'social.shop' | t }}">{% render 'brand-icon', name: 'shop' %}</a></li>{%- endif -%}
   {%- if settings.review_link != blank -%}<li><a style="--brand:#00B67A" href="{{ settings.review_link }}" rel="noopener" target="_blank" aria-label="{{ 'social.trustpilot' | t }}">{% render 'brand-icon', name: 'trustpilot' %}</a></li>{%- endif -%}
   {%- if settings.business_whatsapp != blank -%}<li><a style="--brand:#25D366" href="{{ settings.business_whatsapp }}" rel="noopener" target="_blank" aria-label="{{ 'social.whatsapp' | t }}">{% render 'brand-icon', name: 'whatsapp' %}</a></li>{%- endif -%}
   {%- if settings.social_tiktok != blank -%}<li><a style="--brand:#000" href="{{ settings.social_tiktok }}" rel="noopener" target="_blank" aria-label="{{ 'social.tiktok' | t }}">{% render 'brand-icon', name: 'tiktok' %}</a></li>{%- endif -%}

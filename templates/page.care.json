@@ -3,8 +3,7 @@
     "main": {
       "type": "care-safety",
       "settings": {
-        "lede": "From choosing a warmer to storing your melts between uses.",
-        "review_note": true
+        "lede": "From choosing a warmer to storing your melts between uses."
       },
       "blocks": {
         "c1": {

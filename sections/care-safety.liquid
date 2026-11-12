@@ -13,16 +13,12 @@
       <div class="care-warn on-dark" style="margin-top:var(--s-7)" {{ block.shopify_attributes }}><h3>{{ block.settings.title }}</h3><div class="prose" style="max-width:none">{{ block.settings.content }}</div></div>
     {%- endif -%}
   {%- endfor -%}
-  {%- if section.settings.review_note -%}
-    <p class="placeholder-box" style="margin-top:var(--s-6)">Owner note (remove before publishing): safety wording and any product labelling statements must be confirmed against your actual wax, fragrance and packaging information.</p>
-  {%- endif -%}
 </div>
 {% schema %}
 {
   "name": "Care and safety",
   "settings": [
-    { "type": "textarea", "id": "lede", "label": "Intro" },
-    { "type": "checkbox", "id": "review_note", "label": "Show 'owner review required' note (turn off after review)", "default": true }
+    { "type": "textarea", "id": "lede", "label": "Intro" }
   ],
   "blocks": [
     { "type": "card", "name": "Guidance card", "settings": [
