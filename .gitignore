@@ -2,3 +2,4 @@ node_modules/
 tools/preview/fixtures/
 tools/preview/shots/
 .DS_Store
+/demo/

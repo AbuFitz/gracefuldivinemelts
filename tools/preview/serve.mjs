@@ -51,28 +51,6 @@ async function page(name, vars = {}, { status = 200, ov = overrides } = {}) {
 const inner = async (req, res) => {
   const u = new URL(req.url, 'http://localhost'); const p = u.pathname; const q = u.searchParams;
   const send = (s, ct, b) => {
-    if (process.env.GDM_DEMO_EXPIRED === '1' && String(ct).startsWith('text/html') && typeof b === 'string' && b.includes('<body')) {
-      // Agency preview layer, like the banner: the design preview has expired. Lives ONLY in this preview server, never in the Shopify theme.
-      const mail = 'hello@onesimplesite.co.uk';
-      b = `<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Design preview expired</title>
-<style>@font-face{font-family:"DM Sans";src:url("/assets/dm-sans-latin-wght-normal.woff2") format("woff2");font-weight:100 1000}
-*{box-sizing:border-box;margin:0}html,body{min-height:100%}body{display:grid;place-items:center;min-height:100svh;padding:1.5rem;background:#1F5C3F;color:#10201A;font-family:"DM Sans",system-ui,sans-serif;line-height:1.5}
-main{width:min(36rem,100%);background:#fff;border-radius:2rem;padding:clamp(1.6rem,5vw,3rem);box-shadow:0 30px 70px -34px rgba(0,0,0,.5)}
-.tag{display:inline-block;background:#E3F0E8;color:#1F5C3F;border-radius:99px;padding:.3rem .9rem;font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.2rem}
-h1{font-size:clamp(2.2rem,8vw,3.4rem);letter-spacing:-.05em;line-height:.98;margin-bottom:1rem}p{margin-bottom:1.4rem;font-size:1.05rem}
-a.btn{display:inline-flex;align-items:center;min-height:3.2rem;padding:.6rem 1.6rem;border-radius:99px;background:#1F5C3F;color:#fff;font-weight:700;text-decoration:none}a.btn:focus-visible{outline:3px solid #10201A;outline-offset:3px}
-p a{color:#1F5C3F;font-weight:650;overflow-wrap:anywhere}small{display:block;margin-top:1.6rem;font-size:.85rem;opacity:.7}small a{color:inherit}</style></head>
-<body><main role="main"><span class="tag">Design preview</span><h1>This preview has expired.</h1>
-<p>The review period for this website design has ended, so it is no longer available to view.</p>
-<p>To see the latest version or to arrange access again, please email <a href="mailto:${mail}?subject=Graceful%20Divine%20Melts%20website%20preview">${mail}</a>.</p>
-<a class="btn" href="mailto:${mail}?subject=Graceful%20Divine%20Melts%20website%20preview">Send an email</a>
-<small>Created by <a href="https://onesimplesite.co.uk" rel="noopener">OneSimpleSite</a></small></main></body></html>`;
-    }
-    if (process.env.GDM_DEMO_BANNER && String(ct).startsWith('text/html') && typeof b === 'string' && b.includes('<body')) {
-      // Agency preview layer. Lives ONLY in this preview server; the Shopify theme contains none of it.
-      const bar = `<div id="osp-banner" role="note" style="background:#1F5C3F;color:#fff;font:500 13px/1.35 'DM Sans',system-ui,sans-serif;padding:8px 14px;display:flex;flex-wrap:wrap;gap:2px 14px;justify-content:center;align-items:center;text-align:center;letter-spacing:.01em"><strong style="font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:11.5px;background:rgb(255 255 255 / .16);padding:3px 9px;border-radius:99px">Design preview</strong><span>Created by OneSimpleSite</span><a href="https://onesimplesite.co.uk" target="_blank" rel="noopener" style="color:#fff;font-weight:650;text-underline-offset:3px;display:inline-block;padding:6px 2px">onesimplesite.co.uk</a></div>`;
-      b = b.replace('<head>', '<head><meta name="robots" content="noindex,nofollow">').replace(/(<a class="skip-link"[^>]*>[^<]*<\/a>)/, `$1${bar}`);
-    }
     res.writeHead(s, { 'content-type': ct }); res.end(b);
   };
   try {
