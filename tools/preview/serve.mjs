@@ -13,8 +13,8 @@ const exists = (p) => fs.existsSync(p);
 const demo = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'demo-media.json'), 'utf8'));
 const overrides = { hero: {}, founder: { portrait: 'tamara.jpg' }, 'media.t1': { image: 'tiktok-1.jpg' }, 'media.t2': { image: 'tiktok-2.jpg' }, 'media.t3': { image: 'tiktok-3.jpg' }, 'media.t4': { image: 'tiktok-4.jpg' }, 'media.t5': { image: 'tiktok-5.jpg' }, 'media.t6': { image: 'tiktok-6.jpg' }, 'media.t7': { image: 'tiktok-7.jpg' } };
 
-const PAGES = { contact: 'page.contact', 'gracefuldivinemeltswax-melt-faq': 'page.faq', 'wax-melt-care-safety': 'page.care', 'delivery-returns': 'page.delivery', 'find-your-scent': 'page.find-scent', about: 'page.about', policies: 'page.policies', 'terms-test': 'page' };
-const PAGE_TITLES = { contact: 'Contact', 'gracefuldivinemeltswax-melt-faq': 'Wax Melt Care & Use – FAQ', 'wax-melt-care-safety': 'Wax melt care & safety', 'delivery-returns': 'Delivery & returns', 'find-your-scent': 'Find your scent', about: 'About', policies: 'Policies & legal' };
+const PAGES = { contact: 'page.contact', 'faq': 'page.faq', 'wax-melt-care-safety': 'page.care', 'delivery-returns': 'page.delivery', 'find-your-scent': 'page.find-scent', about: 'page.about', policies: 'page.policies', 'terms-test': 'page' };
+const PAGE_TITLES = { contact: 'Contact', 'faq': 'Wax Melt Care & Use – FAQ', 'wax-melt-care-safety': 'Wax melt care & safety', 'delivery-returns': 'Delivery & returns', 'find-your-scent': 'Find your scent', about: 'About', policies: 'Policies & legal' };
 const body = (req) => new Promise((r) => { if (req.readableEnded && req.body !== undefined) return r(typeof req.body === 'string' ? req.body : Buffer.isBuffer(req.body) ? req.body.toString() : new URLSearchParams(req.body).toString()); let b = ''; req.on('data', (c) => (b += c)); req.on('end', () => r(b)); });
 const parseForm = (b) => Object.fromEntries(new URLSearchParams(b));
 

@@ -17,7 +17,7 @@
 | Create metafield definitions (doc 05) and fill notes/family | | ✔ | ✔ | | ✔ |
 | Enable Search & Discovery filters: Availability, Price, `custom.scent_family` | | ✔ | | | ✔ |
 | Assign product templates: bundle → `bundle`, request scent → `custom-scent` | | ✔ | | | ✔ |
-| Create pages with templates: Contact, FAQ (keep existing handle `gracefuldivinemeltswax-melt-faq`), Care & safety, Delivery & returns, Find your scent, About, Policies & legal | | ✔ | ✔ | ✔ | ✔ |
+| Create pages with templates: Contact, FAQ (keep existing handle `faq`), Care & safety, Delivery & returns, Find your scent, About, Policies & legal | | ✔ | ✔ | ✔ | ✔ |
 | Policies: create Terms, Refund, Shipping; review Privacy | | ✔ | ✔ | ✔ + adviser | ✔ |
 | Enable Customer privacy banner (UK) | | ✔ | | ✔ | ✔ |
 | Shipping rates & delivery times; "Delivery reassurance" setting only if matching | | ✔ | ✔ | ✔ | ✔ |
@@ -30,7 +30,7 @@
 | Lighthouse + accessibility pass | | | | | ✔ |
 
 ## C. URL and redirect plan
-No existing URL is changed by this theme: product, collection, page (`/pages/contact`, `/pages/gracefuldivinemeltswax-melt-faq`), policy and blog URLs are preserved. The only recommended URL changes are the two `candles-example-product-*` handles (and optionally `paradox-wax-melt` → `parisian-bloom`); Shopify creates 301 redirects when "Create a URL redirect" is ticked. Old nav items (`/collections/all`, Mixed Scent Package, Bundle Deal) all still resolve. Add any `Choose your scent` destination to the new menu once identified.
+No existing URL is changed by this theme: product, collection, page (`/pages/contact`, `/pages/faq`), policy and blog URLs are preserved. The only recommended URL changes are the two `candles-example-product-*` handles (and optionally `paradox-wax-melt` → `parisian-bloom`); Shopify creates 301 redirects when "Create a URL redirect" is ticked. Old nav items (`/collections/all`, Mixed Scent Package, Bundle Deal) all still resolve. Add any `Choose your scent` destination to the new menu once identified.
 
 ## D. Go-live
 1. Customer previews the unpublished theme (Preview link) on mobile and desktop and approves in writing.

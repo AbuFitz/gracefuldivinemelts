@@ -152,3 +152,6 @@ The requested list covers nearly everything. Items worth confirming are included
 ---
 
 *Everything above marked ✔ is built and covered by the automated browser tests in `tools/preview/e2e.mjs`. Everything marked **[admin]** cannot be tested outside a real store and needs the manual checks in section 5.*
+
+## Note: FAQ address
+The FAQ page uses the short address `/pages/faq` (her old site used `/pages/gracefuldivinemeltswax-melt-faq`). After the old page is deleted, add a redirect so old links keep working: Online Store > Navigation > **View URL redirects** > **Create URL redirect**: from `/pages/gracefuldivinemeltswax-melt-faq` to `/pages/faq`.

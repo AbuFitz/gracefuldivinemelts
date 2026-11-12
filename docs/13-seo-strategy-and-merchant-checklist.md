@@ -29,7 +29,7 @@ Specific-scent searches (e.g. a named designer fragrance + "wax melt") exist but
 | Product (each scent) | "{Scent} wax melt" | scent notes | {Scent} Wax Melt Snap Bar | Graceful Divine Melts | {Top/heart/base notes in one line}. Hand-poured wax melt snap bar. £6.99. |
 | `/products/request-a-specific-scent` | custom wax melts | personalised scent wax melts | Custom Scent Wax Melts – Request Your Scent | Tell us the scent you love and we'll make three wax melts, subject to availability. £15.99. |
 | `/products/our-bundle-deal` | wax melt bundle | gift set with burner | Wax Melt Bundle with Burner | Two snap bars of your choice, a mixed scent packet and a wax burner. £28.99. |
-| `/pages/gracefuldivinemeltswax-melt-faq` (keep) | wax melt care / how to use wax melts | wax melt safety | How to Use Wax Melts – Care & FAQ | Warmer wattage, how many pieces to use, storage and safe use. |
+| `/pages/faq` (keep) | wax melt care / how to use wax melts | wax melt safety | How to Use Wax Melts – Care & FAQ | Warmer wattage, how many pieces to use, storage and safe use. |
 | `/pages/find-your-scent` | — (internal discovery hub) | scent families | Find Your Scent – Wax Melt Families | Floral, sweet, woody and fresh. Pick a mood and see the scents. |
 Enter titles/descriptions in each page's **Search engine listing** in Shopify admin (the theme prints them). Never keyword-stuff; headings already contain the target phrases naturally.
 

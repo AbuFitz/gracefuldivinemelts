@@ -77,8 +77,8 @@ settings.care_page = { url: '/pages/wax-melt-care-safety', title: 'Wax melt care
 const L = (title, url, links = []) => ({ title, url, links, current: false });
 export const linklists = {
   'main-menu': { links: [L('Shop', '/collections/all', [L('All wax melts', '/collections/wax-melts'), L('Bundle deal', '/products/our-bundle-deal'), L('Mixed Scent Package', '/products/mixed-scent-package'), L('Gift & bundles', '/collections/bundles')]), L('Discover Scents', '/pages/find-your-scent'), L('Custom Scent', '/products/request-a-specific-scent'), L('About', '/pages/about')] },
-  secondary: { links: [L('FAQ & care', '/pages/gracefuldivinemeltswax-melt-faq'), L('Delivery & returns', '/pages/delivery-returns'), L('Contact', '/pages/contact')] },
-  footer: { links: [L('FAQ', '/pages/gracefuldivinemeltswax-melt-faq'), L('Delivery & returns', '/pages/delivery-returns'), L('Wax melt care & safety', '/pages/wax-melt-care-safety'), L('Contact', '/pages/contact')] },
+  secondary: { links: [L('FAQ & care', '/pages/faq'), L('Delivery & returns', '/pages/delivery-returns'), L('Contact', '/pages/contact')] },
+  footer: { links: [L('FAQ', '/pages/faq'), L('Delivery & returns', '/pages/delivery-returns'), L('Wax melt care & safety', '/pages/wax-melt-care-safety'), L('Contact', '/pages/contact')] },
 };
 export const policies = [{ title: 'Privacy policy', handle: 'privacy-policy', url: '/policies/privacy-policy', body: '<p>(Demo) Shopify-managed privacy policy text appears here. On the live store this record already exists.</p>' }];
 export const shop = { name: 'Graceful Divine Melts', url: 'http://localhost', customer_accounts_enabled: true, policies, shipping_policy: null, refund_policy: null, terms_of_service: null, privacy_policy: policies[0], enabled_payment_types: ['visa', 'master', 'american_express', 'paypal', 'apple_pay', 'google_pay', 'shopify_pay'] };

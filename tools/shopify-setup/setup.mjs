@@ -31,7 +31,7 @@ const FIELDS = [
 const PAGES = [
   { handle: 'about', title: 'About', template: 'about' },
   { handle: 'find-your-scent', title: 'Find your scent', template: 'find-scent' },
-  { handle: 'gracefuldivinemeltswax-melt-faq', title: 'Wax Melt Care & Use – FAQ', template: 'faq' },
+  { handle: 'faq', title: 'Wax Melt Care & Use – FAQ', template: 'faq' },
   { handle: 'wax-melt-care-safety', title: 'Wax melt care & safety', template: 'care' },
   { handle: 'delivery-returns', title: 'Delivery & returns', template: 'delivery' },
   { handle: 'contact', title: 'Contact', template: 'contact' },
@@ -45,7 +45,7 @@ const MENUS = [
     { title: 'Custom Scent', type: 'PRODUCT', handle: 'request-a-specific-scent' },
     { title: 'About', type: 'PAGE', handle: 'about' } ] },
   { handle: 'footer', title: 'Footer menu', items: [
-    { title: 'FAQ', type: 'PAGE', handle: 'gracefuldivinemeltswax-melt-faq' },
+    { title: 'FAQ', type: 'PAGE', handle: 'faq' },
     { title: 'Delivery & returns', type: 'PAGE', handle: 'delivery-returns' },
     { title: 'Wax melt care & safety', type: 'PAGE', handle: 'wax-melt-care-safety' },
     { title: 'Contact', type: 'PAGE', handle: 'contact' } ] },

@@ -154,7 +154,7 @@ await t('contact: validation errors then success; newsletter-free footer by defa
   await d.goto(BASE + '/pages/contact'); await d.fill('#Contact-email', 'a@b.co'); await d.fill('#Contact-body', 'Hi'); await d.click('#ContactForm button[type=submit]'); await d.waitForSelector('.notice--ok'); await d.goto(BASE + '/'); assert((await d.locator('#FooterNewsletter').count()) === 0, 'newsletter should be off by default');
 });
 await t('FAQ accordion + skip link + 404 status', async () => {
-  await d.goto(BASE + '/pages/gracefuldivinemeltswax-melt-faq'); const dt = d.locator('details').first(); await dt.locator('summary').click(); assert(await dt.evaluate((e) => e.open), 'open');
+  await d.goto(BASE + '/pages/faq'); const dt = d.locator('details').first(); await dt.locator('summary').click(); assert(await dt.evaluate((e) => e.open), 'open');
   await d.goto(BASE + '/'); await d.keyboard.press('Tab'); assert(await d.evaluate(() => document.activeElement.classList.contains('skip-link')), 'skip'); const r = await d.goto(BASE + '/products/does-not-exist'); assert(r.status() === 404, '404');
 });
 await t('social + review destinations: Instagram, Google, Shop profile present with safe rel; TikTok verified', async () => {
