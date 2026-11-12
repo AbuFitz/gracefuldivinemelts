@@ -366,4 +366,48 @@
       pickMood(i); if (n) pickScent(p, Math.floor(Math.random() * n));
     });
   });
+
+  /* ---------- welcome offer popup: timed, once per browser, remembers close + sign-up ---------- */
+  $$('[data-subpop]').forEach((dlg) => {
+    if (typeof dlg.showModal !== 'function') return;
+    const DAYS = (Number(dlg.dataset.days) || 30) * 864e5, UNTIL = 'gdm-subpop-until', DONE = 'gdm-subpop-subscribed';
+    const get = (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } };
+    const set = (k, v) => { try { localStorage.setItem(k, v); } catch (e) { /* storage blocked */ } };
+    const ask = $('[data-subpop-ask]', dlg), done = $('[data-subpop-done]', dlg), form = $('form', dlg), err = $('[data-subpop-error]', dlg), email = $('[data-subpop-email]', dlg);
+    const showDone = () => { if (ask) ask.hidden = true; if (done) done.hidden = false; set(DONE, '1'); const h = $('h2', done); if (h) { h.tabIndex = -1; h.focus(); } };
+    dlg.addEventListener('close', () => { if (get(DONE) !== '1') set(UNTIL, String(Date.now() + DAYS)); });
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    dlg.addEventListener('click', (e) => { if (e.target.closest('[data-subpop-close]')) dlg.close(); });
+    const copy = $('[data-subpop-copy]', dlg);
+    if (copy) copy.addEventListener('click', async () => {
+      const code = dlg.dataset.code || ($('[data-subpop-code]', dlg) || {}).textContent || '';
+      try { await navigator.clipboard.writeText(code); } catch (e) { const r = document.createRange(); const n = $('[data-subpop-code]', dlg); if (n) { r.selectNodeContents(n); const s = getSelection(); s.removeAllRanges(); s.addRange(r); } }
+      const old = copy.textContent; copy.textContent = copy.dataset.copied || old; setTimeout(() => { copy.textContent = old; }, 2000);
+    });
+    if (form) form.addEventListener('submit', async (e) => {
+      e.preventDefault(); if (err) err.hidden = true;
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      const btn = $('[data-subpop-submit]', dlg); if (btn) btn.disabled = true;
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'text/html' } });
+        const html = res.ok ? await res.text() : '';
+        const ok = res.ok && (/customer_posted=true/.test(res.url) || html.includes('__subpopPosted'));
+        if (ok) showDone(); else if (err) { err.hidden = false; if (email) email.setAttribute('aria-invalid', 'true'); }
+      } catch (x) { if (err) err.hidden = false; }
+      if (btn) btn.disabled = false;
+    });
+    if (window.__subpopPosted) { set(DONE, '1'); showDone(); dlg.showModal(); return; }
+    if (get(DONE) === '1' || Number(get(UNTIL)) > Date.now()) return;
+    if (dlg.dataset.mobile === 'false' && matchMedia('(max-width: 699px)').matches) return;
+    let timer = null, shown = false;
+    const scrollAt = Number(dlg.dataset.scroll) || 0;
+    const onScroll = () => { const h = document.documentElement; if (scrollAt && (scrollY + innerHeight) / h.scrollHeight * 100 >= scrollAt) open(); };
+    function open() {
+      if (shown) return;
+      if (document.querySelector('dialog[open]') || document.hidden) { clearTimeout(timer); timer = setTimeout(open, 4000); return; }
+      shown = true; clearTimeout(timer); removeEventListener('scroll', onScroll); dlg.showModal();
+    }
+    if (scrollAt) addEventListener('scroll', onScroll, { passive: true });
+    timer = setTimeout(open, (Number(dlg.dataset.delay) || 12) * 1000);
+  });
 })();

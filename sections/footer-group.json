@@ -34,9 +34,16 @@
       "settings": {
         "show_payments": true
       }
+    },
+    "welcome-popup": {
+      "type": "newsletter-popup",
+      "settings": {
+        "image": "shopify://shop_images/20260820041440_38331383.jpg"
+      }
     }
   },
   "order": [
-    "footer"
+    "footer",
+    "welcome-popup"
   ]
 }

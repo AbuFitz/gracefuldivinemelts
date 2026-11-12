@@ -1,0 +1,81 @@
+{%- comment -%}
+  Welcome-offer popup (email sign-up + discount code).
+  - Every word, the offer, the code, timing, image and colours are theme-editor settings: Online Store > Themes > Customise > footer area > "Welcome offer popup".
+  - Sign-ups use Shopify's own customer form, so each subscriber lands in Customers tagged "newsletter" (plus the extra tag below).
+  - The discount code shown here must exist in Shopify: Discounts > Create discount > Amount off order (see docs/20).
+  - Shown once after a delay or when the visitor has scrolled partway; never on the bag, account, password or checkout pages; remembered per browser.
+  - A real modal dialog: focus is trapped, Escape closes it, focus goes back to where it was. Without JavaScript it never opens (nothing breaks).
+{%- endcomment -%}
+{%- assign hide_page = false -%}
+{%- if request.page_type == 'cart' or request.page_type == 'customers/account' or request.page_type == 'password' or request.page_type == 'gift_card' -%}{%- assign hide_page = true -%}{%- endif -%}
+{%- if section.settings.enabled and hide_page == false and customer.accepts_marketing != true -%}
+  {%- assign tone = section.settings.tone | default: 'field' -%}
+  {%- assign ph = section.settings.placeholder -%}
+  {%- if ph == blank -%}{%- assign ph = 'newsletter.email' | t -%}{%- endif -%}
+  <dialog class="subpop subpop--{{ tone }}" id="SubPop-{{ section.id }}" aria-labelledby="subpop-h-{{ section.id }}" data-subpop data-delay="{{ section.settings.delay }}" data-scroll="{{ section.settings.scroll }}" data-days="{{ section.settings.remind_days }}" data-mobile="{{ section.settings.show_on_mobile }}" data-code="{{ section.settings.code | escape }}">
+    <div class="subpop__box">
+      <button class="subpop__close" type="button" data-subpop-close aria-label="{{ 'newsletter_popup.close' | t }}">{% render 'icon', name: 'close' %}</button>
+      {%- if section.settings.image -%}
+        <div class="subpop__media" aria-hidden="true">{%- render 'image', image: section.settings.image, sizes: '(min-width: 720px) 18rem, 0px', widths: '240,360,480,640', alt: '' -%}</div>
+      {%- endif -%}
+      <div class="subpop__body">
+        {%- form 'customer', class: 'subpop__form', id: 'SubPopForm' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter{% if section.settings.extra_tag != blank %}, {{ section.settings.extra_tag | escape }}{% endif %}">
+          <div data-subpop-ask{% if form.posted_successfully? %} hidden{% endif %}>
+            {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+            <h2 id="subpop-h-{{ section.id }}">{{ section.settings.heading }}</h2>
+            {%- if section.settings.text != blank -%}<p class="subpop__text">{{ section.settings.text }}</p>{%- endif -%}
+            <label class="visually-hidden" for="SubPopEmail-{{ section.id }}">{{ 'newsletter.email' | t }}</label>
+            <input class="input" id="SubPopEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" required placeholder="{{ ph }}" data-subpop-email>
+            <p class="subpop__error" role="alert" data-subpop-error hidden>{{ 'newsletter_popup.error' | t }}</p>
+            <button class="btn" type="submit" data-subpop-submit>{{ section.settings.button }}</button>
+            {%- if section.settings.consent != blank -%}<p class="subpop__consent">{{ section.settings.consent }} <a href="{{ routes.privacy_policy_url }}">{{ 'footer.privacy' | t }}</a>.</p>{%- endif -%}
+            <button class="subpop__decline" type="button" data-subpop-close>{{ section.settings.decline }}</button>
+          </div>
+          <div data-subpop-done{% unless form.posted_successfully? %} hidden{% endunless %} role="status" aria-live="polite">
+            <h2>{{ section.settings.success_heading }}</h2>
+            {%- if section.settings.success_text != blank -%}<p class="subpop__text">{{ section.settings.success_text }}</p>{%- endif -%}
+            {%- if section.settings.code != blank -%}
+              <div class="subpop__code">
+                <code data-subpop-code>{{ section.settings.code }}</code>
+                <button class="btn btn--ghost js-only" type="button" data-subpop-copy data-copied="{{ 'newsletter_popup.copied' | t }}">{{ 'newsletter_popup.copy' | t }}</button>
+              </div>
+            {%- endif -%}
+            <button class="btn" type="button" data-subpop-close>{{ section.settings.success_button }}</button>
+          </div>
+          {%- if form.posted_successfully? -%}<script>window.__subpopPosted = true;</script>{%- endif -%}
+        {%- endform -%}
+      </div>
+    </div>
+  </dialog>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Welcome offer popup",
+  "settings": [
+    { "type": "checkbox", "id": "enabled", "label": "Show the popup", "default": true },
+    { "type": "header", "content": "Words" },
+    { "type": "text", "id": "eyebrow", "label": "Small label", "default": "Welcome offer" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get 10% off your first order" },
+    { "type": "textarea", "id": "text", "label": "Text", "default": "Join the list for new scents, restocks and your welcome code." },
+    { "type": "text", "id": "placeholder", "label": "Email box hint", "default": "Your email address" },
+    { "type": "text", "id": "button", "label": "Button", "default": "Get my code" },
+    { "type": "text", "id": "decline", "label": "No-thanks link", "default": "No thanks" },
+    { "type": "text", "id": "consent", "label": "Consent line (before the privacy link)", "default": "By signing up you agree to receive marketing emails. Unsubscribe any time. See our" },
+    { "type": "header", "content": "After they sign up" },
+    { "type": "text", "id": "success_heading", "label": "Thank-you heading", "default": "You're on the list" },
+    { "type": "textarea", "id": "success_text", "label": "Thank-you text", "default": "Use this code at checkout on your first order." },
+    { "type": "text", "id": "code", "label": "Discount code to show (must exist in Discounts)", "default": "WELCOME10" },
+    { "type": "text", "id": "success_button", "label": "Close button", "default": "Start shopping" },
+    { "type": "text", "id": "extra_tag", "label": "Extra customer tag (optional)", "default": "welcome-offer", "info": "Added to every sign-up so you can find them in Customers." },
+    { "type": "header", "content": "Look" },
+    { "type": "image_picker", "id": "image", "label": "Image (optional, shown in an arch)" },
+    { "type": "select", "id": "tone", "label": "Colour", "default": "field", "options": [{ "value": "field", "label": "Pink" }, { "value": "blush", "label": "Soft pink" }, { "value": "paper", "label": "White" }] },
+    { "type": "header", "content": "When it appears" },
+    { "type": "range", "id": "delay", "min": 3, "max": 60, "step": 1, "unit": "s", "label": "Show after", "default": 12 },
+    { "type": "range", "id": "scroll", "min": 0, "max": 90, "step": 5, "unit": "%", "label": "Or once they have scrolled this far (0 = off)", "default": 40 },
+    { "type": "range", "id": "remind_days", "min": 1, "max": 90, "step": 1, "unit": "d", "label": "Ask again after closing (days)", "default": 30 },
+    { "type": "checkbox", "id": "show_on_mobile", "label": "Show on phones", "default": true }
+  ]
+}
+{% endschema %}

@@ -6,7 +6,7 @@ const BASE = process.env.BASE || 'http://localhost:4173';
 const results = []; const t = async (name, fn) => { try { await fn(); results.push(['PASS', name]); } catch (e) { results.push(['FAIL', name + ' — ' + String(e.message).split('\n')[0]]); } };
 const assert = (c, m) => { if (!c) throw new Error(m); };
 const browser = await chromium.launch();
-const mk = async (mobile = false, extra = {}) => { const ctx = await browser.newContext({ ...(mobile ? { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } : { viewport: { width: 1440, height: 900 } }), ...extra }); const page = await ctx.newPage(); page.errs = []; page.on('pageerror', (e) => page.errs.push(String(e))); return page; };
+const mk = async (mobile = false, extra = {}, popup = false) => { const ctx = await browser.newContext({ ...(mobile ? { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } : { viewport: { width: 1440, height: 900 } }), ...extra }); if (!popup) await ctx.addInitScript(() => { try { localStorage.setItem('gdm-subpop-subscribed', '1'); } catch (e) { /* none */ } }); const page = await ctx.newPage(); page.errs = []; page.on('pageerror', (e) => page.errs.push(String(e))); return page; };
 const txt = (p, s) => p.innerText(s);
 await fetch(BASE + '/__reset');
 
@@ -114,6 +114,20 @@ await t('find your scent journey: moods change the screen colour, scents + notes
   await d.locator('[data-mood="1"]').click(); await d.locator('.journey__panel.is-on .journey__thumb').first().click();
   await d.locator('.journey__panel.is-on .journey__scent.is-on .js-quick-add button').click(); await d.waitForSelector('#Toast:not([hidden])');
   const m = await mk(true); await m.goto(BASE + '/pages/find-your-scent'); assert(await m.isVisible('.journey__mood'), 'mobile moods'); const ov = await m.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1); assert(ov, 'mobile overflow'); await m.context().close();
+});
+await t('welcome popup: opens after scrolling, accessible modal, validates, signs up, shows the code, copy works, never returns; absent on bag', async () => {
+  const p = await mk(false, {}, true); await p.goto(BASE + '/'); assert(!(await p.isVisible('[data-subpop]')), 'open too early');
+  await p.evaluate(() => scrollTo(0, document.documentElement.scrollHeight * .6)); await p.waitForSelector('[data-subpop][open]', { timeout: 5000 });
+  assert(await p.evaluate(() => !!document.querySelector('[data-subpop]').getAttribute('aria-labelledby')), 'labelled'); assert(/10%/.test(await txt(p, '[data-subpop] h2')), 'heading offer');
+  assert(await p.evaluate(() => document.querySelector('[data-subpop]').contains(document.activeElement)), 'focus not inside the dialog');
+  await p.fill('[data-subpop-email]', 'not-an-email'); await p.click('[data-subpop-submit]'); assert(await p.isVisible('[data-subpop-ask]'), 'should stay on the form for a bad address');
+  await p.fill('[data-subpop-email]', 'test@example.com'); await p.click('[data-subpop-submit]'); await p.waitForSelector('[data-subpop-done]:not([hidden])', { timeout: 5000 });
+  assert((await txt(p, '[data-subpop-code]')).trim() === 'WELCOME10', 'code shown'); await p.click('[data-subpop-copy]'); await p.waitForFunction(() => /copied/i.test(document.querySelector('[data-subpop-copy]').textContent), null, { timeout: 3000 });
+  await p.click('[data-subpop-done] [data-subpop-close]'); assert(!(await p.isVisible('[data-subpop]')), 'did not close');
+  await p.reload(); await p.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await p.waitForTimeout(900); assert(!(await p.isVisible('[data-subpop]')), 'came back after sign-up');
+  const q = await mk(false, {}, true); await q.goto(BASE + '/cart'); assert((await q.locator('[data-subpop]').count()) === 0, 'popup on the bag page');
+  const r = await mk(false, {}, true); await r.goto(BASE + '/'); await r.evaluate(() => scrollTo(0, document.documentElement.scrollHeight * .6)); await r.waitForSelector('[data-subpop][open]'); await r.keyboard.press('Escape'); assert(!(await r.isVisible('[data-subpop]')), 'Esc did not close'); await r.reload(); await r.evaluate(() => scrollTo(0, document.documentElement.scrollHeight)); await r.waitForTimeout(900); assert(!(await r.isVisible('[data-subpop]')), 'came back after being closed');
+  await p.context().close(); await q.context().close(); await r.context().close();
 });
 await t('bundle: homepage shows the bundle section (no popup anywhere)', async () => {
   await d.goto(BASE + '/'); assert((await d.locator('.bundle').count()) === 1, 'bundle section'); assert((await d.locator('.bundle a.btn').getAttribute('href')).includes('our-bundle-deal'), 'bundle link'); assert((await d.locator('[data-bundle-popup], .bpop').count()) === 0, 'popup present');

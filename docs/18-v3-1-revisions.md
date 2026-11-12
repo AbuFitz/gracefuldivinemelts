@@ -65,3 +65,6 @@ New `scent-journey` section on the Find your scent page: pick a mood (the whole 
 - Our story and the social row now sit on the same page background as "Good to know"; the story box is pure white with a hairline and a soft shadow so it floats off the page.
 - iPhone fixes: the social row images load eagerly (lazy images inside a moving track never loaded on iOS Safari, leaving blank gaps); the page canvas behind everything is now the footer ink with the paper page set on main, so pulling past the footer never shows a pale strip.
 - Added-to-bag toast sizes to its content on phones (it was squeezed to half the screen width); the giant footer wordmark is hidden on phones.
+
+## Client store phase
+The Vercel demo, green banner and expired notice are removed (the theme never contained them). New: Welcome offer popup (`newsletter-popup`) with every setting in the theme editor, and the go-live runbook `docs/20`.

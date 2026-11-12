@@ -376,5 +376,11 @@
       "city": "Town or city",
       "postcode": "Postcode"
     }
+  },
+  "newsletter_popup": {
+    "close": "Close the welcome offer",
+    "error": "That didn't work. Please check your email address and try again.",
+    "copy": "Copy code",
+    "copied": "Copied"
   }
 }
