@@ -29,7 +29,7 @@
             <input class="input" id="SubPopEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" required placeholder="{{ ph }}" data-subpop-email>
             <p class="subpop__error" role="alert" data-subpop-error hidden>{{ 'newsletter_popup.error' | t }}</p>
             <button class="btn" type="submit" data-subpop-submit>{{ section.settings.button }}</button>
-            {%- if section.settings.consent != blank -%}<p class="subpop__consent">{{ section.settings.consent }} <a href="{{ routes.privacy_policy_url }}">{{ 'footer.privacy' | t }}</a>.</p>{%- endif -%}
+            {%- if section.settings.consent != blank -%}<p class="subpop__consent">{{ section.settings.consent }} <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">{{ 'footer.privacy' | t }}</a>.</p>{%- endif -%}
             <button class="subpop__decline" type="button" data-subpop-close>{{ section.settings.decline }}</button>
           </div>
           <div data-subpop-done{% unless form.posted_successfully? %} hidden{% endunless %} role="status" aria-live="polite">

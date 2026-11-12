@@ -67,7 +67,7 @@
         <p class="tax-note" style="margin:0">
           {%- if cart.taxes_included %}{{ 'cart.taxes_included' | t }} {% endif -%}
           {{ 'cart.shipping_at_checkout' | t }}
-          {%- if settings.free_shipping_threshold_text != blank %} {{ settings.free_shipping_threshold_text }}{% endif -%}
+          {%- if settings.shipping_note != blank %} {{ settings.shipping_note }}{% endif -%}
         </p>
         <button type="submit" name="checkout" class="btn btn--block">{{ 'cart.checkout' | t }}{% render 'icon', name: 'arrow' %}</button>
         {%- if additional_checkout_buttons -%}<div class="additional-checkout-buttons">{{ content_for_additional_checkout_buttons }}</div>{%- endif -%}
@@ -75,7 +75,7 @@
           {%- if shop.shipping_policy.url -%}<a href="{{ shop.shipping_policy.url }}">{{ 'cart.links.shipping' | t }}</a>{%- endif -%}
           {%- if shop.refund_policy.url -%}<a href="{{ shop.refund_policy.url }}">{{ 'cart.links.returns' | t }}</a>{%- endif -%}
           {%- if shop.terms_of_service.url -%}<a href="{{ shop.terms_of_service.url }}">{{ 'cart.links.terms' | t }}</a>{%- endif -%}
-          <a href="{{ routes.privacy_policy_url }}">{{ 'cart.links.privacy' | t }}</a>
+          <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">{{ 'cart.links.privacy' | t }}</a>
         </div>
       </aside>
     </form>

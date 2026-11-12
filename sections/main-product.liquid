@@ -204,7 +204,7 @@
 {
   "name": "Product",
   "settings": [
-    { "type": "checkbox", "id": "dynamic_checkout", "label": "Offer dynamic checkout buttons (Shop Pay, Apple Pay…) where enabled in Shopify", "default": true },
+    { "type": "checkbox", "id": "dynamic_checkout", "label": "Offer dynamic checkout buttons where Shopify enables them", "default": true },
     { "type": "collection", "id": "faces_collection", "label": "Collection used for the small scent pictures in the bundle pair picker" }
   ],
   "blocks": [
@@ -222,7 +222,7 @@
       { "type": "text", "id": "heading", "label": "Heading", "default": "Delivery" }, { "type": "richtext", "id": "content", "label": "Content" } ] },
     { "type": "trust", "name": "Reassurance list", "limit": 1, "settings": [
       { "type": "textarea", "id": "items", "label": "One point per line", "default": "Poured by hand in small batches\nSecure checkout through Shopify" } ] },
-    { "type": "policy_links", "name": "Delivery and returns links", "limit": 1 },
+    { "type": "policy_links", "name": "Delivery & returns", "limit": 1 },
     { "type": "disclaimer", "name": "Inspired-by disclaimer", "limit": 1, "settings": [
       { "type": "checkbox", "id": "always", "label": "Show even when the product has no 'inspired by' field", "default": true } ] }
   ]

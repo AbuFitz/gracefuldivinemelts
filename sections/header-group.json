@@ -55,11 +55,39 @@
       "type": "header",
       "settings": {
         "menu": "main-menu",
+        "customer_account_menu": "customer-account-main-menu",
         "popular_collection": "wax-melts",
         "feature_product": "our-bundle-deal",
         "search_suggestions": "Floral, Woody, Sweet, Fresh"
       },
       "blocks": {
+        "n1": {
+          "type": "nav_link",
+          "settings": {
+            "label": "Shop",
+            "link": "shopify://collections/all",
+            "child_1_label": "All wax melts",
+            "child_1_url": "shopify://collections/wax-melts",
+            "child_2_label": "Bundle deal",
+            "child_2_url": "shopify://products/our-bundle-deal",
+            "child_3_label": "Mixed Scent Package",
+            "child_3_url": "shopify://products/mixed-scent-package",
+            "child_4_label": "Gift & bundles",
+            "child_4_url": "shopify://collections/bundles"
+          }
+        },
+        "n2": {
+          "type": "nav_link",
+          "settings": { "label": "Discover Scents", "link": "shopify://pages/find-your-scent" }
+        },
+        "n3": {
+          "type": "nav_link",
+          "settings": { "label": "Custom Scent", "link": "shopify://products/request-a-specific-scent" }
+        },
+        "n4": {
+          "type": "nav_link",
+          "settings": { "label": "About", "link": "shopify://pages/about" }
+        },
         "s1": {
           "type": "shortcut",
           "settings": {
@@ -90,6 +118,10 @@
         }
       },
       "block_order": [
+        "n1",
+        "n2",
+        "n3",
+        "n4",
         "s1",
         "s2",
         "s3",

@@ -39,7 +39,7 @@
         <span class="field-hint">{{ 'contact.form.hint' | t }}</span>
       </div>
       <p style="margin-top:var(--s-5)"><button class="btn" type="submit">{{ 'contact.form.submit' | t }}{% render 'icon', name: 'arrow' %}</button></p>
-      <p class="field-hint" style="margin-top:var(--s-3)">{{ 'contact.form.privacy' | t }} <a href="{{ routes.privacy_policy_url }}">{{ 'footer.privacy' | t }}</a>.</p>
+      <p class="field-hint" style="margin-top:var(--s-3)">{{ 'contact.form.privacy' | t }} <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">{{ 'footer.privacy' | t }}</a>.</p>
     {%- endform -%}
   </div>
 </div>

@@ -224,7 +224,7 @@
         "eyebrow": "Good to know",
         "heading": "Quick answers.",
         "link_label": "All questions and the care guide",
-        "link": "shopify://pages/faq"
+        "link": "/pages/faq"
       },
       "blocks": {
         "q0": {

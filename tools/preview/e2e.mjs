@@ -5,7 +5,7 @@ const { chromium } = require('playwright');
 const BASE = process.env.BASE || 'http://localhost:4173';
 const results = []; const t = async (name, fn) => { try { await fn(); results.push(['PASS', name]); } catch (e) { results.push(['FAIL', name + ' — ' + String(e.message).split('\n')[0]]); } };
 const assert = (c, m) => { if (!c) throw new Error(m); };
-const browser = await chromium.launch();
+const browser = await chromium.launch(process.env.PLAYWRIGHT_EXECUTABLE_PATH ? { executablePath: process.env.PLAYWRIGHT_EXECUTABLE_PATH } : {});
 const mk = async (mobile = false, extra = {}, popup = false) => { const ctx = await browser.newContext({ ...(mobile ? { viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true } : { viewport: { width: 1440, height: 900 } }), ...extra }); if (!popup) await ctx.addInitScript(() => { try { localStorage.setItem('gdm-subpop-subscribed', '1'); } catch (e) { /* none */ } }); const page = await ctx.newPage(); page.errs = []; page.on('pageerror', (e) => page.errs.push(String(e))); return page; };
 const txt = (p, s) => p.innerText(s);
 await fetch(BASE + '/__reset');
@@ -51,7 +51,7 @@ await t('search overlay: empty results state, clear button, and error state with
   await d.route('**/search/suggest*', (r) => r.abort()); await d.fill('#HeaderSearch', 'rose'); await d.waitForSelector('[data-search-retry]'); await d.unroute('**/search/suggest*'); await d.click('[data-search-retry]'); await d.waitForSelector('.search-hit');
 });
 await t('sold-out product cannot be added; shows state', async () => {
-  await d.goto(BASE + '/products/golden-goddess'); assert((await d.getAttribute('[data-add-btn]', 'aria-disabled')) === 'true', 'not disabled'); assert(/sold out/i.test(await txt(d, '[data-add-btn]')), 'label');
+  await d.goto(BASE + '/products/divine-fortune'); assert((await d.getAttribute('[data-add-btn]', 'aria-disabled')) === 'true', 'not disabled'); assert(/sold out/i.test(await txt(d, '[data-add-btn]')), 'label');
   const before = await txt(d, '[data-cart-count]'); await d.click('[data-add-btn]', { force: true }); assert((await txt(d, '[data-cart-count]')) === before, 'count changed');
 });
 await t('bundle: pair picker shows faces, switching updates id/url/price', async () => {
@@ -157,13 +157,30 @@ await t('FAQ accordion + skip link + 404 status', async () => {
   await d.goto(BASE + '/pages/faq'); const dt = d.locator('details').first(); await dt.locator('summary').click(); assert(await dt.evaluate((e) => e.open), 'open');
   await d.goto(BASE + '/'); await d.keyboard.press('Tab'); assert(await d.evaluate(() => document.activeElement.classList.contains('skip-link')), 'skip'); const r = await d.goto(BASE + '/products/does-not-exist'); assert(r.status() === 404, '404');
 });
+await t('content pages: About, FAQ, contact and policy layouts render with correct destinations', async () => {
+  await d.goto(BASE + '/pages/about'); assert((await d.locator('h1').count()) === 1, 'About h1');
+  await d.goto(BASE + '/pages/faq'); assert((await d.locator('details').count()) >= 10, 'full FAQ missing');
+  await d.goto(BASE + '/pages/contact'); assert((await d.locator('a[href="/policies/privacy-policy"]').count()) >= 1, 'contact privacy link');
+  await d.goto(BASE + '/policies/privacy-policy'); assert((await d.locator('.shopify-policy__title h1').count()) === 1, 'policy title'); assert((await d.locator('.shopify-policy__body').count()) === 1, 'policy body');
+  await d.goto(BASE + '/'); assert((await d.locator('a[href="/pages/faq"]').count()) >= 1, 'FAQ route missing from homepage/footer');
+});
+await t('account uses Shopify account sheet component with theme styling', async () => {
+  await d.goto(BASE + '/'); assert((await d.locator('shopify-account').count()) === 1, 'account component');
+  const accent = await d.$eval('shopify-account', (e) => getComputedStyle(e).getPropertyValue('--shopify-account-color-accent').trim()); assert(!!accent, 'account accent');
+});
+await t('custom cookie banner opens preferences and records a choice', async () => {
+  const p = await mk(false); await p.addInitScript(() => {
+    window.Shopify = { customerPrivacy: { shouldShowBanner: () => true, currentVisitorConsent: () => ({ analytics: 'no', marketing: 'no', preferences: 'no' }), setTrackingConsent: (_v, cb) => cb() }, loadFeatures: (_f, cb) => cb() };
+  });
+  await p.goto(BASE + '/'); await p.waitForSelector('[data-cookie-consent]:not([hidden])'); await p.click('[data-cookie-manage]'); assert(await p.isVisible('#CookiePreferences .cookie-sheet'), 'preferences'); await p.click('[data-cookie-save]'); assert(!(await p.isVisible('[data-cookie-consent]')), 'banner remained'); await p.context().close();
+});
 await t('social + review destinations: Instagram, Google, Shop profile present with safe rel; TikTok verified', async () => {
   await d.goto(BASE + '/'); const hrefs = await d.$$eval('.footer a[target=_blank]', (as) => as.map((a) => [a.href, a.rel])); const joined = hrefs.map((h) => h[0]).join(' ');
   assert(joined.includes('tiktok.com/@gracefuldivinemelts'), 'tiktok missing: ' + joined);
 });
 await t('internal link crawl: every same-site link on key pages resolves (no dead links)', async () => {
   const seen = new Set(); const bad = [];
-  for (const p of ['/', '/collections/wax-melts', '/products/dark-desire', '/pages/contact', '/pages/find-your-scent', '/pages/delivery-returns', '/pages/wax-melt-care-safety', '/cart']) {
+  for (const p of ['/', '/collections/wax-melts', '/products/dark-desire', '/pages/about', '/pages/faq', '/pages/contact', '/pages/find-your-scent', '/pages/delivery-returns', '/pages/wax-melt-care-safety', '/pages/policies', '/policies/privacy-policy', '/cart']) {
     await d.goto(BASE + p); const links = await d.$$eval('a[href^="/"]', (as) => as.map((a) => a.getAttribute('href').split('#')[0]).filter(Boolean));
     for (const l of links) { if (seen.has(l) || l.startsWith('/cart/change') || l.startsWith('/account')) continue; seen.add(l); const r = await fetch(BASE + l); if (r.status >= 400) bad.push(l + ' ' + r.status); }
   } assert(bad.length === 0, 'dead: ' + bad.slice(0, 5).join(', '));

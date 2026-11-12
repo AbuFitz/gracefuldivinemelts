@@ -1,12 +1,39 @@
 {%- assign menu = section.settings.menu | default: linklists['main-menu'] -%}
 {%- assign feature = section.settings.feature_product -%}
 {%- assign popular = section.settings.popular_collection -%}
+{%- assign nav_links = section.blocks | where: 'type', 'nav_link' -%}
 <div class="nav">
   <div class="nav__bar">
     <div class="nav__left">
       <button type="button" class="pill-btn pill-btn--icon nav__menu-btn js-only" data-open-dialog="MenuDialog" aria-expanded="false" aria-controls="MenuDialog" aria-label="{{ 'general.menu.open' | t }}">{% render 'icon', name: 'menu' %}</button>
       <nav aria-label="{{ 'general.menu.main' | t }}">
         <ul class="nav__links" role="list">
+          {%- if nav_links.size > 0 -%}
+            {%- for block in nav_links -%}
+              {%- if block.settings.child_1_url != blank -%}
+                <li class="nav__item" {{ block.shopify_attributes }}>
+                  <a class="nav__link" href="{{ block.settings.link }}" aria-haspopup="true">{{ block.settings.label | escape }}{% render 'icon', name: 'chevron' %}</a>
+                  <div class="nav__panel">
+                    <ul role="list">
+                      {%- for i in (1..4) -%}
+                        {%- assign child_label_key = 'child_' | append: i | append: '_label' -%}
+                        {%- assign child_url_key = 'child_' | append: i | append: '_url' -%}
+                        {%- if block.settings[child_url_key] != blank and block.settings[child_label_key] != blank -%}<li><a href="{{ block.settings[child_url_key] }}">{{ block.settings[child_label_key] | escape }}</a></li>{%- endif -%}
+                      {%- endfor -%}
+                    </ul>
+                    {%- if feature != blank and forloop.first -%}
+                      <a class="nav__feature" href="{{ feature.url }}">
+                        {%- if feature.featured_image -%}{%- render 'image', image: feature.featured_image, sizes: '220px', widths: '320,480,640,800', loading: 'eager', alt: '' -%}{%- endif -%}
+                        <strong>{{ feature.title | escape }}</strong>{% render 'price', product: feature, show_from: true %}
+                      </a>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- else -%}
+                <li class="nav__item" {{ block.shopify_attributes }}><a class="nav__link" href="{{ block.settings.link }}">{{ block.settings.label | escape }}</a></li>
+              {%- endif -%}
+            {%- endfor -%}
+          {%- else -%}
           {%- for link in menu.links -%}
             {%- if link.links != blank -%}
               <li class="nav__item">
@@ -15,7 +42,7 @@
                   <ul role="list">{%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>{%- endfor -%}</ul>
                   {%- if feature != blank and forloop.first -%}
                     <a class="nav__feature" href="{{ feature.url }}">
-                      {%- if feature.featured_image -%}{%- render 'image', image: feature.featured_image, sizes: '192px', widths: '240,360,480', alt: '' -%}{%- endif -%}
+                      {%- if feature.featured_image -%}{%- render 'image', image: feature.featured_image, sizes: '220px', widths: '320,480,640,800', loading: 'eager', alt: '' -%}{%- endif -%}
                       <strong>{{ feature.title | escape }}</strong>{% render 'price', product: feature, show_from: true %}
                     </a>
                   {%- endif -%}
@@ -25,6 +52,7 @@
               <li class="nav__item"><a class="nav__link" href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
             {%- endif -%}
           {%- endfor -%}
+          {%- endif -%}
         </ul>
       </nav>
       <noscript><a class="pill-btn" href="{{ routes.all_products_collection_url }}">{{ 'general.menu.shop' | t }}</a></noscript>
@@ -41,7 +69,12 @@
     <div class="nav__actions">
       <button type="button" class="pill-btn pill-btn--search js-only" data-open-dialog="SearchDialog" aria-expanded="false" aria-controls="SearchDialog" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}<span class="nav__search-label">{{ 'general.search.open' | t }}</span></button>
       <a class="pill-btn pill-btn--icon no-js-only" href="{{ routes.search_url }}" aria-label="{{ 'general.search.open' | t }}">{% render 'icon', name: 'search' %}</a>
-      {%- if shop.customer_accounts_enabled -%}<a class="pill-btn pill-btn--icon nav__account" href="{{ routes.account_url }}" aria-label="{{ 'general.account.label' | t }}">{% render 'icon', name: 'account' %}</a>{%- endif -%}
+      {%- if shop.customer_accounts_enabled -%}
+        <shopify-account class="nav__account" menu="{{ section.settings.customer_account_menu }}">
+          <span class="pill-btn pill-btn--icon" slot="signed-out-avatar" aria-label="{{ 'general.account.label' | t }}">{% render 'icon', name: 'account' %}</span>
+        </shopify-account>
+        <noscript><a class="pill-btn pill-btn--icon" href="{{ routes.storefront_login_url }}" aria-label="{{ 'general.account.label' | t }}">{% render 'icon', name: 'account' %}</a></noscript>
+      {%- endif -%}
       <a class="pill-btn pill-btn--bag" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart.label' | t }}">
         {% render 'icon', name: 'bag' %}<span class="bag-count" data-cart-count data-count="{{ cart.item_count }}">{{ cart.item_count }}</span>
         <span class="visually-hidden">{{ 'general.cart.items' | t: count: cart.item_count }}</span>
@@ -58,12 +91,29 @@
     </div>
     <nav aria-label="{{ 'general.menu.main' | t }}">
       <ul role="list">
+        {%- if nav_links.size > 0 -%}
+          {%- for block in nav_links -%}
+            <li {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.link }}">{{ block.settings.label | escape }}{% render 'icon', name: 'right' %}</a>
+              {%- if block.settings.child_1_url != blank -%}
+                <ul role="list">
+                  {%- for i in (1..4) -%}
+                    {%- assign child_label_key = 'child_' | append: i | append: '_label' -%}
+                    {%- assign child_url_key = 'child_' | append: i | append: '_url' -%}
+                    {%- if block.settings[child_url_key] != blank and block.settings[child_label_key] != blank -%}<li><a href="{{ block.settings[child_url_key] }}">{{ block.settings[child_label_key] | escape }}</a></li>{%- endif -%}
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        {%- else -%}
         {%- for link in menu.links -%}
           <li>
             <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title | escape }}{% render 'icon', name: 'right' %}</a>
             {%- if link.links != blank -%}<ul role="list">{%- for child in link.links -%}<li><a href="{{ child.url }}">{{ child.title | escape }}</a></li>{%- endfor -%}</ul>{%- endif -%}
           </li>
         {%- endfor -%}
+        {%- endif -%}
       </ul>
     </nav>
     <div class="menu-sheet__foot">
@@ -94,7 +144,7 @@
       <div data-search-shortcuts>
         <h2>{{ 'general.search.shortcuts' | t }}</h2>
         <ul class="shortcuts" role="list">
-          {%- for block in section.blocks -%}<li {{ block.shopify_attributes }}><a href="{{ block.settings.link }}">{{ block.settings.label }}{% render 'icon', name: 'right' %}</a></li>{%- endfor -%}
+            {%- for block in section.blocks -%}{%- if block.type == 'shortcut' -%}<li {{ block.shopify_attributes }}><a href="{{ block.settings.link }}">{{ block.settings.label }}{% render 'icon', name: 'right' %}</a></li>{%- endif -%}{%- endfor -%}
         </ul>
         {%- if section.settings.search_suggestions != blank -%}
           <div class="search-chips">
@@ -126,11 +176,23 @@
   "settings": [
     { "type": "link_list", "id": "menu", "label": "Main menu", "default": "main-menu" },
     { "type": "link_list", "id": "menu_secondary", "label": "Secondary menu (shown in the mobile menu: FAQ, Contact…)" },
+    { "type": "link_list", "id": "customer_account_menu", "label": "Customer account menu", "default": "customer-account-main-menu" },
     { "type": "product", "id": "feature_product", "label": "Product featured in the Shop dropdown" },
     { "type": "collection", "id": "popular_collection", "label": "Collection shown as 'Popular scents' when search opens" },
     { "type": "text", "id": "search_suggestions", "label": "Search suggestions (comma separated)", "default": "Floral, Woody, Sweet, Fresh" }
   ],
   "blocks": [
+    { "type": "nav_link", "name": "Navigation link", "settings": [
+      { "type": "text", "id": "label", "label": "Label", "default": "Shop" },
+      { "type": "url", "id": "link", "label": "Link" },
+      { "type": "text", "id": "child_1_label", "label": "Dropdown link 1 label" },
+      { "type": "url", "id": "child_1_url", "label": "Dropdown link 1 URL" },
+      { "type": "text", "id": "child_2_label", "label": "Dropdown link 2 label" },
+      { "type": "url", "id": "child_2_url", "label": "Dropdown link 2 URL" },
+      { "type": "text", "id": "child_3_label", "label": "Dropdown link 3 label" },
+      { "type": "url", "id": "child_3_url", "label": "Dropdown link 3 URL" },
+      { "type": "text", "id": "child_4_label", "label": "Dropdown link 4 label" },
+      { "type": "url", "id": "child_4_url", "label": "Dropdown link 4 URL" } ] },
     { "type": "shortcut", "name": "Search shortcut", "settings": [
       { "type": "text", "id": "label", "label": "Label", "default": "Shop all wax melts" },
       { "type": "url", "id": "link", "label": "Link" } ] }

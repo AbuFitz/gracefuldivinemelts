@@ -14,7 +14,7 @@
             <input class="input" style="flex:1 1 14rem;width:auto" id="SecNewsletterEmail" type="email" name="contact[email]" autocomplete="email" required {% if form.errors %}aria-invalid="true"{% endif %}>
             <button class="btn" type="submit">{{ 'newsletter.submit' | t }}</button>
           </div>
-          <span class="field-hint">{{ 'newsletter.consent' | t }} <a href="{{ routes.privacy_policy_url }}">{{ 'footer.privacy' | t }}</a>.</span>
+          <span class="field-hint">{{ 'newsletter.consent' | t }} <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">{{ 'footer.privacy' | t }}</a>.</span>
         </div>
       {%- endif -%}
     {%- endform -%}

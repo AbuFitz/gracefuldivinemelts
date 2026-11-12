@@ -262,6 +262,9 @@
     "consent": "By signing up you agree to receive marketing emails from us. You can unsubscribe at any time. See our"
   },
   "footer": {
+    "legal": "Legal",
+    "connect": "Connect",
+    "policies_hub": "Policies & legal",
     "privacy": "Privacy policy",
     "policies": "Store policies",
     "cookie_preferences": "Cookie preferences",
@@ -272,6 +275,28 @@
     "google": "Google reviews",
     "shop_profile": "Shop app profile",
     "payment_methods": "Payment methods"
+  },
+  "cookies": {
+    "eyebrow": "Your privacy",
+    "banner_title": "A sweeter browsing experience.",
+    "banner_text": "Essential cookies keep the shop working. With your permission, optional cookies help us remember choices, understand visits and improve our marketing.",
+    "read_privacy": "Read our privacy policy",
+    "reject": "Reject optional",
+    "manage": "Manage",
+    "accept": "Accept all",
+    "close": "Close cookie preferences",
+    "title": "Choose your cookies.",
+    "intro": "Essential cookies are always on because they make checkout, security and core shop features work.",
+    "essential": "Essential",
+    "essential_text": "Required for the store to work.",
+    "essential_label": "Essential cookies, always on",
+    "preferences": "Preferences",
+    "preferences_text": "Remember choices you make.",
+    "analytics": "Analytics",
+    "analytics_text": "Help us understand how the shop is used.",
+    "marketing": "Marketing",
+    "marketing_text": "Support more relevant promotions.",
+    "save": "Save choices"
   },
   "social": {
     "instagram": "Instagram",

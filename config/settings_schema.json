@@ -3,7 +3,7 @@
     "name": "theme_info",
     "theme_name": "Graceful Divine Melts",
     "theme_version": "1.0.0",
-    "theme_author": "Agency build for Graceful Divine Melts",
+    "theme_author": "OneSimpleSite",
     "theme_documentation_url": "https://github.com/AbuFitz/gracefuldivinemelts/tree/main/docs",
     "theme_support_url": "https://github.com/AbuFitz/gracefuldivinemelts/issues"
   },
@@ -68,7 +68,7 @@
         "step": 5,
         "unit": "px",
         "label": "Logo width",
-        "default": 96
+        "default": 95
       }
     ]
   },
@@ -129,8 +129,7 @@
       {
         "type": "url",
         "id": "business_whatsapp",
-        "label": "WhatsApp link",
-        "default": "https://wa.me/message/R7CWQSXLBVTRG1"
+        "label": "WhatsApp link"
       },
       {
         "type": "text",
@@ -160,8 +159,7 @@
       {
         "type": "url",
         "id": "social_instagram",
-        "label": "Instagram (verified: @gracefuldivinemelts)",
-        "default": "https://www.instagram.com/gracefuldivinemelts"
+        "label": "Instagram (verified: @gracefuldivinemelts)"
       },
       {
         "type": "text",
@@ -172,8 +170,7 @@
       {
         "type": "url",
         "id": "social_tiktok",
-        "label": "TikTok (verified: @gracefuldivinemelts)",
-        "default": "https://www.tiktok.com/@gracefuldivinemelts"
+        "label": "TikTok (verified: @gracefuldivinemelts)"
       },
       {
         "type": "text",
@@ -189,8 +186,7 @@
       {
         "type": "url",
         "id": "google_profile",
-        "label": "Google Business Profile link",
-        "default": "https://www.google.com/search?q=Graceful+Divine+Melts&kgmid=/g/11zxdwrt_5"
+        "label": "Google Business Profile link"
       },
       {
         "type": "url",
@@ -201,14 +197,12 @@
       {
         "type": "url",
         "id": "shop_profile",
-        "label": "Shop app profile",
-        "default": "https://shop.app/m/gracefuldivinemelts"
+        "label": "Shop app profile"
       },
       {
         "type": "url",
         "id": "review_link",
-        "label": "Trustpilot link (existing)",
-        "default": "https://uk.trustpilot.com/review/www.gracefuldivinemelts.com"
+        "label": "Trustpilot link"
       }
     ]
   },
@@ -229,9 +223,9 @@
       },
       {
         "type": "text",
-        "id": "free_shipping_threshold_text",
+        "id": "shipping_note",
         "label": "Delivery reassurance line (leave blank until confirmed)",
-        "info": "Do not enter delivery prices or times here unless they match your Shopify shipping rates."
+        "info": "Only enter delivery details that match the store's configured rates."
       }
     ]
   },

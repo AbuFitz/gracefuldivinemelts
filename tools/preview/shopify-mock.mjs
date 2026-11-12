@@ -68,10 +68,11 @@ export const collections = {
 const schema = readJSON(path.join(THEME, 'config/settings_schema.json'));
 export const settings = {};
 for (const g of schema) for (const s of g.settings || []) if (s.id) settings[s.id] = s.default ?? (s.type === 'checkbox' ? false : null);
+const savedSettings = readJSON(path.join(THEME, 'config/settings_data.json')).current || {};
+for (const [key, value] of Object.entries(savedSettings)) if (typeof value !== 'string' || !value.startsWith('shopify://')) settings[key] = value;
 const logoFile = imgNames().find((f) => f.startsWith('Black_and_Beige'));
 settings.logo = logoFile ? { src: `/img/${logoFile}`, width: 1100, height: 1100, alt: 'Graceful Divine Melts' } : null;
 settings.logo_width = 84;
-settings.google_review_link = '';
 settings.care_page = { url: '/pages/wax-melt-care-safety', title: 'Wax melt care & safety' };
 
 const L = (title, url, links = []) => ({ title, url, links, current: false });

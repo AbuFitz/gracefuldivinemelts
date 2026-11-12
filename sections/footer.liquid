@@ -16,7 +16,7 @@
                 <input class="input" id="NewsletterEmail" type="email" name="contact[email]" autocomplete="email" required placeholder="{{ 'newsletter.email' | t }}" {% if form.errors %}aria-invalid="true"{% endif %}>
                 <button class="btn" type="submit">{{ 'newsletter.submit' | t }}</button>
               </div>
-              <p class="field-hint" style="color:rgb(255 255 255 / .7)">{{ 'newsletter.consent' | t }} <a href="{{ routes.privacy_policy_url }}" style="text-decoration:underline">{{ 'footer.privacy' | t }}</a>.</p>
+              <p class="field-hint" style="color:rgb(255 255 255 / .7)">{{ 'newsletter.consent' | t }} <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}" style="text-decoration:underline">{{ 'footer.privacy' | t }}</a>.</p>
             {%- endif -%}
           {%- endform -%}
         {%- endif -%}
@@ -29,22 +29,35 @@
           {%- when 'links' -%}
             <nav class="footer__col" {{ block.shopify_attributes }} aria-labelledby="f-{{ block.id }}">
               <h3 id="f-{{ block.id }}">{{ block.settings.heading }}</h3>
-              <ul role="list">{%- for link in block.settings.menu.links -%}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{%- endfor -%}</ul>
-            </nav>
-          {%- when 'contact' -%}
-            <div class="footer__col" {{ block.shopify_attributes }}>
-              <h3>{{ block.settings.heading }}</h3>
               <ul role="list">
-                {%- if settings.business_email != blank -%}<li><a href="mailto:{{ settings.business_email }}">{{ settings.business_email | replace: '@', '<wbr>@' }}</a></li>{%- endif -%}
-                {%- if settings.business_phone != blank -%}<li><span>{{ settings.business_phone }}</span></li>{%- endif -%}
-                {%- if settings.business_hours != blank -%}<li><span>{{ settings.business_hours }}</span></li>{%- endif -%}
-                {%- if settings.business_whatsapp != blank -%}<li><a href="{{ settings.business_whatsapp }}" rel="noopener" target="_blank">{{ 'footer.whatsapp' | t }}</a></li>{%- endif -%}
+                {%- if block.settings.link_1_url != blank -%}
+                  {%- for i in (1..4) -%}
+                    {%- assign label_key = 'link_' | append: i | append: '_label' -%}
+                    {%- assign url_key = 'link_' | append: i | append: '_url' -%}
+                    {%- if block.settings[url_key] != blank and block.settings[label_key] != blank -%}<li><a href="{{ block.settings[url_key] }}">{{ block.settings[label_key] | escape }}</a></li>{%- endif -%}
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- for link in block.settings.menu.links -%}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{%- endfor -%}
+                {%- endif -%}
               </ul>
-            </div>
+            </nav>
         {%- endcase -%}
       {%- endfor -%}
-      <div class="footer__col footer__col--follow">
-        <h3>{{ section.settings.follow_heading }}</h3>
+      <nav class="footer__col footer__col--legal" aria-label="{{ 'footer.legal' | t }}">
+        <h3>{{ 'footer.legal' | t }}</h3>
+        <ul role="list">
+          <li><a href="/pages/policies">{{ 'footer.policies_hub' | t }}</a></li>
+          {%- for policy in shop.policies -%}<li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>{%- endfor -%}
+          {%- if section.settings.legal_menu != blank -%}{%- for link in section.settings.legal_menu.links -%}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{%- endfor -%}{%- endif -%}
+          <li class="js-only"><button type="button" class="footer__text-button" data-cookie-prefs>{{ 'footer.cookie_preferences' | t }}</button></li>
+        </ul>
+      </nav>
+      <div class="footer__col footer__col--connect">
+        <h3>{{ 'footer.connect' | t }}</h3>
+        <ul class="footer__contact" role="list">
+          {%- if settings.business_email != blank -%}<li><a href="mailto:{{ settings.business_email }}">{{ settings.business_email | replace: '@', '<wbr>@' }}</a></li>{%- endif -%}
+          {%- if settings.business_whatsapp != blank -%}<li><a href="{{ settings.business_whatsapp }}" rel="noopener" target="_blank">{{ 'footer.whatsapp' | t }}</a></li>{%- endif -%}
+        </ul>
         {%- render 'social-links' -%}
         <ul class="footer__handles" role="list">
           {%- if settings.social_instagram != blank -%}<li><a href="{{ settings.social_instagram }}" rel="noopener" target="_blank">Instagram <span>@{{ settings.instagram_handle }}</span></a></li>{%- endif -%}
@@ -60,11 +73,6 @@
         {%- if settings.vat_number != blank %} {{ 'footer.vat_number' | t: number: settings.vat_number }}.{% endif -%}
         {%- if settings.business_address != blank %}<br>{{ settings.business_address | newline_to_br }}{% endif -%}
       </div>
-      <ul class="footer__policies" role="list" aria-label="{{ 'footer.policies' | t }}">
-        {%- for policy in shop.policies -%}<li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>{%- endfor -%}
-        {%- if section.settings.legal_menu != blank -%}{%- for link in section.settings.legal_menu.links -%}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{%- endfor -%}{%- endif -%}
-        <li class="js-only"><button type="button" data-cookie-prefs>{{ 'footer.cookie_preferences' | t }}</button></li>
-      </ul>
       {%- if section.settings.show_payments and shop.enabled_payment_types.size > 0 -%}
         <ul class="payments" role="list" aria-label="{{ 'footer.payment_methods' | t }}">
           {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag: class: 'payment-icon' }}</li>{%- endfor -%}
@@ -77,20 +85,27 @@
 {% schema %}
 {
   "name": "Footer",
-  "max_blocks": 3,
+  "max_blocks": 2,
   "settings": [
     { "type": "text", "id": "heading", "label": "Closing line", "default": "Poured with intention, inspired by grace." },
     { "type": "textarea", "id": "blurb", "label": "Text", "default": "Perfume-inspired wax melts. UK based." },
     { "type": "text", "id": "follow_heading", "label": "Follow column heading", "default": "Follow & review" },
     { "type": "checkbox", "id": "show_payments", "label": "Show the payment methods enabled in Shopify (Settings → Payments)", "default": true },
-    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter sign-up (only once you have decided how emails are sent)", "default": false },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Show newsletter sign-up once email delivery is configured", "default": false },
     { "type": "link_list", "id": "legal_menu", "label": "Extra legal links (e.g. Delivery & returns)" }
   ],
   "blocks": [
     { "type": "links", "name": "Link list", "limit": 2, "settings": [
       { "type": "text", "id": "heading", "label": "Heading", "default": "Shop" },
-      { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" } ] },
-    { "type": "contact", "name": "Contact", "limit": 1, "settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Talk to us" }] }
+      { "type": "link_list", "id": "menu", "label": "Fallback menu", "default": "footer" },
+      { "type": "text", "id": "link_1_label", "label": "Link 1 label" },
+      { "type": "url", "id": "link_1_url", "label": "Link 1 URL" },
+      { "type": "text", "id": "link_2_label", "label": "Link 2 label" },
+      { "type": "url", "id": "link_2_url", "label": "Link 2 URL" },
+      { "type": "text", "id": "link_3_label", "label": "Link 3 label" },
+      { "type": "url", "id": "link_3_url", "label": "Link 3 URL" },
+      { "type": "text", "id": "link_4_label", "label": "Link 4 label" },
+      { "type": "url", "id": "link_4_url", "label": "Link 4 URL" } ] }
   ]
 }
 {% endschema %}

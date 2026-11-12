@@ -9,27 +9,36 @@
           "type": "links",
           "settings": {
             "heading": "Shop",
-            "menu": "main-menu"
+            "menu": "main-menu",
+            "link_1_label": "Shop",
+            "link_1_url": "shopify://collections/all",
+            "link_2_label": "Discover Scents",
+            "link_2_url": "shopify://pages/find-your-scent",
+            "link_3_label": "Custom Scent",
+            "link_3_url": "shopify://products/request-a-specific-scent",
+            "link_4_label": "About",
+            "link_4_url": "shopify://pages/about"
           }
         },
         "help": {
           "type": "links",
           "settings": {
             "heading": "Help",
-            "menu": "footer"
-          }
-        },
-        "contact": {
-          "type": "contact",
-          "settings": {
-            "heading": "Talk to us"
+            "menu": "footer",
+            "link_1_label": "FAQ",
+            "link_1_url": "/pages/faq",
+            "link_2_label": "Delivery & returns",
+            "link_2_url": "shopify://pages/delivery-returns",
+            "link_3_label": "Wax melt care & safety",
+            "link_3_url": "shopify://pages/wax-melt-care-safety",
+            "link_4_label": "Contact",
+            "link_4_url": "shopify://pages/contact"
           }
         }
       },
       "block_order": [
         "shop",
-        "help",
-        "contact"
+        "help"
       ],
       "settings": {
         "show_payments": true
@@ -40,10 +49,15 @@
       "settings": {
         "image": "shopify://shop_images/20260820041440_38331383.jpg"
       }
+    },
+    "cookie-consent": {
+      "type": "cookie-consent",
+      "settings": {}
     }
   },
   "order": [
     "footer",
+    "cookie-consent",
     "welcome-popup"
   ]
 }
