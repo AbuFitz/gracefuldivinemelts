@@ -132,7 +132,7 @@ Run on the **unpublished** theme preview, on a real phone and a laptop:
 
 - Give her the plain-English guide (`docs/09-customer-handover-guide.md`) and a 20 minute walk-through: editing text and images, changing the popup, adding a product, adding a scent's notes, changing the announcement messages.
 - Tell her what is "major" (new page layouts, new features, anything broken after a Shopify update) and what she can do herself (everything in the theme editor).
-- Remove staff/collaborator access we no longer need once the care plan terms are agreed.
+- Remove staff/collaborator access we no longer need once the handover is complete (new work later is quoted separately).
 
 ## 8. Access we asked for: anything missing?
 

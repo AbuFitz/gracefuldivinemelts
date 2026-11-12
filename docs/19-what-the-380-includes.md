@@ -1,7 +1,7 @@
 # What your £380 website includes
 
 **Graceful Divine Melts: new website, transferred into your existing Shopify store**
-Quoted: **£380** one-off for the website, plus an optional **£39 care plan** (billing period and terms as agreed with you).
+Quoted: **£380** one-off for the website, transferred into your existing Shopify store. No ongoing plan is required.
 
 This is a plain-English summary of what the £380 covers. Everything below is built and has been tested in the browser.
 
@@ -55,14 +55,9 @@ Designed for your brand and your products: pink, soft and modern, with your own 
 
 ---
 
-## The £39 care plan
+## After launch
 
-*Proposed scope: please confirm or amend before sending.*
-
-- Small content and design tweaks to the site (wording, images, section changes).
-- Help if something stops working after a Shopify update.
-- A routine check that the site, forms and checkout links still work.
-- A named person to contact for questions.
+There is no care plan or monthly fee. If you would like changes later (new sections, wording, features, or help after a Shopify update), just get in touch and we will quote for it. Day-to-day edits (text, images, products, the welcome popup) you can do yourself in the Shopify editor.
 
 ## Not included in £380
 
