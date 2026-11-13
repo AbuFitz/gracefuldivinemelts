@@ -161,18 +161,17 @@ await t('content pages: About, FAQ, contact and policy layouts render with corre
   await d.goto(BASE + '/pages/about'); assert((await d.locator('h1').count()) === 1, 'About h1');
   await d.goto(BASE + '/pages/faq'); assert((await d.locator('details').count()) >= 10, 'full FAQ missing');
   await d.goto(BASE + '/pages/contact'); assert((await d.locator('a[href="/policies/privacy-policy"]').count()) >= 1, 'contact privacy link');
-  await d.goto(BASE + '/policies/privacy-policy'); assert((await d.locator('.shopify-policy__title h1').count()) === 1, 'policy title'); assert((await d.locator('.shopify-policy__body').count()) === 1, 'policy body');
+  await d.goto(BASE + '/policies/privacy-policy'); assert((await d.locator('.shopify-policy__title h1').count()) === 1, 'policy title'); assert((await d.locator('.shopify-policy__body').count()) === 1, 'policy body'); const policyWidth = await d.$eval('.shopify-policy__container', (e) => e.getBoundingClientRect().width / innerWidth); assert(policyWidth > .97, 'policy container is squeezed: ' + policyWidth);
   await d.goto(BASE + '/'); assert((await d.locator('a[href="/pages/faq"]').count()) >= 1, 'FAQ route missing from homepage/footer');
 });
 await t('account uses Shopify account sheet component with theme styling', async () => {
   await d.goto(BASE + '/'); assert((await d.locator('shopify-account').count()) === 1, 'account component');
   const accent = await d.$eval('shopify-account', (e) => getComputedStyle(e).getPropertyValue('--shopify-account-color-accent').trim()); assert(!!accent, 'account accent');
+  const top = await d.$eval('shopify-account', (e) => getComputedStyle(e).getPropertyValue('--shopify-account-dialog-position-top').trim()); assert(top !== '.75rem' && top !== '0.75rem', 'desktop account sheet top: ' + top);
 });
-await t('custom cookie banner opens preferences and records a choice', async () => {
-  const p = await mk(false); await p.addInitScript(() => {
-    window.Shopify = { customerPrivacy: { shouldShowBanner: () => true, currentVisitorConsent: () => ({ analytics: 'no', marketing: 'no', preferences: 'no' }), setTrackingConsent: (_v, cb) => cb() }, loadFeatures: (_f, cb) => cb() };
-  });
-  await p.goto(BASE + '/'); await p.waitForSelector('[data-cookie-consent]:not([hidden])'); await p.click('[data-cookie-manage]'); assert(await p.isVisible('#CookiePreferences .cookie-sheet'), 'preferences'); await p.click('[data-cookie-save]'); assert(!(await p.isVisible('[data-cookie-consent]')), 'banner remained'); await p.context().close();
+await t('only Shopify native customer privacy UI is used', async () => {
+  await d.goto(BASE + '/'); assert((await d.locator('[data-cookie-consent], #CookiePreferences, [data-cookie-prefs]').count()) === 0, 'custom cookie UI remains');
+  const display = await d.evaluate(() => { const el = document.createElement('div'); el.id = 'shopify-pc__banner'; document.body.append(el); const value = getComputedStyle(el).display; el.remove(); return value; }); assert(display !== 'none', 'native Shopify banner is suppressed');
 });
 await t('social + review destinations: Instagram, Google, Shop profile present with safe rel; TikTok verified', async () => {
   await d.goto(BASE + '/'); const hrefs = await d.$$eval('.footer a[target=_blank]', (as) => as.map((a) => [a.href, a.rel])); const joined = hrefs.map((h) => h[0]).join(' ');

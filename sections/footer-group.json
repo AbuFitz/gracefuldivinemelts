@@ -47,17 +47,18 @@
     "welcome-popup": {
       "type": "newsletter-popup",
       "settings": {
-        "image": "shopify://shop_images/20260820041440_38331383.jpg"
+        "enabled": true,
+        "image": "shopify://shop_images/20260820041440_38331383.jpg",
+        "code": "WELCOME10",
+        "delay": 12,
+        "scroll": 40,
+        "remind_days": 30,
+        "show_on_mobile": true
       }
-    },
-    "cookie-consent": {
-      "type": "cookie-consent",
-      "settings": {}
     }
   },
   "order": [
     "footer",
-    "cookie-consent",
     "welcome-popup"
   ]
 }

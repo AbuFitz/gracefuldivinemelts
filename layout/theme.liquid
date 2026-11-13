@@ -43,7 +43,7 @@
         routes: { cart: {{ routes.cart_url | json }}, cartAdd: {{ routes.cart_add_url | json }}, cartChange: {{ routes.cart_change_url | json }}, cartJson: {{ routes.cart_url | append: '.js' | json }}, search: {{ routes.search_url | json }}, searchSuggest: {{ routes.predictive_search_url | json }} },
         strings: {
           added: {{ 'cart.toast.added' | t | json }}, viewCart: {{ 'cart.toast.view' | t | json }}, checkout: {{ 'cart.toast.checkout' | t | json }},
-          error: {{ 'cart.toast.error' | t | json }}, network: {{ 'cart.toast.network' | t | json }}, noPrefs: {{ 'general.cookies.unavailable' | t | json }},
+          error: {{ 'cart.toast.error' | t | json }}, network: {{ 'cart.toast.network' | t | json }},
           soldOut: {{ 'products.sold_out' | t | json }}, unavailable: {{ 'products.unavailable' | t | json }}, add: {{ 'products.add_to_cart' | t | json }},
           inStock: {{ 'products.in_stock' | t | json }}, outOfStock: {{ 'products.out_of_stock' | t | json }}, maxQty: {{ 'cart.max_quantity' | t | json }},
           searching: {{ 'general.search.searching' | t | json }}, resultsOne: {{ 'general.search.result_count' | t: count: 1 | json }}, resultsMany: {{ 'general.search.result_count' | t: count: 2 | json }}, searchError: {{ 'general.search.error' | t | json }}, retry: {{ 'general.search.retry' | t | json }}

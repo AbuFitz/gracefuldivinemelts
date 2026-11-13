@@ -49,7 +49,6 @@
           <li><a href="/pages/policies">{{ 'footer.policies_hub' | t }}</a></li>
           {%- for policy in shop.policies -%}<li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>{%- endfor -%}
           {%- if section.settings.legal_menu != blank -%}{%- for link in section.settings.legal_menu.links -%}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{%- endfor -%}{%- endif -%}
-          <li class="js-only"><button type="button" class="footer__text-button" data-cookie-prefs>{{ 'footer.cookie_preferences' | t }}</button></li>
         </ul>
       </nav>
       <div class="footer__col footer__col--connect">

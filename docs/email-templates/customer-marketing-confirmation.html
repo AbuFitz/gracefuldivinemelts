@@ -1,0 +1,79 @@
+{% assign buyer_email_rtl = false %}{% if locale_direction == 'rtl' %}{% assign buyer_email_rtl = true %}{% endif %}
+{% capture email_title %}One last step — confirm your email{% endcapture %}
+{% capture email_body %}Confirm your email to receive new scent drops, restocks and Graceful Divine Melts offers. If this wasn’t you, you can safely ignore this message.{% endcapture %}
+<!doctype html>
+<html lang="en"{% if buyer_email_rtl %} dir="rtl"{% endif %}>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{{ email_title }}</title>
+    <style>
+      body { margin: 0; padding: 0; background: #fffafb; color: #170a10; font-family: Arial, Helvetica, sans-serif; }
+      table { border-collapse: collapse; }
+      img { border: 0; display: block; max-width: 100%; }
+      a { color: #a5256b; }
+      .shell { width: 100%; background: #fffafb; }
+      .card { width: 100%; max-width: 620px; background: #ffffff; border: 1px solid #f2d9e4; border-radius: 26px; overflow: hidden; }
+      .header { padding: 34px 44px 26px; background: #f7b9d1; text-align: center; }
+      .brand { color: #170a10; font-size: 26px; font-weight: 800; letter-spacing: -0.7px; text-decoration: none; }
+      .content { padding: 50px 52px 44px; text-align: center; }
+      .eyebrow { margin: 0 0 14px; color: #a5256b; font-size: 12px; font-weight: 700; letter-spacing: 1.7px; text-transform: uppercase; }
+      h1 { margin: 0 0 20px; color: #170a10; font-size: 38px; line-height: 1.05; letter-spacing: -1.4px; }
+      .lede { margin: 0 auto 30px; max-width: 470px; color: #4f3943; font-size: 17px; line-height: 1.65; }
+      .button { display: inline-block; min-width: 210px; padding: 16px 28px; background: #a5256b; border-radius: 999px; color: #ffffff !important; font-size: 16px; font-weight: 700; text-decoration: none; }
+      .note { margin: 28px auto 0; max-width: 430px; color: #78636d; font-size: 13px; line-height: 1.55; }
+      .footer { padding: 30px 36px 36px; background: #170a10; color: #ffffff; text-align: center; }
+      .footer p { margin: 0 0 18px; color: #eadde3; font-size: 13px; line-height: 1.55; }
+      .social { display: inline-block; margin: 0 4px; padding: 9px 13px; border: 1px solid #6d5661; border-radius: 999px; color: #ffffff !important; font-size: 12px; font-weight: 700; text-decoration: none; }
+      .social__icon { display: inline-block; width: 18px; height: 18px; margin-right: 6px; border-radius: 50%; background: #ffffff; color: #170a10; font-size: 11px; line-height: 18px; text-align: center; vertical-align: -1px; }
+      .support { margin-top: 22px !important; }
+      .support a { color: #f7b9d1 !important; }
+      @media only screen and (max-width: 640px) {
+        .outer { padding: 16px !important; }
+        .header { padding: 28px 24px 22px !important; }
+        .content { padding: 38px 25px 34px !important; }
+        h1 { font-size: 32px !important; }
+        .button { display: block !important; min-width: 0 !important; }
+        .footer { padding: 28px 20px 32px !important; }
+        .social { margin: 4px 2px !important; }
+      }
+    </style>
+  </head>
+  <body{% if buyer_email_rtl %} dir="rtl"{% endif %}>
+    <table role="presentation" class="shell" width="100%">
+      <tr>
+        <td class="outer" align="center" style="padding:36px 18px;">
+          <table role="presentation" class="card" width="620">
+            <tr>
+              <td class="header">
+                {% if shop.email_logo_url %}
+                  <a href="{{ shop.url }}"><img src="{{ shop.email_logo_url }}" width="{{ shop.email_logo_width }}" alt="{{ shop.name }}" style="margin:0 auto;"></a>
+                {% else %}
+                  <a class="brand" href="{{ shop.url }}">{{ shop.name }}</a>
+                {% endif %}
+              </td>
+            </tr>
+            <tr>
+              <td class="content">
+                <p class="eyebrow">Welcome to Graceful Divine Melts</p>
+                <h1>{{ email_title }}</h1>
+                <p class="lede">{{ email_body }}</p>
+                <a class="button" href="{{ customer.subscribe_url }}">Confirm my email</a>
+                <p class="note">This confirmation helps us make sure the address belongs to you. The button is unique to this request.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="footer">
+                <p>Poured with intention, inspired by grace.</p>
+                <a class="social" href="https://www.instagram.com/gracefuldivinemelts"><span class="social__icon">◎</span>Instagram</a>
+                <a class="social" href="https://www.tiktok.com/@gracefuldivinemelts"><span class="social__icon">♪</span>TikTok</a>
+                <a class="social" href="https://wa.me/message/R7CWQSXLBVTRG1"><span class="social__icon">☎</span>WhatsApp</a>
+                <p class="support">Questions? Reply to this email or contact <a href="mailto:gracefuldivinemelts@outlook.com">gracefuldivinemelts@outlook.com</a>.</p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
