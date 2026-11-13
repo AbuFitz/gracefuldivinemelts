@@ -38,6 +38,13 @@
             "text": "Follow @gracefuldivinemelts on TikTok",
             "link": "https://www.tiktok.com/@gracefuldivinemelts"
           }
+        },
+        "m6": {
+          "type": "message",
+          "settings": {
+            "text": "Welcome offer: 10% off with code WELCOME10",
+            "link": "/collections/all"
+          }
         }
       },
       "block_order": [
@@ -45,7 +52,8 @@
         "m2",
         "m3",
         "m4",
-        "m5"
+        "m5",
+        "m6"
       ],
       "settings": {
         "seconds": 5
